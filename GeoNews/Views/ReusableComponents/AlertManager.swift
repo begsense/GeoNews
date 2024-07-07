@@ -9,7 +9,7 @@ import UIKit
 
 class AlertManager {
     
-    private static func showBasicAlert(on vc: UIViewController, title: String, message: String?) {
+    public static func showBasicAlert(on vc: UIViewController, title: String, message: String?) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))

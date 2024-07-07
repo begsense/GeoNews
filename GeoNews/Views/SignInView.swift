@@ -10,7 +10,7 @@ import SwiftUI
 
 class SignInView: UIViewController {
     
-    //MARK: - Properties
+    // MARK: - Properties
     private var header = UIHostingController(rootView: AuthHeaderView(title: "Sign In", description: "Sign in to your account"))
     
     private var emailField = CustomTextField(fieldType: .email)
@@ -19,17 +19,20 @@ class SignInView: UIViewController {
     private var signInButton = CustomButton(title: "Sign In", hasBackground: true, fontSize: .big)
     private var newUserButton = CustomButton(title: "New User? Create Account.", fontSize: .med)
     private var forgotPasswordButton = CustomButton(title: "Forgot Password?", fontSize: .small)
+    
+    private var viewModel = SignInViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        bindViewModel()
     }
     
     // MARK: - UI Setup
     private func setupUI() {
         view.backgroundColor = UIColor(red: 47/255, green: 56/255, blue: 71/255, alpha: 1)
         setupHeader()
-        setupUsernameField()
+        setupEmailField()
         setupPasswordField()
         setupSignInButton()
         setupNewUserButton()
@@ -40,7 +43,7 @@ class SignInView: UIViewController {
     private func setupHeader() {
         view.addSubview(header.view)
         header.view.translatesAutoresizingMaskIntoConstraints = false
- 
+        
         NSLayoutConstraint.activate([
             header.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             header.view.centerXAnchor.constraint(equalTo: view.centerXAnchor)
@@ -49,7 +52,7 @@ class SignInView: UIViewController {
         header.view.backgroundColor = UIColor(red: 47/255, green: 56/255, blue: 71/255, alpha: 1)
     }
     
-    private func setupUsernameField() {
+    private func setupEmailField() {
         view.addSubview(emailField)
         emailField.translatesAutoresizingMaskIntoConstraints = false
         
@@ -120,13 +123,47 @@ class SignInView: UIViewController {
         forgotPasswordButton.addAction(UIAction { [weak self] _ in
             self?.didTapForgotPassword()
         }, for: .touchUpInside)
+        
+        emailField.addTarget(self, action: #selector(emailFieldDidChange), for: .editingChanged)
+        passwordField.addTarget(self, action: #selector(passwordFieldDidChange), for: .editingChanged)
+    }
+    
+    private func bindViewModel() {
+        // No need to bind error messages to alerts here
+    }
+    
+    @objc private func emailFieldDidChange() {
+        viewModel.email = emailField.text ?? ""
+    }
+    
+    @objc private func passwordFieldDidChange() {
+        viewModel.password = passwordField.text ?? ""
     }
     
     private func didTapSignIn() {
-        let vc = NewsView()
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .fullScreen
-        self.present(nav, animated: false, completion: nil)
+        signInButton.isEnabled = false
+        viewModel.signIn { [weak self] errorMessage in
+            self?.signInButton.isEnabled = true
+            guard let self = self else { return }
+            
+            if let errorMessage = errorMessage {
+                // Handle different error types and show appropriate alerts
+                switch errorMessage {
+                case "Invalid email format":
+                    AlertManager.showInvalidEmailAlert(on: self)
+                case "Invalid password format":
+                    AlertManager.showInvalidPasswordAlert(on: self)
+                default:
+                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: errorMessage])
+                    AlertManager.showSignInErrorAlert(on: self, with: error)
+                }
+                return
+            }
+            
+            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+                sceneDelegate.checkAuthentication()
+            }
+        }
     }
     
     private func didTapNewUser() {
@@ -138,6 +175,4 @@ class SignInView: UIViewController {
         let vc = ForgotPasswordView()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-
 }
-

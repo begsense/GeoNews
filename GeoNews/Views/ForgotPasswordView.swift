@@ -22,7 +22,7 @@ class ForgotPasswordView: UIViewController {
         super.viewDidLoad()
         setupUI()
         
-      //  self.resetPasswordButton.addTarget(self, action: #selector(didTapForgotPassword), for: .touchUpInside)
+        self.resetPasswordButton.addTarget(self, action: #selector(didTapForgotPassword), for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,6 +60,24 @@ class ForgotPasswordView: UIViewController {
             resetPasswordButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.85),
         ])
     }
-    
+        
+    @objc private func didTapForgotPassword() {
+        let email = self.emailField.text ?? ""
+        
+        if !Validator.isValidEmail(for: email) {
+            AlertManager.showInvalidEmailAlert(on: self)
+            return
+        }
+        
+        AuthService.shared.forgotPassword(with: email) { [weak self] error in
+            guard let self = self else { return }
+            if let error = error {
+                AlertManager.showErrorSendingPasswordReset(on: self, with: error)
+                return
+            }
+            
+            AlertManager.showPasswordResetSent(on: self)
+        }
+    }
 
 }

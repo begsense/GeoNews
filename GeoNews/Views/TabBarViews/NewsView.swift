@@ -25,7 +25,17 @@ class NewsView: UIViewController {
         super.viewDidLoad()
         self.setupUI()
         
-        self.label.text = "test@gmail.com"
+        AuthService.shared.fetchUser { [weak self] user, error in
+                    guard let self = self else { return }
+                    if let error = error {
+                        AlertManager.showFetchingUserError(on: self, with: error)
+                        return
+                    }
+                    
+                    if let user = user {
+                        self.label.text = "\(user.username)\n\(user.email)"
+                    }
+                }
     }
     
     
@@ -45,6 +55,16 @@ class NewsView: UIViewController {
     
     // MARK: - Selectors
     @objc private func didTapLogout() {
-        
+        AuthService.shared.signOut { [weak self] error in
+            guard let self = self else { return }
+            if let error = error {
+                AlertManager.showLogoutError(on: self, with: error)
+                return
+            }
+            
+            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+                sceneDelegate.checkAuthentication()
+            }
+        }
     }
 }
