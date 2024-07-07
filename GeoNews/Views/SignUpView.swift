@@ -150,7 +150,7 @@ class SignUpView: UIViewController {
         ])
     }
     
-    // MARK: - Selectors
+    // MARK: - Actions
     @objc func didTapSignUp() {
         print("DEBUG PRINT:", "didTapSignUp")
     }

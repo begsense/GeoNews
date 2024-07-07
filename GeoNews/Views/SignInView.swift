@@ -13,7 +13,7 @@ class SignInView: UIViewController {
     //MARK: - Properties
     private var header = UIHostingController(rootView: AuthHeaderView(title: "Sign In", description: "Sign in to your account"))
     
-    private var usernameField = CustomTextField(fieldType: .username)
+    private var emailField = CustomTextField(fieldType: .email)
     private var passwordField = CustomTextField(fieldType: .password)
     
     private var signInButton = CustomButton(title: "Sign In", hasBackground: true, fontSize: .big)
@@ -25,6 +25,7 @@ class SignInView: UIViewController {
         setupUI()
     }
     
+    // MARK: - UI Setup
     private func setupUI() {
         view.backgroundColor = UIColor(red: 47/255, green: 56/255, blue: 71/255, alpha: 1)
         setupHeader()
@@ -49,14 +50,14 @@ class SignInView: UIViewController {
     }
     
     private func setupUsernameField() {
-        view.addSubview(usernameField)
-        usernameField.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(emailField)
+        emailField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            usernameField.topAnchor.constraint(equalTo: header.view.bottomAnchor, constant: 20),
-            usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            usernameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
-            usernameField.heightAnchor.constraint(equalToConstant: 40)
+            emailField.topAnchor.constraint(equalTo: header.view.bottomAnchor, constant: 20),
+            emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emailField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
+            emailField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -65,7 +66,7 @@ class SignInView: UIViewController {
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            passwordField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 20),
+            passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
             passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
             passwordField.heightAnchor.constraint(equalToConstant: 40)
@@ -122,7 +123,7 @@ class SignInView: UIViewController {
     }
     
     private func didTapSignIn() {
-        let vc = RootViewController()
+        let vc = NewsView()
         let nav = UINavigationController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
         self.present(nav, animated: false, completion: nil)

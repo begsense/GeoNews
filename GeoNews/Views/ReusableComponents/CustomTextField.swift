@@ -44,10 +44,19 @@ class CustomTextField: UITextField {
             self.textContentType = .oneTimeCode
             self.isSecureTextEntry = true
         }
+        setPlaceholderTextColor()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    private func setPlaceholderTextColor() {
+        let placeholderText = self.placeholder ?? ""
+        let color = UIColor(.gray)
+        self.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: color]
+        )
+    }
 }
