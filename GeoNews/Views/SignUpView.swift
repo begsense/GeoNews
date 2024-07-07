@@ -219,10 +219,4 @@ extension SignUpView: UITextViewDelegate {
         let nav = UINavigationController(rootViewController: vc)
         self.present(nav, animated: true, completion: nil)
     }
-    
-    func textViewDidChangeSelection(_ textView: UITextView) {
-        textView.delegate = nil
-        textView.selectedTextRange = nil
-        textView.delegate = self
-    }
 }
