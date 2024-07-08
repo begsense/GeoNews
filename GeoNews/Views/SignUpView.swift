@@ -11,7 +11,7 @@ import SwiftUI
 class SignUpView: UIViewController {
     
     // MARK: - Properties
-    private var header = UIHostingController(rootView: AuthHeaderView(title: "Sign Up", description: "Create your account"))
+    private let header = UIHostingController(rootView: AuthHeaderView(title: "Sign Up", description: "Create your account"))
     
     private let usernameField = CustomTextField(fieldType: .username)
     private let emailField = CustomTextField(fieldType: .email)
@@ -24,7 +24,6 @@ class SignUpView: UIViewController {
         let attributedString = NSMutableAttributedString(string: "By creating an account, you agree to our Terms & Conditions and you acknowledge that you have read our Privacy Policy.")
         
         attributedString.addAttribute(.link, value: "terms://termsAndConditions", range: (attributedString.string as NSString).range(of: "Terms & Conditions"))
-        
         attributedString.addAttribute(.link, value: "privacy://privacyPolicy", range: (attributedString.string as NSString).range(of: "Privacy Policy"))
         
         let tv = UITextView()
@@ -39,26 +38,23 @@ class SignUpView: UIViewController {
         return tv
     }()
     
+    private let viewModel = SignUpViewModel()
+    
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupUI()
-        
-        self.termsTextView.delegate = self
-        
-        self.signUpButton.addTarget(self, action: #selector(didTapSignUp), for: .touchUpInside)
-        self.signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
+        setupUI()
+        bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = true
+        navigationController?.navigationBar.isHidden = true
     }
     
     // MARK: - UI Setup
     private func setupUI() {
         view.backgroundColor = UIColor(red: 47/255, green: 56/255, blue: 71/255, alpha: 1)
-        
         setupHeader()
         setupUsernameField()
         setupEmailField()
@@ -66,6 +62,7 @@ class SignUpView: UIViewController {
         setupSignUpButton()
         setupTermsTextView()
         setupSignInButton()
+        setupActions()
     }
     
     private func setupHeader() {
@@ -75,7 +72,7 @@ class SignUpView: UIViewController {
         
         NSLayoutConstraint.activate([
             header.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            header.view.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            header.view.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
@@ -84,10 +81,10 @@ class SignUpView: UIViewController {
         usernameField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            usernameField.topAnchor.constraint(equalTo: header.view.bottomAnchor, constant: 12),
-            usernameField.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
-            usernameField.heightAnchor.constraint(equalToConstant: 40),
-            usernameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
+            usernameField.topAnchor.constraint(equalTo: header.view.bottomAnchor, constant: 20),
+            usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            usernameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
+            usernameField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -96,10 +93,10 @@ class SignUpView: UIViewController {
         emailField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            emailField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 22),
-            emailField.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
-            emailField.heightAnchor.constraint(equalToConstant: 40),
-            emailField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
+            emailField.topAnchor.constraint(equalTo: usernameField.bottomAnchor, constant: 20),
+            emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emailField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
+            emailField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -108,10 +105,10 @@ class SignUpView: UIViewController {
         passwordField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 22),
-            passwordField.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
-            passwordField.heightAnchor.constraint(equalToConstant: 40),
-            passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
+            passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
+            passwordField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            passwordField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
+            passwordField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -120,10 +117,10 @@ class SignUpView: UIViewController {
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            signUpButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 22),
-            signUpButton.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
-            signUpButton.heightAnchor.constraint(equalToConstant: 40),
-            signUpButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
+            signUpButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 20),
+            signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            signUpButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
+            signUpButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -132,8 +129,8 @@ class SignUpView: UIViewController {
         termsTextView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            termsTextView.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 6),
-            termsTextView.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
+            termsTextView.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 20),
+            termsTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             termsTextView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
         ])
     }
@@ -143,61 +140,67 @@ class SignUpView: UIViewController {
         signInButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            signInButton.topAnchor.constraint(equalTo: termsTextView.bottomAnchor, constant: 11),
-            signInButton.centerXAnchor.constraint(equalTo: header.view.centerXAnchor),
-            signInButton.heightAnchor.constraint(equalToConstant: 40),
+            signInButton.topAnchor.constraint(equalTo: termsTextView.bottomAnchor, constant: 20),
+            signInButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             signInButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
         ])
     }
     
     // MARK: - Actions
-    @objc func didTapSignUp() {
-        let registerUserRequest = RegisterUserRequest(
-            username: self.usernameField.text ?? "",
-            email: self.emailField.text ?? "",
-            password: self.passwordField.text ?? ""
-        )
+    private func setupActions() {
+        signUpButton.addAction(UIAction { [weak self] _ in
+            self?.didTapSignUp()
+        }, for: .touchUpInside)
         
-        // Username check
-        if !Validator.isValidUsername(for: registerUserRequest.username) {
-            AlertManager.showInvalidUsernameAlert(on: self)
-            return
-        }
-        
-        // Email check
-        if !Validator.isValidEmail(for: registerUserRequest.email) {
-            AlertManager.showInvalidEmailAlert(on: self)
-            return
-        }
-        
-        // Password check
-        if !Validator.isPasswordValid(for: registerUserRequest.password) {
-            AlertManager.showInvalidPasswordAlert(on: self)
-            return
-        }
-        
-        AuthService.shared.registerUser(with: registerUserRequest) { [weak self] wasRegistered, error in
+        signInButton.addAction(UIAction { [weak self] _ in
+            self?.didTapSignIn()
+        }, for: .touchUpInside)
+    }
+    
+    // MARK: - ViewModel Binding
+    private func bindViewModel() {
+        viewModel.didSignUp = { [weak self] in
             guard let self = self else { return }
-            
-            if let error = error {
-                AlertManager.showRegistrationErrorAlert(on: self, with: error)
-                return
-            }
-            
-            if wasRegistered {
+            DispatchQueue.main.async {
                 if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
                     sceneDelegate.checkAuthentication()
                 }
-            } else {
-                AlertManager.showRegistrationErrorAlert(on: self)
+            }
+        }
+        
+        viewModel.didFailSignUp = { [weak self] errorMessage in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                if let errorMessage = errorMessage {
+                    switch errorMessage {
+                    case "Invalid username format":
+                        AlertManager.showInvalidUsernameAlert(on: self)
+                    case "Invalid email format":
+                        AlertManager.showInvalidEmailAlert(on: self)
+                    case "Invalid password format":
+                        AlertManager.showInvalidPasswordAlert(on: self)
+                    default:
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: errorMessage])
+                        AlertManager.showRegistrationErrorAlert(on: self, with: error)
+                    }
+                }
             }
         }
     }
     
-    @objc private func didTapSignIn() {
-        self.navigationController?.popToRootViewController(animated: true)
+    // MARK: - Action Handlers
+    private func didTapSignUp() {
+        viewModel.username = usernameField.text ?? ""
+        viewModel.email = emailField.text ?? ""
+        viewModel.password = passwordField.text ?? ""
+        viewModel.signUp()
+    }
+    
+    private func didTapSignIn() {
+        navigationController?.popViewController(animated: true)
     }
 }
+
 
 extension SignUpView: UITextViewDelegate {
     

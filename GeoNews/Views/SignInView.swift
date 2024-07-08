@@ -21,7 +21,9 @@ class SignInView: UIViewController {
     private var forgotPasswordButton = CustomButton(title: "Forgot Password?", fontSize: .small)
     
     private var viewModel = SignInViewModel()
-
+    
+    private let loader = UIActivityIndicatorView(style: .medium)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -37,9 +39,10 @@ class SignInView: UIViewController {
         setupSignInButton()
         setupNewUserButton()
         setupForgotPasswordButton()
+        setupLoader()
         setupActions()
     }
-
+    
     private func setupHeader() {
         view.addSubview(header.view)
         header.view.translatesAutoresizingMaskIntoConstraints = false
@@ -110,10 +113,23 @@ class SignInView: UIViewController {
         ])
     }
     
+    private func setupLoader() {
+        view.addSubview(loader)
+        loader.translatesAutoresizingMaskIntoConstraints = false
+        loader.hidesWhenStopped = true
+        loader.color = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        
+        NSLayoutConstraint.activate([
+            loader.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loader.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
     // MARK: - Actions
     private func setupActions() {
         signInButton.addAction(UIAction { [weak self] _ in
-            self?.didTapSignIn()
+            self?.startLoading()
+            self?.viewModel.signIn()
         }, for: .touchUpInside)
         
         newUserButton.addAction(UIAction { [weak self] _ in
@@ -124,55 +140,60 @@ class SignInView: UIViewController {
             self?.didTapForgotPassword()
         }, for: .touchUpInside)
         
-        emailField.addTarget(self, action: #selector(emailFieldDidChange), for: .editingChanged)
-        passwordField.addTarget(self, action: #selector(passwordFieldDidChange), for: .editingChanged)
+        emailField.addAction(UIAction { [weak self] _ in
+            self?.viewModel.email = self?.emailField.text ?? ""
+        }, for: .editingChanged)
+        
+        passwordField.addAction(UIAction { [weak self] _ in
+            self?.viewModel.password = self?.passwordField.text ?? ""
+        }, for: .editingChanged)
     }
     
+    // MARK: - ViewModel Binding
     private func bindViewModel() {
-        // No need to bind error messages to alerts here
-    }
-    
-    @objc private func emailFieldDidChange() {
-        viewModel.email = emailField.text ?? ""
-    }
-    
-    @objc private func passwordFieldDidChange() {
-        viewModel.password = passwordField.text ?? ""
-    }
-    
-    private func didTapSignIn() {
-        signInButton.isEnabled = false
-        viewModel.signIn { [weak self] errorMessage in
-            self?.signInButton.isEnabled = true
-            guard let self = self else { return }
-            
-            if let errorMessage = errorMessage {
-                // Handle different error types and show appropriate alerts
+        viewModel.didSignIn = { [weak self] in
+            DispatchQueue.main.async {
+                self?.stopLoading()
+                if let sceneDelegate = self?.view.window?.windowScene?.delegate as? SceneDelegate {
+                    sceneDelegate.checkAuthentication()
+                }
+            }
+        }
+        
+        viewModel.didFailSignIn = { [weak self] errorMessage in
+            DispatchQueue.main.async {
+                self?.stopLoading()
+                guard let errorMessage = errorMessage else { return }
                 switch errorMessage {
                 case "Invalid email format":
-                    AlertManager.showInvalidEmailAlert(on: self)
+                    AlertManager.showInvalidEmailAlert(on: self!)
                 case "Invalid password format":
-                    AlertManager.showInvalidPasswordAlert(on: self)
+                    AlertManager.showInvalidPasswordAlert(on: self!)
                 default:
                     let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: errorMessage])
-                    AlertManager.showSignInErrorAlert(on: self, with: error)
+                    AlertManager.showSignInErrorAlert(on: self!, with: error)
                 }
-                return
-            }
-            
-            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-                sceneDelegate.checkAuthentication()
             }
         }
     }
     
+    // MARK: - Navigation
     private func didTapNewUser() {
         let vc = SignUpView()
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func didTapForgotPassword() {
         let vc = ForgotPasswordView()
-        self.navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    // MARK: - Loading Indicator
+    private func startLoading() {
+        loader.startAnimating()
+    }
+    
+    private func stopLoading() {
+        loader.stopAnimating()
     }
 }

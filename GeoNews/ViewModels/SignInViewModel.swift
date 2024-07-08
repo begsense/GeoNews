@@ -8,16 +8,18 @@
 import Foundation
 
 class SignInViewModel {
+    
+    // MARK: - Properties
     var email: String = ""
     var password: String = ""
-    var errorMessage: String? {
-        didSet {
-            showErrorMessage?(errorMessage)
-        }
-    }
+    var errorMessage: String?
     var isValid: Bool = false
-    var showErrorMessage: ((String?) -> Void)?
-
+    
+    // MARK: - Callbacks
+    var didSignIn: (() -> Void)?
+    var didFailSignIn: ((String?) -> Void)?
+    
+    // MARK: - Validation
     func validateForm() -> Bool {
         if !Validator.isValidEmail(for: email) {
             errorMessage = "Invalid email format"
@@ -32,18 +34,20 @@ class SignInViewModel {
         return isValid
     }
     
-    func signIn(completion: @escaping (String?) -> Void) {
+    // MARK: - SignIn
+    func signIn() {
         if validateForm() {
             let loginRequest = LoginUserRequest(email: email, password: password)
-            AuthService.shared.signIn(with: loginRequest) { error in
+            AuthService.shared.signIn(with: loginRequest) { [weak self] error in
+                guard let self = self else { return }
                 if let error = error {
-                    completion(error.localizedDescription)
+                    self.didFailSignIn?(error.localizedDescription)
                 } else {
-                    completion(nil)
+                    self.didSignIn?()
                 }
             }
         } else {
-            completion(errorMessage)
+            didFailSignIn?(errorMessage)
         }
     }
 }
