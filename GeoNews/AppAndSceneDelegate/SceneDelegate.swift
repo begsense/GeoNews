@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if Auth.auth().currentUser == nil {
             self.goToController(with: SignInView())
         } else {
-            self.goToController(with: NewsView())
+            self.goToController(with: RootViewController())
         }
     }
     

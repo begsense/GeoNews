@@ -18,6 +18,7 @@ class AuthService {
         let username = userRequest.username
         let email = userRequest.email
         let password = userRequest.password
+        let score = userRequest.score
         
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let error = error {
@@ -35,7 +36,8 @@ class AuthService {
                 .document(resultUser.uid)
                 .setData([
                     "username": username,
-                    "email": email
+                    "email": email,
+                    "score": score
                 ]) { error in
                     if let error = error {
                         completion(false, error)
@@ -92,8 +94,9 @@ class AuthService {
                 if let snapshot = snapshot,
                    let snapshotData = snapshot.data(),
                    let username = snapshotData["username"] as? String,
-                   let email = snapshotData["email"] as? String {
-                    let user = User(username: username, email: email, userUID: userUID)
+                   let email = snapshotData["email"] as? String,
+                   let score = snapshotData["score"] as? Int {
+                   let user = User(username: username, email: email, userUID: userUID, score: score)
                     completion(user, nil)
                 }
                 

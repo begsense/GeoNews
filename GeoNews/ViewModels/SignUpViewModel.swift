@@ -41,7 +41,7 @@ class SignUpViewModel {
     // MARK: - SignUp
     func signUp() {
         if validateForm() {
-            let registerRequest = RegisterUserRequest(username: username, email: email, password: password)
+            let registerRequest = RegisterUserRequest(username: username, email: email, password: password, score: 0)
             AuthService.shared.registerUser(with: registerRequest) { [weak self] success, error in
                 guard let self = self else { return }
                 if let error = error {

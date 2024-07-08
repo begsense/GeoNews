@@ -24,6 +24,7 @@ class CustomTextField: UITextField {
         self.backgroundColor = UIColor(red: 248/255, green: 249/255, blue: 250/255, alpha: 1)
         self.layer.cornerRadius = 10
         
+        self.textColor = .black
         self.returnKeyType = .done
         self.autocorrectionType = .no
         self.autocapitalizationType = .none

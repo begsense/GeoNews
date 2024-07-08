@@ -22,7 +22,7 @@ class SignInView: UIViewController {
     
     private var viewModel = SignInViewModel()
     
-    private let loader = UIActivityIndicatorView(style: .medium)
+    private let loaderView = CustomLoaderView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,14 +114,15 @@ class SignInView: UIViewController {
     }
     
     private func setupLoader() {
-        view.addSubview(loader)
-        loader.translatesAutoresizingMaskIntoConstraints = false
-        loader.hidesWhenStopped = true
-        loader.color = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        view.addSubview(loaderView)
+        loaderView.translatesAutoresizingMaskIntoConstraints = false
+        loaderView.isHidden = true
         
         NSLayoutConstraint.activate([
-            loader.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loader.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loaderView.widthAnchor.constraint(equalToConstant: 100),
+            loaderView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
     
@@ -190,10 +191,10 @@ class SignInView: UIViewController {
     
     // MARK: - Loading Indicator
     private func startLoading() {
-        loader.startAnimating()
+        loaderView.startAnimating()
     }
     
     private func stopLoading() {
-        loader.stopAnimating()
+        loaderView.stopAnimating()
     }
 }
