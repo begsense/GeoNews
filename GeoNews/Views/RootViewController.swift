@@ -34,7 +34,7 @@ class RootViewController: UIViewController {
         leaderboardsView.tabBarItem = UITabBarItem(title: "Leaderboard", image: UIImage(systemName: "tortoise"), tag: 2)
         profileView.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "sun.max"), tag: 3)
         
-        tabBarController.tabBar.barTintColor = .red
+        tabBarController.tabBar.barTintColor = .green
         tabBarController.tabBar.tintColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
         
         addChild(tabBarController)

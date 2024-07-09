@@ -30,7 +30,3 @@ struct AuthHeaderView: View {
         
     }
 }
-
-#Preview {
-    AuthHeaderView(title: "Sign In", description: "Sign in to your account")
-}

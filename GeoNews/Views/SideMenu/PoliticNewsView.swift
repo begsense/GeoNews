@@ -7,17 +7,21 @@
 
 import UIKit
 
+protocol PoliticNewsViewDelegate: AnyObject {
+    func didTapMenuButton()
+}
+
 class PoliticNewsView: UIViewController {
     
     // MARK: - UI Components
     let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.backgroundColor = .none
-        tableView.separatorStyle = .none
-        return tableView
-    }()
+            let tableView = UITableView()
+            tableView.backgroundColor = .none
+            tableView.separatorStyle = .none
+            return tableView
+        }()
     
-    private var button = CustomButton(title: "Logout", fontSize: .big)
+    weak var delegate: PoliticNewsViewDelegate?
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -29,18 +33,8 @@ class PoliticNewsView: UIViewController {
                                                            target: self,
                                                            action: #selector(didTapMenuButton))
         
-        AuthService.shared.fetchUser { [weak self] user, error in
-            guard let self = self else { return }
-            if let error = error {
-                AlertManager.showFetchingUserError(on: self, with: error)
-                return
-            }
-            
-        }
+      
         
-        button.addAction(UIAction { [weak self] _ in
-            self?.didTapLogout()
-        }, for: .touchUpInside)
     }
     
     
@@ -53,14 +47,10 @@ class PoliticNewsView: UIViewController {
     
     func setupTableView() {
         view.addSubview(tableView)
-        view.addSubview(button)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        button.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            tableView.topAnchor.constraint(equalTo: button.bottomAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
@@ -73,22 +63,10 @@ class PoliticNewsView: UIViewController {
     
     // MARK: - Selectors
     @objc private func didTapMenuButton() {
-        
+        delegate?.didTapMenuButton()
     }
     
-    @objc private func didTapLogout() {
-        AuthService.shared.signOut { [weak self] error in
-            guard let self = self else { return }
-            if let error = error {
-                AlertManager.showLogoutError(on: self, with: error)
-                return
-            }
-            
-            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-                sceneDelegate.checkAuthentication()
-            }
-        }
-    }
+   
 }
 
 extension PoliticNewsView: UITableViewDataSource {

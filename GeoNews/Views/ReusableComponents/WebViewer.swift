@@ -24,34 +24,34 @@ class WebViewer: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupUI()
+        setupUI()
         
-        guard let url = URL(string: self.urlString) else {
-            self.dismiss(animated: true, completion: nil)
+        guard let url = URL(string: urlString) else {
+            dismiss(animated: true, completion: nil)
             return
         }
         
-        self.webView.load(URLRequest(url: url))
+        webView.load(URLRequest(url: url))
         
         // TODO: - GIT BEFORE CODING
     }
     
     private func setupUI() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapDone))
-        self.navigationController?.navigationBar.backgroundColor = .secondarySystemBackground
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(didTapDone))
+        navigationController?.navigationBar.backgroundColor = .secondarySystemBackground
         
-        self.view.addSubview(webView)
-        self.webView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(webView)
+        webView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            self.webView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            self.webView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.webView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            self.webView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            webView.topAnchor.constraint(equalTo: view.topAnchor),
+            webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
     
     @objc private func didTapDone() {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }
