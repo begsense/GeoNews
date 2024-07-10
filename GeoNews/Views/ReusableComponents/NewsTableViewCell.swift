@@ -110,6 +110,12 @@ class NewsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        tvLogo.layer.cornerRadius = 12.5
+        tvLogo.layer.masksToBounds = true
+    }
+    
     //MARK: SetupUI:
     func setupUI() {
         contentView.backgroundColor = .clear
@@ -128,7 +134,7 @@ class NewsTableViewCell: UITableViewCell {
         newsOwner.addSubview(newsFake)
         
         NSLayoutConstraint.activate([
-            newsOwner.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            newsOwner.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
             newsOwner.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
             newsOwner.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
             

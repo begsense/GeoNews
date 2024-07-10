@@ -12,6 +12,7 @@ class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTabBar()
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     func setUpTabBar() {

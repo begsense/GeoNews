@@ -15,25 +15,25 @@ class PoliticNewsView: UIViewController {
     
     // MARK: - UI Components
     let tableView: UITableView = {
-            let tableView = UITableView()
-            tableView.backgroundColor = .none
-            tableView.separatorStyle = .none
-            return tableView
-        }()
+        let tableView = UITableView()
+        tableView.backgroundColor = .none
+        tableView.separatorStyle = .none
+        return tableView
+    }()
     
     weak var delegate: PoliticNewsViewDelegate?
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         title = "Politics"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"),
                                                            style: .done,
                                                            target: self,
-                                                           action: #selector(didTapMenuButton))
+                                                           action: #selector(didTapMenuButton)) 
+        setupUI()
         
-      
+        
         
     }
     
@@ -55,7 +55,7 @@ class PoliticNewsView: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        
+
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
@@ -66,7 +66,7 @@ class PoliticNewsView: UIViewController {
         delegate?.didTapMenuButton()
     }
     
-   
+    
 }
 
 extension PoliticNewsView: UITableViewDataSource {
@@ -89,8 +89,8 @@ extension PoliticNewsView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-           return 340
-       }
+        return 340
+    }
     
 }
 
