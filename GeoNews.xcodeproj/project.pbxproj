@@ -10,8 +10,6 @@
 		6F4C1FD62C3BBE1D0000D10F /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4C1FD52C3BBE1D0000D10F /* SignUpViewModel.swift */; };
 		6F4C1FD82C3BD45B0000D10F /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4C1FD72C3BD45B0000D10F /* ForgotPasswordViewModel.swift */; };
 		6F4C1FDA2C3BE8600000D10F /* CustomLoaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4C1FD92C3BE8600000D10F /* CustomLoaderView.swift */; };
-		6F4C1FDC2C3C06A30000D10F /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6F4C1FDB2C3C06A30000D10F /* FirebaseAnalytics */; };
-		6F4C1FDE2C3C06D50000D10F /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6F4C1FDD2C3C06D50000D10F /* FirebaseAnalyticsSwift */; };
 		6F4C1FE02C3C14140000D10F /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4C1FDF2C3C14140000D10F /* NewsTableViewCell.swift */; };
 		6F590AD62C3AB7EC00F0B761 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F590AD52C3AB7EC00F0B761 /* AlertManager.swift */; };
 		6F590AD82C3B141800F0B761 /* AuthValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F590AD72C3B141800F0B761 /* AuthValidator.swift */; };
@@ -35,6 +33,10 @@
 		6F7A1AA22C3E974A006D0986 /* TechNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AA12C3E974A006D0986 /* TechNewsView.swift */; };
 		6F7A1AA42C3E99DE006D0986 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AA32C3E99DE006D0986 /* NewsViewModel.swift */; };
 		6F7A1AA62C3E9A2E006D0986 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AA52C3E9A2E006D0986 /* MenuViewModel.swift */; };
+		6F7A1AA92C3EA26F006D0986 /* PoliticNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AA82C3EA26F006D0986 /* PoliticNewsViewModel.swift */; };
+		6F7A1AAB2C3EA291006D0986 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AAA2C3EA291006D0986 /* News.swift */; };
+		6F7A1AAE2C3EAB72006D0986 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AAD2C3EAB72006D0986 /* UIImageViewExtension.swift */; };
+		6F7A1AB02C3EB5AE006D0986 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AAF2C3EB5AE006D0986 /* NetworkService.swift */; };
 		6FBA083F2C2D7E3E00A148F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA083E2C2D7E3E00A148F7 /* AppDelegate.swift */; };
 		6FBA08412C2D7E3E00A148F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA08402C2D7E3E00A148F7 /* SceneDelegate.swift */; };
 		6FBA08432C2D7E3E00A148F7 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA08422C2D7E3E00A148F7 /* SignInView.swift */; };
@@ -74,6 +76,10 @@
 		6F7A1AA12C3E974A006D0986 /* TechNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechNewsView.swift; sourceTree = "<group>"; };
 		6F7A1AA32C3E99DE006D0986 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		6F7A1AA52C3E9A2E006D0986 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		6F7A1AA82C3EA26F006D0986 /* PoliticNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliticNewsViewModel.swift; sourceTree = "<group>"; };
+		6F7A1AAA2C3EA291006D0986 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
+		6F7A1AAD2C3EAB72006D0986 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		6F7A1AAF2C3EB5AE006D0986 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		6FBA083B2C2D7E3E00A148F7 /* GeoNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FBA083E2C2D7E3E00A148F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FBA08402C2D7E3E00A148F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,10 +99,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F4C1FDE2C3C06D50000D10F /* FirebaseAnalyticsSwift in Frameworks */,
 				6F7542A72C33EBBD0085839C /* FirebaseFirestore in Frameworks */,
 				6FBA085A2C2EA97000A148F7 /* FirebaseAuth in Frameworks */,
-				6F4C1FDC2C3C06A30000D10F /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,13 +141,22 @@
 		6F7A1AA72C3E9F57006D0986 /* Authentification */ = {
 			isa = PBXGroup;
 			children = (
-				6F75429A2C33DB390085839C /* AuthService.swift */,
 				6F590AD72C3B141800F0B761 /* AuthValidator.swift */,
 				6FBA08642C2EB82800A148F7 /* SignUpView.swift */,
 				6FBA08622C2EB02A00A148F7 /* ForgotPasswordView.swift */,
 				6FBA08422C2D7E3E00A148F7 /* SignInView.swift */,
 			);
 			path = Authentification;
+			sourceTree = "<group>";
+		};
+		6F7A1AAC2C3EAB53006D0986 /* Networking Services */ = {
+			isa = PBXGroup;
+			children = (
+				6F75429A2C33DB390085839C /* AuthService.swift */,
+				6F7A1AAD2C3EAB72006D0986 /* UIImageViewExtension.swift */,
+				6F7A1AAF2C3EB5AE006D0986 /* NetworkService.swift */,
+			);
+			path = "Networking Services";
 			sourceTree = "<group>";
 		};
 		6FBA08322C2D7E3E00A148F7 = {
@@ -166,6 +179,7 @@
 		6FBA083D2C2D7E3E00A148F7 /* GeoNews */ = {
 			isa = PBXGroup;
 			children = (
+				6F7A1AAC2C3EAB53006D0986 /* Networking Services */,
 				6FBA085B2C2EA9E900A148F7 /* AppAndSceneDelegate */,
 				6FBA08602C2EAACD00A148F7 /* Models */,
 				6FBA085C2C2EAA1B00A148F7 /* Views */,
@@ -228,6 +242,7 @@
 				6F7542A82C33EC0B0085839C /* LoginUserRequest.swift */,
 				6F7542AA2C33EC250085839C /* RegisterUserRequest.swift */,
 				6F590AD92C3B166900F0B761 /* User.swift */,
+				6F7A1AAA2C3EA291006D0986 /* News.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -240,6 +255,7 @@
 				6F4C1FD72C3BD45B0000D10F /* ForgotPasswordViewModel.swift */,
 				6F7A1AA32C3E99DE006D0986 /* NewsViewModel.swift */,
 				6F7A1AA52C3E9A2E006D0986 /* MenuViewModel.swift */,
+				6F7A1AA82C3EA26F006D0986 /* PoliticNewsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -277,8 +293,6 @@
 			packageProductDependencies = (
 				6FBA08592C2EA97000A148F7 /* FirebaseAuth */,
 				6F7542A62C33EBBD0085839C /* FirebaseFirestore */,
-				6F4C1FDB2C3C06A30000D10F /* FirebaseAnalytics */,
-				6F4C1FDD2C3C06D50000D10F /* FirebaseAnalyticsSwift */,
 			);
 			productName = GeoNews;
 			productReference = 6FBA083B2C2D7E3E00A148F7 /* GeoNews.app */;
@@ -346,6 +360,7 @@
 				6FBA08652C2EB82800A148F7 /* SignUpView.swift in Sources */,
 				6FBA083F2C2D7E3E00A148F7 /* AppDelegate.swift in Sources */,
 				6F7542A22C33E7F30085839C /* QuizView.swift in Sources */,
+				6F7A1AAE2C3EAB72006D0986 /* UIImageViewExtension.swift in Sources */,
 				6F7A1A9A2C3D273F006D0986 /* MenuView.swift in Sources */,
 				6F7542A02C33E7D70085839C /* LeaderboardsView.swift in Sources */,
 				6F7A1AA42C3E99DE006D0986 /* NewsViewModel.swift in Sources */,
@@ -359,6 +374,7 @@
 				6F75429B2C33DB3A0085839C /* AuthService.swift in Sources */,
 				6FBA08672C2EB8E800A148F7 /* RootViewController.swift in Sources */,
 				6F7542972C31B1B60085839C /* CustomTextField.swift in Sources */,
+				6F7A1AB02C3EB5AE006D0986 /* NetworkService.swift in Sources */,
 				6F7A1A9E2C3E8072006D0986 /* SportNewsView.swift in Sources */,
 				6F7542A92C33EC0B0085839C /* LoginUserRequest.swift in Sources */,
 				6FBA08632C2EB02A00A148F7 /* ForgotPasswordView.swift in Sources */,
@@ -366,9 +382,11 @@
 				6F7A1AA22C3E974A006D0986 /* TechNewsView.swift in Sources */,
 				6F4C1FD82C3BD45B0000D10F /* ForgotPasswordViewModel.swift in Sources */,
 				6F590AD82C3B141800F0B761 /* AuthValidator.swift in Sources */,
+				6F7A1AA92C3EA26F006D0986 /* PoliticNewsViewModel.swift in Sources */,
 				6F4C1FD62C3BBE1D0000D10F /* SignUpViewModel.swift in Sources */,
 				6F4C1FE02C3C14140000D10F /* NewsTableViewCell.swift in Sources */,
 				6F4C1FDA2C3BE8600000D10F /* CustomLoaderView.swift in Sources */,
+				6F7A1AAB2C3EA291006D0986 /* News.swift in Sources */,
 				6FBA086A2C2EB9A800A148F7 /* AuthHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -595,16 +613,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6F4C1FDB2C3C06A30000D10F /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6FBA08542C2EA97000A148F7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
-		6F4C1FDD2C3C06D50000D10F /* FirebaseAnalyticsSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6FBA08542C2EA97000A148F7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsSwift;
-		};
 		6F7542A62C33EBBD0085839C /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6FBA08542C2EA97000A148F7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

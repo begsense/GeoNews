@@ -14,6 +14,8 @@ protocol PoliticNewsViewDelegate: AnyObject {
 class PoliticNewsView: UIViewController {
     
     // MARK: - UI Components
+    private let viewModel = PoliticNewsViewModel()
+    
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .none
@@ -30,9 +32,9 @@ class PoliticNewsView: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"),
                                                            style: .done,
                                                            target: self,
-                                                           action: #selector(didTapMenuButton)) 
+                                                           action: #selector(didTapMenuButton))
         setupUI()
-        
+        fetchData()
         
         
     }
@@ -55,7 +57,7 @@ class PoliticNewsView: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
@@ -66,26 +68,37 @@ class PoliticNewsView: UIViewController {
         delegate?.didTapMenuButton()
     }
     
+    private func fetchData() {
+        viewModel.fetchData()
+    
+        viewModel.onDataUpdate = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+    }
     
 }
 
 extension PoliticNewsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return viewModel.numberOfItems()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath) as! NewsTableViewCell
         
-        cell.tvLogo.image = UIImage(named: "logo")
-        cell.tvTitle.text = "News Title \(indexPath.row + 1)"
-        cell.detailsArrow.image = UIImage(systemName: "arrow.right")
-        cell.newsDate.text = "Date \(indexPath.row + 1)"
-        cell.newsFake.text = "Fake \(indexPath.row + 1)"
-        cell.newsHeader.text = "News Header \(indexPath.row + 1)"
-        cell.newsImage.image = UIImage(named: "logo")
-        
-        return cell
+        let newsItem = viewModel.news(at: indexPath.row)
+ 
+            cell.tvLogo.image = UIImage(named: "logo")
+            cell.tvTitle.text = newsItem.name
+            cell.detailsArrow.image = UIImage(systemName: "arrow.right")
+            cell.newsDate.text = newsItem.date
+            cell.newsFake.text = newsItem.isfake ? "Fake News" : "Real News"
+            cell.newsHeader.text = newsItem.title
+            cell.newsImage.setImage(with: newsItem.image)
+            
+            return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

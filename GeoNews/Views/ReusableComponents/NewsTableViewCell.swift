@@ -56,7 +56,7 @@ class NewsTableViewCell: UITableViewCell {
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 8, weight: .regular)
         label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
-        label.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        label.widthAnchor.constraint(equalToConstant: 100).isActive = true
         label.heightAnchor.constraint(equalToConstant: 20).isActive = true
         return label
     }()
@@ -75,7 +75,7 @@ class NewsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
         label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
         label.numberOfLines = 3
         label.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -162,7 +162,7 @@ class NewsTableViewCell: UITableViewCell {
         contentView.addSubview(newsHeader)
         
         NSLayoutConstraint.activate([
-            newsHeader.topAnchor.constraint(equalTo: newsOwner.bottomAnchor, constant: 10),
+            newsHeader.topAnchor.constraint(equalTo: newsOwner.bottomAnchor),
             newsHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
             newsHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40)
         ])

@@ -12,5 +12,6 @@ class HealthNewsView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Health"
+        view.backgroundColor = .orange
     }
 }

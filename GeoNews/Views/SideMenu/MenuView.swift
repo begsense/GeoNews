@@ -124,8 +124,6 @@ extension MenuView: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuBarCell", for: indexPath)
         
         cell.textLabel?.text = menuOptions.allCases[indexPath.row].rawValue
-        //cell.backgroundColor = .none
-        //cell.contentView.backgroundColor = .none
         
         return cell
     }
