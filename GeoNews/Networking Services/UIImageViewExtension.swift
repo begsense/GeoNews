@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 extension UIImageView {
-    func setImage(with urlString: String, contentMode mode: UIView.ContentMode = .scaleAspectFit) {
+    func setImage(with urlString: String, contentMode mode: UIView.ContentMode = .scaleAspectFill) {
         contentMode = mode
         guard let url = URL(string: urlString) else {
             return

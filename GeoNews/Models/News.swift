@@ -15,4 +15,10 @@ struct News {
     let isfake: Bool
     let name: String
     let title: String
+    
+    var dateObject: Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm, dd/MM/yyyy"
+        return dateFormatter.date(from: date)
+    }
 }

@@ -24,7 +24,7 @@ class NewsTableViewCell: UITableViewCell {
         var tvLogo = UIImageView()
         tvLogo.translatesAutoresizingMaskIntoConstraints = false
         tvLogo.image = UIImage(systemName: "home")
-        tvLogo.contentMode = .scaleAspectFill
+        tvLogo.contentMode = .scaleAspectFit
         tvLogo.heightAnchor.constraint(equalToConstant: 25).isActive = true
         tvLogo.widthAnchor.constraint(equalToConstant: 25).isActive = true
         return tvLogo
@@ -88,6 +88,7 @@ class NewsTableViewCell: UITableViewCell {
         tvLogo.image = UIImage(named: "logo")
         tvLogo.contentMode = .scaleAspectFill
         tvLogo.clipsToBounds = true
+        tvLogo.layer.cornerRadius = 15
         tvLogo.heightAnchor.constraint(equalToConstant: 200).isActive = true
         return tvLogo
     }()
@@ -173,8 +174,8 @@ class NewsTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             newsImage.topAnchor.constraint(equalTo: newsHeader.bottomAnchor, constant: 10),
-            newsImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            newsImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            newsImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            newsImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
     }
     
