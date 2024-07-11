@@ -24,6 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
     }
     
+    var sharedMenuViewModel = MenuViewModel()
+    
     public func checkAuthentication() {
         if Auth.auth().currentUser == nil {
             self.goToController(with: SignInView())

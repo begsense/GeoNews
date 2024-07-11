@@ -15,6 +15,10 @@ class MenuView: UIViewController {
     
     weak var delegate: MenuViewControllerDelegate?
     
+    var menuViewModel: MenuViewModel!
+    
+    private var viewModel = MenuViewModel()
+    
     private let label: UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -33,6 +37,8 @@ class MenuView: UIViewController {
         return tableView
     }()
     
+    private let buttonChangeStyle = CustomButton(title: "Change Style", fontSize: .med)
+    
     private var button = CustomButton(title: "Logout", fontSize: .big)
     
     enum menuOptions: String, CaseIterable {
@@ -46,6 +52,11 @@ class MenuView: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            menuViewModel = sceneDelegate.sharedMenuViewModel
+        }
+        
+        
         setupUI()
         
         AuthService.shared.fetchUser { [weak self] user, error in
@@ -64,7 +75,13 @@ class MenuView: UIViewController {
         button.addAction(UIAction { [weak self] _ in
             self?.didTapLogout()
         }, for: .touchUpInside)
+        
+        buttonChangeStyle.addAction(UIAction { [weak self] _ in
+            self?.didClickChangeStyleButton()
+        }, for: .touchUpInside)
     }
+    
+    
     
     private func setupUI() {
         view.backgroundColor = .white
@@ -84,6 +101,7 @@ class MenuView: UIViewController {
         ])
         
         setupTableView()
+        setupChangeStyleButton()
     }
     
     func setupTableView() {
@@ -94,12 +112,52 @@ class MenuView: UIViewController {
             tableView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
             tableView.widthAnchor.constraint(equalToConstant: 100),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.heightAnchor.constraint(equalToConstant: 350)
         ])
 
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
+    func setupChangeStyleButton() {
+        view.addSubview(buttonChangeStyle)
+        buttonChangeStyle.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            buttonChangeStyle.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
+            buttonChangeStyle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
+            buttonChangeStyle.widthAnchor.constraint(equalToConstant: 100)
+        ])
+    }
+    
+    private func didClickChangeStyleButton() {
+        showChangeStyleMenu()
+    }
+        
+    private func showChangeStyleMenu() {
+        let alertController = UIAlertController(title: "Change Design", message: "Choose the desired style", preferredStyle: .actionSheet)
+        
+        let option1 = UIAlertAction(title: "StaticCell", style: .default) { [weak self] _ in
+            print("Changing cell style to StaticCell")
+            self?.menuViewModel.currentCellIdentifier = NewsTableViewCell.identifier
+        }
+        let option2 = UIAlertAction(title: "RedditType", style: .default) { [weak self] _ in
+            print("Changing cell style to RedditType")
+            self?.menuViewModel.currentCellIdentifier = NewsTableViewCellRedditType.identifier
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(option1)
+        alertController.addAction(option2)
+        alertController.addAction(cancel)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+        
+//        private func reloadTableView() {
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
     
     @objc private func didTapLogout() {
         AuthService.shared.signOut { [weak self] error in

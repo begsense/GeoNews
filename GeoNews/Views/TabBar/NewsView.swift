@@ -24,7 +24,6 @@ class NewsView: UIViewController {
     
     private var navView: UINavigationController?
     
-    
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,19 +35,18 @@ class NewsView: UIViewController {
         addChild(menuView)
         view.addSubview(menuView.view)
         menuView.didMove(toParent: self)
-        
+
         generalNews.delegate = self
         let navView = UINavigationController(rootViewController: generalNews)
         addChild(navView)
         view.addSubview(navView.view)
         navView.didMove(toParent: self)
         self.navView = navView
-        
     }
-    
 }
 
 extension NewsView: GeneralNewsViewDelegate {
+    
     func didTapMenuButton() {
         toggleMenu(completion: nil)
     }
@@ -80,19 +78,20 @@ extension NewsView: GeneralNewsViewDelegate {
 }
 
 extension NewsView: MenuViewControllerDelegate {
+    
     func didSelect(menuItem: MenuView.menuOptions) {
         toggleMenu(completion: nil)
         switch menuItem {
         case .general:
-            self.resetGeneralNewsView()
+            resetGeneralNewsView()
         case .politics:
-            self.addPoliticNewsView()
+            addPoliticNewsView()
         case .sports:
-            self.addSportNewsView()
+            addSportNewsView()
         case .health:
-            self.addHealthNewsView()
+            addHealthNewsView()
         case .tech:
-            self.addTechNewsView()
+            addTechNewsView()
         }
     }
     
@@ -138,9 +137,9 @@ extension NewsView: MenuViewControllerDelegate {
     }
     
     private func removeAllChildViews() {
-        for child in generalNews.children {
-            child.view.removeFromSuperview()
-            child.didMove(toParent: nil)
+        generalNews.children.forEach {
+            $0.view.removeFromSuperview()
+            $0.removeFromParent()
         }
     }
 }

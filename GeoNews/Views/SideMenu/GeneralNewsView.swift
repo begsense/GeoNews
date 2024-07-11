@@ -15,6 +15,7 @@ class GeneralNewsView: UIViewController {
     
     // MARK: - UI Components
     private let viewModel = GeneralNewsViewModel()
+    private var menuViewModel: MenuViewModel!
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -25,24 +26,23 @@ class GeneralNewsView: UIViewController {
     
     weak var delegate: GeneralNewsViewDelegate?
     
-    var currentCellIdentifier = NewsTableViewCell.identifier
-    
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            menuViewModel = sceneDelegate.sharedMenuViewModel
+        }
         title = "All News"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"),
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(didTapMenuButton))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
-                                                            style: .done,
-                                                            target: self,
-                                                            action: #selector(didTapRightMenuButton))
         setupUI()
         fetchData()
+        reloadTableViewCells() 
     }
+    
     
     // MARK: - UI Setup
     private func setupUI() {
@@ -68,36 +68,19 @@ class GeneralNewsView: UIViewController {
     }
     
     // MARK: - Selectors
+    func reloadTableViewCells() {
+        menuViewModel.changeCellStyles = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
+    }
+    
+    
     @objc private func didTapMenuButton() {
         delegate?.didTapMenuButton()
     }
     
-    @objc private func didTapRightMenuButton() {
-        showDropdownMenu()
-    }
-    
-    private func showDropdownMenu() {
-        let alertController = UIAlertController(title: "Change Design", message: "Choose the desired style", preferredStyle: .actionSheet)
-        
-        let option1 = UIAlertAction(title: "General", style: .default) { _ in
-            self.handleDropdownSelection(identifier: NewsTableViewCell.identifier)
-        }
-        let option2 = UIAlertAction(title: "Test, Cover Image -height", style: .default) { _ in
-            self.handleDropdownSelection(identifier: NewsTableViewCellRedditType.identifier)
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(option1)
-        alertController.addAction(option2)
-        alertController.addAction(cancel)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func handleDropdownSelection(identifier: String) {
-        currentCellIdentifier = identifier
-        tableView.reloadData()
-    }
     
     private func fetchData() {
         viewModel.fetchData()
@@ -116,7 +99,7 @@ extension GeneralNewsView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: currentCellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: menuViewModel.currentCellIdentifier, for: indexPath)
         
         let newsItem = viewModel.news(at: indexPath.row)
         

@@ -10,6 +10,7 @@ import UIKit
 class PoliticNewsView: UIViewController {
     
     private let viewModel = PoliticsNewsViewModel()
+    private var menuViewModel: MenuViewModel!
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -24,9 +25,13 @@ class PoliticNewsView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            menuViewModel = sceneDelegate.sharedMenuViewModel
+        }
         title = "Politics"
         setupUI()
         fetchData()
+        reloadTableViewCells() 
     }
     
     private func setupUI() {
@@ -49,6 +54,14 @@ class PoliticNewsView: UIViewController {
         tableView.delegate = self
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
         tableView.register(NewsTableViewCellRedditType.self, forCellReuseIdentifier: NewsTableViewCellRedditType.identifier)
+    }
+    
+    func reloadTableViewCells() {
+        menuViewModel.changeCellStyles = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
     }
     
     @objc private func didTapMenuButton() {
@@ -99,7 +112,7 @@ extension PoliticNewsView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: currentCellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: menuViewModel.currentCellIdentifier, for: indexPath)
         
         let newsItem = viewModel.news(at: indexPath.row)
         
