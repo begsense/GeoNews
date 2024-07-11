@@ -27,17 +27,20 @@
 		6F7542AB2C33EC250085839C /* RegisterUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542AA2C33EC250085839C /* RegisterUserRequest.swift */; };
 		6F7542AD2C33EE230085839C /* WebViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542AC2C33EE230085839C /* WebViewer.swift */; };
 		6F7A1A9A2C3D273F006D0986 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1A992C3D273F006D0986 /* MenuView.swift */; };
-		6F7A1A9C2C3D27E2006D0986 /* PoliticNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1A9B2C3D27E2006D0986 /* PoliticNewsView.swift */; };
+		6F7A1A9C2C3D27E2006D0986 /* GeneralNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1A9B2C3D27E2006D0986 /* GeneralNewsView.swift */; };
 		6F7A1A9E2C3E8072006D0986 /* SportNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1A9D2C3E8072006D0986 /* SportNewsView.swift */; };
 		6F7A1AA02C3E9728006D0986 /* HealthNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1A9F2C3E9728006D0986 /* HealthNewsView.swift */; };
 		6F7A1AA22C3E974A006D0986 /* TechNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AA12C3E974A006D0986 /* TechNewsView.swift */; };
 		6F7A1AA42C3E99DE006D0986 /* NewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AA32C3E99DE006D0986 /* NewsViewModel.swift */; };
 		6F7A1AA62C3E9A2E006D0986 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AA52C3E9A2E006D0986 /* MenuViewModel.swift */; };
-		6F7A1AA92C3EA26F006D0986 /* PoliticNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AA82C3EA26F006D0986 /* PoliticNewsViewModel.swift */; };
+		6F7A1AA92C3EA26F006D0986 /* GeneralNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AA82C3EA26F006D0986 /* GeneralNewsViewModel.swift */; };
 		6F7A1AAB2C3EA291006D0986 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AAA2C3EA291006D0986 /* News.swift */; };
 		6F7A1AAE2C3EAB72006D0986 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AAD2C3EAB72006D0986 /* UIImageViewExtension.swift */; };
 		6F7A1AB02C3EB5AE006D0986 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AAF2C3EB5AE006D0986 /* NetworkService.swift */; };
 		6F7A1AB42C3FB538006D0986 /* NewsTableViewCellRedditType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AB32C3FB538006D0986 /* NewsTableViewCellRedditType.swift */; };
+		6F7A1AB72C3FCC28006D0986 /* PoliticNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AB62C3FCC28006D0986 /* PoliticNewsView.swift */; };
+		6F7A1AB92C3FCC54006D0986 /* PoliticsNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AB82C3FCC54006D0986 /* PoliticsNewsViewModel.swift */; };
+		6F7A1ABB2C3FD82C006D0986 /* ProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1ABA2C3FD82C006D0986 /* ProtocolExtension.swift */; };
 		6FBA083F2C2D7E3E00A148F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA083E2C2D7E3E00A148F7 /* AppDelegate.swift */; };
 		6FBA08412C2D7E3E00A148F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA08402C2D7E3E00A148F7 /* SceneDelegate.swift */; };
 		6FBA08432C2D7E3E00A148F7 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA08422C2D7E3E00A148F7 /* SignInView.swift */; };
@@ -71,17 +74,20 @@
 		6F7542AA2C33EC250085839C /* RegisterUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserRequest.swift; sourceTree = "<group>"; };
 		6F7542AC2C33EE230085839C /* WebViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewer.swift; sourceTree = "<group>"; };
 		6F7A1A992C3D273F006D0986 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		6F7A1A9B2C3D27E2006D0986 /* PoliticNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliticNewsView.swift; sourceTree = "<group>"; };
+		6F7A1A9B2C3D27E2006D0986 /* GeneralNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNewsView.swift; sourceTree = "<group>"; };
 		6F7A1A9D2C3E8072006D0986 /* SportNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportNewsView.swift; sourceTree = "<group>"; };
 		6F7A1A9F2C3E9728006D0986 /* HealthNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthNewsView.swift; sourceTree = "<group>"; };
 		6F7A1AA12C3E974A006D0986 /* TechNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechNewsView.swift; sourceTree = "<group>"; };
 		6F7A1AA32C3E99DE006D0986 /* NewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewModel.swift; sourceTree = "<group>"; };
 		6F7A1AA52C3E9A2E006D0986 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
-		6F7A1AA82C3EA26F006D0986 /* PoliticNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliticNewsViewModel.swift; sourceTree = "<group>"; };
+		6F7A1AA82C3EA26F006D0986 /* GeneralNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNewsViewModel.swift; sourceTree = "<group>"; };
 		6F7A1AAA2C3EA291006D0986 /* News.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		6F7A1AAD2C3EAB72006D0986 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		6F7A1AAF2C3EB5AE006D0986 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		6F7A1AB32C3FB538006D0986 /* NewsTableViewCellRedditType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCellRedditType.swift; sourceTree = "<group>"; };
+		6F7A1AB62C3FCC28006D0986 /* PoliticNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliticNewsView.swift; sourceTree = "<group>"; };
+		6F7A1AB82C3FCC54006D0986 /* PoliticsNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliticsNewsViewModel.swift; sourceTree = "<group>"; };
+		6F7A1ABA2C3FD82C006D0986 /* ProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolExtension.swift; sourceTree = "<group>"; };
 		6FBA083B2C2D7E3E00A148F7 /* GeoNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FBA083E2C2D7E3E00A148F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FBA08402C2D7E3E00A148F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,7 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				6F7A1A992C3D273F006D0986 /* MenuView.swift */,
-				6F7A1A9B2C3D27E2006D0986 /* PoliticNewsView.swift */,
+				6F7A1A9B2C3D27E2006D0986 /* GeneralNewsView.swift */,
+				6F7A1AB62C3FCC28006D0986 /* PoliticNewsView.swift */,
 				6F7A1A9D2C3E8072006D0986 /* SportNewsView.swift */,
 				6F7A1A9F2C3E9728006D0986 /* HealthNewsView.swift */,
 				6F7A1AA12C3E974A006D0986 /* TechNewsView.swift */,
@@ -155,10 +162,18 @@
 			isa = PBXGroup;
 			children = (
 				6F75429A2C33DB390085839C /* AuthService.swift */,
-				6F7A1AAD2C3EAB72006D0986 /* UIImageViewExtension.swift */,
 				6F7A1AAF2C3EB5AE006D0986 /* NetworkService.swift */,
 			);
 			path = "Networking Services";
+			sourceTree = "<group>";
+		};
+		6F7A1AB52C3FC898006D0986 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6F7A1AAD2C3EAB72006D0986 /* UIImageViewExtension.swift */,
+				6F7A1ABA2C3FD82C006D0986 /* ProtocolExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		6FBA08322C2D7E3E00A148F7 = {
@@ -181,6 +196,7 @@
 		6FBA083D2C2D7E3E00A148F7 /* GeoNews */ = {
 			isa = PBXGroup;
 			children = (
+				6F7A1AB52C3FC898006D0986 /* Extensions */,
 				6F7A1AAC2C3EAB53006D0986 /* Networking Services */,
 				6FBA085B2C2EA9E900A148F7 /* AppAndSceneDelegate */,
 				6FBA08602C2EAACD00A148F7 /* Models */,
@@ -257,7 +273,8 @@
 				6F4C1FD72C3BD45B0000D10F /* ForgotPasswordViewModel.swift */,
 				6F7A1AA32C3E99DE006D0986 /* NewsViewModel.swift */,
 				6F7A1AA52C3E9A2E006D0986 /* MenuViewModel.swift */,
-				6F7A1AA82C3EA26F006D0986 /* PoliticNewsViewModel.swift */,
+				6F7A1AA82C3EA26F006D0986 /* GeneralNewsViewModel.swift */,
+				6F7A1AB82C3FCC54006D0986 /* PoliticsNewsViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -356,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F7542A42C33E8080085839C /* ProfileView.swift in Sources */,
+				6F7A1ABB2C3FD82C006D0986 /* ProtocolExtension.swift in Sources */,
 				6F7542AB2C33EC250085839C /* RegisterUserRequest.swift in Sources */,
 				6FBA08432C2D7E3E00A148F7 /* SignInView.swift in Sources */,
 				6F7A1AB42C3FB538006D0986 /* NewsTableViewCellRedditType.swift in Sources */,
@@ -363,6 +381,7 @@
 				6F7A1AA02C3E9728006D0986 /* HealthNewsView.swift in Sources */,
 				6FBA08652C2EB82800A148F7 /* SignUpView.swift in Sources */,
 				6FBA083F2C2D7E3E00A148F7 /* AppDelegate.swift in Sources */,
+				6F7A1AB72C3FCC28006D0986 /* PoliticNewsView.swift in Sources */,
 				6F7542A22C33E7F30085839C /* QuizView.swift in Sources */,
 				6F7A1AAE2C3EAB72006D0986 /* UIImageViewExtension.swift in Sources */,
 				6F7A1A9A2C3D273F006D0986 /* MenuView.swift in Sources */,
@@ -370,7 +389,7 @@
 				6F7A1AA42C3E99DE006D0986 /* NewsViewModel.swift in Sources */,
 				6F590ADC2C3B1C0600F0B761 /* SignInViewModel.swift in Sources */,
 				6F590ADA2C3B166900F0B761 /* User.swift in Sources */,
-				6F7A1A9C2C3D27E2006D0986 /* PoliticNewsView.swift in Sources */,
+				6F7A1A9C2C3D27E2006D0986 /* GeneralNewsView.swift in Sources */,
 				6F590AD62C3AB7EC00F0B761 /* AlertManager.swift in Sources */,
 				6F7A1AA62C3E9A2E006D0986 /* MenuViewModel.swift in Sources */,
 				6F7542992C32E9B80085839C /* CustomButton.swift in Sources */,
@@ -386,7 +405,8 @@
 				6F7A1AA22C3E974A006D0986 /* TechNewsView.swift in Sources */,
 				6F4C1FD82C3BD45B0000D10F /* ForgotPasswordViewModel.swift in Sources */,
 				6F590AD82C3B141800F0B761 /* AuthValidator.swift in Sources */,
-				6F7A1AA92C3EA26F006D0986 /* PoliticNewsViewModel.swift in Sources */,
+				6F7A1AB92C3FCC54006D0986 /* PoliticsNewsViewModel.swift in Sources */,
+				6F7A1AA92C3EA26F006D0986 /* GeneralNewsViewModel.swift in Sources */,
 				6F4C1FD62C3BBE1D0000D10F /* SignUpViewModel.swift in Sources */,
 				6F4C1FE02C3C14140000D10F /* NewsTableViewCell.swift in Sources */,
 				6F4C1FDA2C3BE8600000D10F /* CustomLoaderView.swift in Sources */,

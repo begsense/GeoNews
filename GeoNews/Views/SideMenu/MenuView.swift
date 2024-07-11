@@ -36,6 +36,7 @@ class MenuView: UIViewController {
     private var button = CustomButton(title: "Logout", fontSize: .big)
     
     enum menuOptions: String, CaseIterable {
+        case general = "General"
         case politics = "Politics"
         case sports = "Sport"
         case health = "Health"

@@ -16,7 +16,8 @@ class NewsView: UIViewController {
     private var menuState: MenuState = .closed
     
     private var menuView = MenuView()
-    private var politicNews = PoliticNewsView()
+    private var generalNews = GeneralNewsView()
+    private lazy var politicNews = PoliticNewsView()
     private lazy var sportNews = SportNewsView()
     private lazy var healthNews = HealthNewsView()
     private lazy var techNews = TechNewsView()
@@ -36,8 +37,8 @@ class NewsView: UIViewController {
         view.addSubview(menuView.view)
         menuView.didMove(toParent: self)
         
-        politicNews.delegate = self
-        let navView = UINavigationController(rootViewController: politicNews)
+        generalNews.delegate = self
+        let navView = UINavigationController(rootViewController: generalNews)
         addChild(navView)
         view.addSubview(navView.view)
         navView.didMove(toParent: self)
@@ -47,7 +48,7 @@ class NewsView: UIViewController {
     
 }
 
-extension NewsView: PoliticNewsViewDelegate {
+extension NewsView: GeneralNewsViewDelegate {
     func didTapMenuButton() {
         toggleMenu(completion: nil)
     }
@@ -56,7 +57,7 @@ extension NewsView: PoliticNewsViewDelegate {
         switch menuState {
         case .closed:
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
-                self.navView?.view.frame.origin.x = self.politicNews.view.frame.size.width - 150
+                self.navView?.view.frame.origin.x = self.generalNews.view.frame.size.width - 150
             } completion: { [weak self] done in
                 if done {
                     self?.menuState = .opened
@@ -82,8 +83,10 @@ extension NewsView: MenuViewControllerDelegate {
     func didSelect(menuItem: MenuView.menuOptions) {
         toggleMenu(completion: nil)
         switch menuItem {
+        case .general:
+            self.resetGeneralNewsView()
         case .politics:
-            self.resetPoliticsView()
+            self.addPoliticNewsView()
         case .sports:
             self.addSportNewsView()
         case .health:
@@ -93,40 +96,49 @@ extension NewsView: MenuViewControllerDelegate {
         }
     }
     
+    private func addPoliticNewsView() {
+        removeAllChildViews()
+        generalNews.addChild(politicNews)
+        generalNews.view.addSubview(politicNews.view)
+        politicNews.view.frame = view.frame
+        politicNews.didMove(toParent: generalNews)
+        generalNews.title = politicNews.title
+    }
+    
     private func addSportNewsView() {
         removeAllChildViews()
-        politicNews.addChild(sportNews)
-        politicNews.view.addSubview(sportNews.view)
+        generalNews.addChild(sportNews)
+        generalNews.view.addSubview(sportNews.view)
         sportNews.view.frame = view.frame
-        sportNews.didMove(toParent: politicNews)
-        politicNews.title = sportNews.title
+        sportNews.didMove(toParent: generalNews)
+        generalNews.title = sportNews.title
     }
     
     private func addHealthNewsView() {
         removeAllChildViews()
-        politicNews.addChild(healthNews)
-        politicNews.view.addSubview(healthNews.view)
+        generalNews.addChild(healthNews)
+        generalNews.view.addSubview(healthNews.view)
         healthNews.view.frame = view.frame
-        healthNews.didMove(toParent: politicNews)
-        politicNews.title = healthNews.title
+        healthNews.didMove(toParent: generalNews)
+        generalNews.title = healthNews.title
     }
     
     private func addTechNewsView() {
         removeAllChildViews()
-        politicNews.addChild(techNews)
-        politicNews.view.addSubview(techNews.view)
+        generalNews.addChild(techNews)
+        generalNews.view.addSubview(techNews.view)
         techNews.view.frame = view.frame
-        techNews.didMove(toParent: politicNews)
-        politicNews.title = techNews.title
+        techNews.didMove(toParent: generalNews)
+        generalNews.title = techNews.title
     }
     
-    private func resetPoliticsView() {
+    private func resetGeneralNewsView() {
         removeAllChildViews()
-        politicNews.title = "Politics"
+        generalNews.title = "All News"
     }
     
     private func removeAllChildViews() {
-        for child in politicNews.children {
+        for child in generalNews.children {
             child.view.removeFromSuperview()
             child.didMove(toParent: nil)
         }

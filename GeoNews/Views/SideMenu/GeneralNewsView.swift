@@ -1,15 +1,20 @@
 //
-//  PoliticsNewsView.swift
+//  PoliticNews.swift
 //  GeoNews
 //
-//  Created by M1 on 11.07.2024.
+//  Created by M1 on 09.07.2024.
 //
 
 import UIKit
 
-class PoliticNewsView: UIViewController {
+protocol GeneralNewsViewDelegate: AnyObject {
+    func didTapMenuButton()
+}
+
+class GeneralNewsView: UIViewController {
     
-    private let viewModel = PoliticsNewsViewModel()
+    // MARK: - UI Components
+    private let viewModel = GeneralNewsViewModel()
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -22,13 +27,24 @@ class PoliticNewsView: UIViewController {
     
     var currentCellIdentifier = NewsTableViewCell.identifier
     
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Politics"
+        title = "All News"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"),
+                                                           style: .done,
+                                                           target: self,
+                                                           action: #selector(didTapMenuButton))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "ellipsis.circle"),
+                                                            style: .done,
+                                                            target: self,
+                                                            action: #selector(didTapRightMenuButton))
         setupUI()
         fetchData()
     }
     
+    // MARK: - UI Setup
     private func setupUI() {
         view.backgroundColor = .white
         setupTableView()
@@ -51,6 +67,7 @@ class PoliticNewsView: UIViewController {
         tableView.register(NewsTableViewCellRedditType.self, forCellReuseIdentifier: NewsTableViewCellRedditType.identifier)
     }
     
+    // MARK: - Selectors
     @objc private func didTapMenuButton() {
         delegate?.didTapMenuButton()
     }
@@ -93,7 +110,7 @@ class PoliticNewsView: UIViewController {
     }
 }
 
-extension PoliticNewsView: UITableViewDataSource {
+extension GeneralNewsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfItems()
     }
@@ -115,6 +132,6 @@ extension PoliticNewsView: UITableViewDataSource {
     }
 }
 
-extension PoliticNewsView: UITableViewDelegate {
+extension GeneralNewsView: UITableViewDelegate {
    
 }
