@@ -1,17 +1,13 @@
 //
-//  NewsTableViewCell.swift
+//  NewsTableViewCellRedditType.swift
 //  GeoNews
 //
-//  Created by M1 on 08.07.2024.
+//  Created by M1 on 11.07.2024.
 //
 
 import UIKit
 
-protocol ConfigurableNewsCell {
-    func configure(with news: News)
-}
-
-class NewsTableViewCell: UITableViewCell {
+class NewsTableViewCellRedditType: UITableViewCell {
     //MARK: Properties:
     static var identifier: String {
         String(describing: self)
@@ -93,7 +89,7 @@ class NewsTableViewCell: UITableViewCell {
         tvLogo.contentMode = .scaleAspectFill
         tvLogo.clipsToBounds = true
         tvLogo.layer.cornerRadius = 15
-        tvLogo.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        tvLogo.heightAnchor.constraint(equalToConstant: 80).isActive = true
         return tvLogo
     }()
     
@@ -185,7 +181,8 @@ class NewsTableViewCell: UITableViewCell {
     
 }
 
-extension NewsTableViewCell: ConfigurableNewsCell {
+
+extension NewsTableViewCellRedditType: ConfigurableNewsCell {
     func configure(with news: News) {
         tvLogo.image = UIImage(named: "logo")
         tvTitle.text = news.name
