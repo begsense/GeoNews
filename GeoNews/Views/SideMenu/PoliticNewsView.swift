@@ -19,10 +19,6 @@ class PoliticNewsView: UIViewController {
         return tableView
     }()
     
-    weak var delegate: GeneralNewsViewDelegate?
-    
-    var currentCellIdentifier = NewsTableViewCell.identifier
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
@@ -64,37 +60,6 @@ class PoliticNewsView: UIViewController {
         }
     }
     
-    @objc private func didTapMenuButton() {
-        delegate?.didTapMenuButton()
-    }
-    
-    @objc private func didTapRightMenuButton() {
-        showDropdownMenu()
-    }
-    
-    private func showDropdownMenu() {
-        let alertController = UIAlertController(title: "Change Design", message: "Choose the desired style", preferredStyle: .actionSheet)
-        
-        let option1 = UIAlertAction(title: "General", style: .default) { _ in
-            self.handleDropdownSelection(identifier: NewsTableViewCell.identifier)
-        }
-        let option2 = UIAlertAction(title: "Test, Cover Image -height", style: .default) { _ in
-            self.handleDropdownSelection(identifier: NewsTableViewCellRedditType.identifier)
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(option1)
-        alertController.addAction(option2)
-        alertController.addAction(cancel)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func handleDropdownSelection(identifier: String) {
-        currentCellIdentifier = identifier
-        tableView.reloadData()
-    }
-    
     private func fetchData() {
         viewModel.fetchData()
         
@@ -122,12 +87,10 @@ extension PoliticNewsView: UITableViewDataSource {
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 340
-    }
 }
 
 extension PoliticNewsView: UITableViewDelegate {
-   
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 340
+    }
 }

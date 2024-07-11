@@ -142,4 +142,5 @@ extension NewsView: MenuViewControllerDelegate {
             $0.removeFromParent()
         }
     }
+    
 }

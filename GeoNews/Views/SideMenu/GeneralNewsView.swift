@@ -43,6 +43,9 @@ class GeneralNewsView: UIViewController {
         reloadTableViewCells() 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        reloadTableViewCells()
+    }
     
     // MARK: - UI Setup
     private func setupUI() {
@@ -69,6 +72,7 @@ class GeneralNewsView: UIViewController {
     
     // MARK: - Selectors
     func reloadTableViewCells() {
+        print("reload")
         menuViewModel.changeCellStyles = { [weak self] in
             DispatchQueue.main.async {
                 self?.tableView.reloadData()
@@ -109,12 +113,10 @@ extension GeneralNewsView: UITableViewDataSource {
         
         return cell
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 340
-    }
 }
 
 extension GeneralNewsView: UITableViewDelegate {
-   
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 340
+    }
 }
