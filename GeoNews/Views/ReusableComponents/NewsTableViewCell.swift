@@ -93,7 +93,7 @@ class NewsTableViewCell: UITableViewCell {
         tvLogo.contentMode = .scaleAspectFill
         tvLogo.clipsToBounds = true
         tvLogo.layer.cornerRadius = 15
-        tvLogo.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        tvLogo.heightAnchor.constraint(equalToConstant: 150).isActive = true
         return tvLogo
     }()
     

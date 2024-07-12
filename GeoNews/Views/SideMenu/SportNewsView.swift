@@ -91,7 +91,7 @@ extension SportNewsView: UITableViewDataSource {
 
 extension SportNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 340
+        return 280
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

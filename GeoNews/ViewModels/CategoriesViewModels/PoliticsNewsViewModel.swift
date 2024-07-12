@@ -14,7 +14,7 @@ class PoliticsNewsViewModel {
     private let networkService = NetworkService()
     
     func fetchData() {
-        networkService.fetchData(filterBy: "category", equalTo: "politics") { [weak self] newsItems in
+        networkService.fetchData(filterBy: "category", equalTo: "Politics") { [weak self] newsItems in
             guard let self = self else { return }
             
             self.newsItems = newsItems.sorted {

@@ -14,7 +14,7 @@ class HealthNewsViewModel {
     private let networkService = NetworkService()
     
     func fetchData() {
-        networkService.fetchData(filterBy: "category", equalTo: "health") { [weak self] newsItems in
+        networkService.fetchData(filterBy: "category", equalTo: "Health") { [weak self] newsItems in
             guard let self = self else { return }
             
             self.newsItems = newsItems.sorted {
