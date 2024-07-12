@@ -97,9 +97,9 @@ extension PoliticNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let selectedNews = viewModel.news(at: indexPath.row)
-        let politicNewsDetailedViewModel = PoliticNewsDetailedViewModel()
-        politicNewsDetailedViewModel.selectedNews = selectedNews
-        let detailView = NewsDetailedView(viewModel: politicNewsDetailedViewModel)
+        let newsDetailedViewModel = NewsDetailedViewModel()
+        newsDetailedViewModel.selectedNews = selectedNews
+        let detailView = NewsDetailedView(viewModel: newsDetailedViewModel)
         
         navigationController?.pushViewController(detailView, animated: true)
     }

@@ -8,7 +8,6 @@
 import Foundation
 
 struct News {
-    let id: String
     let category: String
     let date: String
     let details: String

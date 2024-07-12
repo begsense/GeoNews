@@ -45,11 +45,7 @@
 		6F7A1ABF2C402135006D0986 /* HealthNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1ABE2C402135006D0986 /* HealthNewsViewModel.swift */; };
 		6F7A1AC12C402156006D0986 /* TechNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AC02C402156006D0986 /* TechNewsViewModel.swift */; };
 		6F7A1AC62C406613006D0986 /* GeneralNewsDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AC52C406613006D0986 /* GeneralNewsDetailedView.swift */; };
-		6F7A1AC82C406651006D0986 /* GeneralNewsDetailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AC72C406651006D0986 /* GeneralNewsDetailedViewModel.swift */; };
-		6F7A1ACD2C4125E1006D0986 /* PoliticNewsDetailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1ACC2C4125E1006D0986 /* PoliticNewsDetailedViewModel.swift */; };
-		6F7A1ACF2C41260C006D0986 /* SportNewsDetailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1ACE2C41260C006D0986 /* SportNewsDetailedViewModel.swift */; };
-		6F7A1AD12C41262A006D0986 /* HealthNewsDetailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AD02C41262A006D0986 /* HealthNewsDetailedViewModel.swift */; };
-		6F7A1AD32C41265D006D0986 /* TechNewsDetailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AD22C41265C006D0986 /* TechNewsDetailedViewModel.swift */; };
+		6F7A1AC82C406651006D0986 /* NewsDetailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AC72C406651006D0986 /* NewsDetailedViewModel.swift */; };
 		6F7A1AD52C4126EA006D0986 /* NewsDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AD42C4126EA006D0986 /* NewsDetailedView.swift */; };
 		6F7A1AD72C4129EE006D0986 /* PoliticNewsDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AD62C4129EE006D0986 /* PoliticNewsDetailedView.swift */; };
 		6F7A1AD92C412B4D006D0986 /* SportNewsDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AD82C412B4D006D0986 /* SportNewsDetailedView.swift */; };
@@ -106,11 +102,7 @@
 		6F7A1ABE2C402135006D0986 /* HealthNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthNewsViewModel.swift; sourceTree = "<group>"; };
 		6F7A1AC02C402156006D0986 /* TechNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechNewsViewModel.swift; sourceTree = "<group>"; };
 		6F7A1AC52C406613006D0986 /* GeneralNewsDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNewsDetailedView.swift; sourceTree = "<group>"; };
-		6F7A1AC72C406651006D0986 /* GeneralNewsDetailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNewsDetailedViewModel.swift; sourceTree = "<group>"; };
-		6F7A1ACC2C4125E1006D0986 /* PoliticNewsDetailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliticNewsDetailedViewModel.swift; sourceTree = "<group>"; };
-		6F7A1ACE2C41260C006D0986 /* SportNewsDetailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportNewsDetailedViewModel.swift; sourceTree = "<group>"; };
-		6F7A1AD02C41262A006D0986 /* HealthNewsDetailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthNewsDetailedViewModel.swift; sourceTree = "<group>"; };
-		6F7A1AD22C41265C006D0986 /* TechNewsDetailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechNewsDetailedViewModel.swift; sourceTree = "<group>"; };
+		6F7A1AC72C406651006D0986 /* NewsDetailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailedViewModel.swift; sourceTree = "<group>"; };
 		6F7A1AD42C4126EA006D0986 /* NewsDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailedView.swift; sourceTree = "<group>"; };
 		6F7A1AD62C4129EE006D0986 /* PoliticNewsDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoliticNewsDetailedView.swift; sourceTree = "<group>"; };
 		6F7A1AD82C412B4D006D0986 /* SportNewsDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportNewsDetailedView.swift; sourceTree = "<group>"; };
@@ -241,11 +233,7 @@
 		6F7A1ACB2C41257B006D0986 /* NewsDetailedViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				6F7A1AC72C406651006D0986 /* GeneralNewsDetailedViewModel.swift */,
-				6F7A1ACC2C4125E1006D0986 /* PoliticNewsDetailedViewModel.swift */,
-				6F7A1ACE2C41260C006D0986 /* SportNewsDetailedViewModel.swift */,
-				6F7A1AD02C41262A006D0986 /* HealthNewsDetailedViewModel.swift */,
-				6F7A1AD22C41265C006D0986 /* TechNewsDetailedViewModel.swift */,
+				6F7A1AC72C406651006D0986 /* NewsDetailedViewModel.swift */,
 			);
 			path = NewsDetailedViewModels;
 			sourceTree = "<group>";
@@ -450,7 +438,6 @@
 				6F7A1ABB2C3FD82C006D0986 /* ProtocolExtension.swift in Sources */,
 				6F7542AB2C33EC250085839C /* RegisterUserRequest.swift in Sources */,
 				6FBA08432C2D7E3E00A148F7 /* SignInView.swift in Sources */,
-				6F7A1AD32C41265D006D0986 /* TechNewsDetailedViewModel.swift in Sources */,
 				6F7A1AB42C3FB538006D0986 /* NewsTableViewCellRedditType.swift in Sources */,
 				6F7A1AD92C412B4D006D0986 /* SportNewsDetailedView.swift in Sources */,
 				6F75429E2C33E7BE0085839C /* NewsView.swift in Sources */,
@@ -459,7 +446,7 @@
 				6FBA083F2C2D7E3E00A148F7 /* AppDelegate.swift in Sources */,
 				6F7A1AB72C3FCC28006D0986 /* PoliticNewsView.swift in Sources */,
 				6F7542A22C33E7F30085839C /* QuizView.swift in Sources */,
-				6F7A1AC82C406651006D0986 /* GeneralNewsDetailedViewModel.swift in Sources */,
+				6F7A1AC82C406651006D0986 /* NewsDetailedViewModel.swift in Sources */,
 				6F7A1AC12C402156006D0986 /* TechNewsViewModel.swift in Sources */,
 				6F7A1AAE2C3EAB72006D0986 /* UIImageViewExtension.swift in Sources */,
 				6F7A1A9A2C3D273F006D0986 /* MenuView.swift in Sources */,
@@ -469,7 +456,6 @@
 				6F590ADC2C3B1C0600F0B761 /* SignInViewModel.swift in Sources */,
 				6F590ADA2C3B166900F0B761 /* User.swift in Sources */,
 				6F7A1A9C2C3D27E2006D0986 /* GeneralNewsView.swift in Sources */,
-				6F7A1AD12C41262A006D0986 /* HealthNewsDetailedViewModel.swift in Sources */,
 				6F7A1ADB2C412C54006D0986 /* HealthNewsDetailedView.swift in Sources */,
 				6F590AD62C3AB7EC00F0B761 /* AlertManager.swift in Sources */,
 				6F7A1AC62C406613006D0986 /* GeneralNewsDetailedView.swift in Sources */,
@@ -489,11 +475,9 @@
 				6F7A1AA22C3E974A006D0986 /* TechNewsView.swift in Sources */,
 				6F4C1FD82C3BD45B0000D10F /* ForgotPasswordViewModel.swift in Sources */,
 				6F590AD82C3B141800F0B761 /* AuthValidator.swift in Sources */,
-				6F7A1ACF2C41260C006D0986 /* SportNewsDetailedViewModel.swift in Sources */,
 				6F7A1AB92C3FCC54006D0986 /* PoliticsNewsViewModel.swift in Sources */,
 				6F7A1AA92C3EA26F006D0986 /* GeneralNewsViewModel.swift in Sources */,
 				6F4C1FD62C3BBE1D0000D10F /* SignUpViewModel.swift in Sources */,
-				6F7A1ACD2C4125E1006D0986 /* PoliticNewsDetailedViewModel.swift in Sources */,
 				6F4C1FE02C3C14140000D10F /* NewsTableViewCell.swift in Sources */,
 				6F4C1FDA2C3BE8600000D10F /* CustomLoaderView.swift in Sources */,
 				6F7A1AAB2C3EA291006D0986 /* News.swift in Sources */,

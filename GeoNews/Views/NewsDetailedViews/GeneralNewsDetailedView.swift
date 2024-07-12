@@ -9,13 +9,10 @@ import UIKit
 
 class GeneralNewsDetailedView: UIViewController {
     
-    private var detailedView: NewsDetailedView<GeneralNewsDetailedViewModel>!
+    private var detailedView = NewsDetailedView(viewModel: NewsDetailedViewModel())
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let viewModel = GeneralNewsDetailedViewModel()
-        detailedView = NewsDetailedView(viewModel: viewModel)
         
         addChild(detailedView)
         view.addSubview(detailedView.view)

@@ -7,9 +7,9 @@
 
 import UIKit
 
-class NewsDetailedView<ViewModel: NewsDetailedViewModelProtocol>: UIViewController {
+class NewsDetailedView: UIViewController {
     
-    private var viewModel: ViewModel
+    private var viewModel: NewsDetailedViewModel
     
     private var scrollView = UIScrollView()
     
@@ -164,7 +164,7 @@ class NewsDetailedView<ViewModel: NewsDetailedViewModelProtocol>: UIViewControll
         likesButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
     }
     
-    init(viewModel: ViewModel) {
+    init(viewModel: NewsDetailedViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         

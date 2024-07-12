@@ -1,5 +1,5 @@
 //
-//  GeneralNewsDetailedViewModel.swift
+//  NewsDetailedViewModel.swift
 //  GeoNews
 //
 //  Created by M1 on 11.07.2024.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GeneralNewsDetailedViewModel: NewsDetailedViewModelProtocol {
+class NewsDetailedViewModel {
     
     var selectedNews: News?
     
@@ -41,13 +41,4 @@ class GeneralNewsDetailedViewModel: NewsDetailedViewModelProtocol {
                 }
             }
         }
-}
-
-protocol NewsDetailedViewModelProtocol {
-    var isLiked: Bool { get }
-    var selectedNews: News? { get }
-    var shareAction: (() -> Void)? { get set }
-    
-    func shareNews()
-    func updateLikes(completion: @escaping (Bool) -> Void)
 }

@@ -97,9 +97,9 @@ extension SportNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let selectedNews = viewModel.news(at: indexPath.row)
-        let sportNewsDetailedViewModel = SportNewsDetailedViewModel()
-        sportNewsDetailedViewModel.selectedNews = selectedNews
-        let detailView = NewsDetailedView(viewModel: sportNewsDetailedViewModel)
+        let newsDetailedViewModel = NewsDetailedViewModel()
+        newsDetailedViewModel.selectedNews = selectedNews
+        let detailView = NewsDetailedView(viewModel: newsDetailedViewModel)
         
         navigationController?.pushViewController(detailView, animated: true)
     }

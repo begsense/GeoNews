@@ -9,13 +9,10 @@ import UIKit
 
 class PoliticNewsDetailedView: UIViewController {
     
-    private var detailedView: NewsDetailedView<PoliticNewsDetailedViewModel>!
+    private var detailedView = NewsDetailedView(viewModel: NewsDetailedViewModel())
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let viewModel = PoliticNewsDetailedViewModel()
-        detailedView = NewsDetailedView(viewModel: viewModel)
         
         addChild(detailedView)
         view.addSubview(detailedView.view)
