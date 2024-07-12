@@ -93,4 +93,14 @@ extension TechNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 340
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedNews = viewModel.news(at: indexPath.row)
+        let techNewsDetailedViewModel = TechNewsDetailedViewModel()
+        techNewsDetailedViewModel.selectedNews = selectedNews
+        let detailView = NewsDetailedView(viewModel: techNewsDetailedViewModel)
+        
+        navigationController?.pushViewController(detailView, animated: true)
+    }
 }

@@ -93,4 +93,14 @@ extension SportNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 340
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedNews = viewModel.news(at: indexPath.row)
+        let sportNewsDetailedViewModel = SportNewsDetailedViewModel()
+        sportNewsDetailedViewModel.selectedNews = selectedNews
+        let detailView = NewsDetailedView(viewModel: sportNewsDetailedViewModel)
+        
+        navigationController?.pushViewController(detailView, animated: true)
+    }
 }

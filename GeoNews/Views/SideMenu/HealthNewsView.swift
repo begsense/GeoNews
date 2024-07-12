@@ -93,4 +93,14 @@ extension HealthNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 340
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedNews = viewModel.news(at: indexPath.row)
+        let healthNewsDetailedViewModel = HealthNewsDetailedViewModel()
+        healthNewsDetailedViewModel.selectedNews = selectedNews
+        let detailView = NewsDetailedView(viewModel: healthNewsDetailedViewModel)
+        
+        navigationController?.pushViewController(detailView, animated: true)
+    }
 }

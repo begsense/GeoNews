@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class RootViewController: UIViewController {
     
@@ -19,7 +20,7 @@ class RootViewController: UIViewController {
         
         let tabBarController = UITabBarController()
         let newsView = NewsView()
-        let quizView = QuizView()
+        let quizView = UIHostingController(rootView: QuizView())
         let leaderboardsView = LeaderboardsView()
         let profileView = ProfileView()
         

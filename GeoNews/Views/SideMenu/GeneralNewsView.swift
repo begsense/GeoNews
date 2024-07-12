@@ -40,12 +40,9 @@ class GeneralNewsView: UIViewController {
         
         setupUI()
         fetchData()
-        reloadTableViewCells() 
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         reloadTableViewCells()
     }
+    
     
     // MARK: - UI Setup
     private func setupUI() {
@@ -118,5 +115,15 @@ extension GeneralNewsView: UITableViewDataSource {
 extension GeneralNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 340
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let selectedNews = viewModel.news(at: indexPath.row)
+        let generalNewsDetailedViewModel = GeneralNewsDetailedViewModel()
+        generalNewsDetailedViewModel.selectedNews = selectedNews
+        let detailView = NewsDetailedView(viewModel: generalNewsDetailedViewModel)
+        
+        navigationController?.pushViewController(detailView, animated: true)
     }
 }
