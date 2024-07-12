@@ -8,7 +8,18 @@
 import Foundation
 
 class PoliticNewsDetailedViewModel: NewsDetailedViewModelProtocol {
+    var isLiked: Bool = false
+    
+    func updateLikes(completion: @escaping (Bool) -> Void) {
+        //
+    }
+    
+    
     var selectedNews: News?
     
+    var shareAction: (() -> Void)?
     
+    func shareNews() {
+        shareAction?()
+    }
 }

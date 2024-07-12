@@ -8,6 +8,7 @@
 import Foundation
 
 struct News {
+    let id: String
     let category: String
     let date: String
     let details: String
@@ -15,6 +16,7 @@ struct News {
     let isfake: Bool
     let name: String
     let title: String
+    let likes: Int
     
     var dateObject: Date? {
         let dateFormatter = DateFormatter()
