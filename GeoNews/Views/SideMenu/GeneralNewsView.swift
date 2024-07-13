@@ -47,6 +47,8 @@ class GeneralNewsView: UIViewController {
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(didTapMenuButton))
+        navigationItem.leftBarButtonItem?.tintColor = .white
+        navigationItem.rightBarButtonItem = logoBarButtonItem()
         
         setupUI()
         fetchData()
@@ -55,7 +57,8 @@ class GeneralNewsView: UIViewController {
     
     // MARK: - UI Setup
     private func setupUI() {
-        view.backgroundColor = .white
+        let gradientLayer = GradientLayer(bounds: view.bounds)
+        view.layer.insertSublayer(gradientLayer, at: 0)
         setupTableView()
     }
     
@@ -90,6 +93,24 @@ class GeneralNewsView: UIViewController {
         delegate?.didTapMenuButton()
     }
     
+    private func logoBarButtonItem() -> UIBarButtonItem {
+            let logoImage = UIImage(named: "logo")
+            let logoImageView = UIImageView(image: logoImage)
+            logoImageView.contentMode = .scaleAspectFit
+            
+            let logoSize: CGFloat = 40
+            logoImageView.translatesAutoresizingMaskIntoConstraints = false
+            logoImageView.heightAnchor.constraint(equalToConstant: logoSize).isActive = true
+            logoImageView.widthAnchor.constraint(equalToConstant: logoSize).isActive = true
+            
+            let logoBarButtonItem = UIBarButtonItem(customView: logoImageView)
+            logoBarButtonItem.customView?.translatesAutoresizingMaskIntoConstraints = false
+            logoBarButtonItem.customView?.heightAnchor.constraint(equalToConstant: logoSize).isActive = true
+            logoBarButtonItem.customView?.widthAnchor.constraint(equalToConstant: logoSize).isActive = true
+            
+            return logoBarButtonItem
+        }
+    
     private func fetchData() {
         viewModel.fetchData()
         
@@ -114,7 +135,8 @@ extension GeneralNewsView: UITableViewDataSource {
         if let configurableCell = cell as? ConfigurableNewsCell {
             configurableCell.configure(with: newsItem)
         }
-        
+    
+        cell.contentView.backgroundColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1)
         return cell
     }
 }

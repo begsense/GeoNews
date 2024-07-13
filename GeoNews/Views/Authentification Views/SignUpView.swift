@@ -11,7 +11,7 @@ import SwiftUI
 class SignUpView: UIViewController {
     
     // MARK: - Properties
-    private let header = UIHostingController(rootView: AuthHeaderView(title: "Sign Up", description: "Create your account"))
+    private let header = AuthHeaderView(title: "Sign Up", subTitle: "Create your account")
     
     private let usernameField = CustomTextField(fieldType: .username)
     private let emailField = CustomTextField(fieldType: .email)
@@ -30,7 +30,7 @@ class SignUpView: UIViewController {
         tv.linkTextAttributes = [.foregroundColor: UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)]
         tv.backgroundColor = .clear
         tv.attributedText = attributedString
-        tv.textColor = UIColor(white: 0.8, alpha: 0.8)
+        tv.textColor = UIColor(white: 1, alpha: 1)
         tv.isSelectable = true
         tv.isEditable = false
         tv.delaysContentTouches = false
@@ -54,7 +54,8 @@ class SignUpView: UIViewController {
     
     // MARK: - UI Setup
     private func setupUI() {
-        view.backgroundColor = UIColor(red: 47/255, green: 56/255, blue: 71/255, alpha: 1)
+        let gradientLayer = GradientLayer(bounds: view.bounds)
+        view.layer.insertSublayer(gradientLayer, at: 0)
         setupHeader()
         setupUsernameField()
         setupEmailField()
@@ -66,13 +67,13 @@ class SignUpView: UIViewController {
     }
     
     private func setupHeader() {
-        view.addSubview(header.view)
-        header.view.translatesAutoresizingMaskIntoConstraints = false
-        header.view.backgroundColor = UIColor(red: 47/255, green: 56/255, blue: 71/255, alpha: 1)
+        view.addSubview(header)
+        header.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            header.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            header.view.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            header.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            header.heightAnchor.constraint(equalToConstant: 210)
         ])
     }
     
@@ -81,7 +82,7 @@ class SignUpView: UIViewController {
         usernameField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            usernameField.topAnchor.constraint(equalTo: header.view.bottomAnchor, constant: 20),
+            usernameField.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 20),
             usernameField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             usernameField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
             usernameField.heightAnchor.constraint(equalToConstant: 40)

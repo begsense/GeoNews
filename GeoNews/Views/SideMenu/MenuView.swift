@@ -84,7 +84,7 @@ class MenuView: UIViewController {
     
     
     private func setupUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
         view.addSubview(button)
         view.addSubview(label)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -177,6 +177,10 @@ extension MenuView: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuBarCell", for: indexPath)
         
         cell.textLabel?.text = menuOptions.allCases[indexPath.row].rawValue
+        
+        cell.contentView.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
+        
+        cell.textLabel?.textColor = .white
         
         return cell
     }

@@ -27,10 +27,12 @@ class NewsTableViewCell: UITableViewCell {
     var tvLogo: UIImageView = {
         var tvLogo = UIImageView()
         tvLogo.translatesAutoresizingMaskIntoConstraints = false
-        tvLogo.image = UIImage(systemName: "home")
+        tvLogo.image = UIImage(named: "logo")
         tvLogo.contentMode = .scaleAspectFit
-        tvLogo.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        tvLogo.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        tvLogo.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        tvLogo.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        tvLogo.layer.cornerRadius = 15
+        tvLogo.clipsToBounds = true
         return tvLogo
     }()
     
@@ -38,39 +40,30 @@ class NewsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
-        label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        label.font = UIFont(name: "FiraGO-Regular", size: 16)
+        label.textColor = .white
         label.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return label
     }()
     
     var detailsArrow: UIImageView = {
-        var tvLogo = UIImageView()
-        tvLogo.translatesAutoresizingMaskIntoConstraints = false
-        tvLogo.image = UIImage(systemName: "arrow")
-        tvLogo.contentMode = .scaleAspectFill
-        tvLogo.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        tvLogo.widthAnchor.constraint(equalToConstant: 10).isActive = true
-        return tvLogo
+        var detailsArrow = UIImageView()
+        detailsArrow.translatesAutoresizingMaskIntoConstraints = false
+        detailsArrow.image = UIImage(systemName: "arrow")
+        detailsArrow.contentMode = .scaleAspectFill
+        detailsArrow.tintColor = .white
+        detailsArrow.heightAnchor.constraint(equalToConstant: 25).isActive = true
+        detailsArrow.widthAnchor.constraint(equalToConstant: 10).isActive = true
+        return detailsArrow
     }()
     
     var newsDate: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 8, weight: .regular)
-        label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        label.font = UIFont(name: "FiraGO-Regular", size: 12)
+        label.textColor = .white
         label.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        return label
-    }()
-    
-    var newsFake: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .right
-        label.font = UIFont.systemFont(ofSize: 8, weight: .regular)
-        label.textColor = .red
         label.heightAnchor.constraint(equalToConstant: 20).isActive = true
         return label
     }()
@@ -79,29 +72,22 @@ class NewsTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
-        label.numberOfLines = 3
+        label.font = UIFont(name: "FiraGO-Regular", size: 13)
+        label.textColor = .white
+        label.numberOfLines = 0
         label.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return label
     }()
     
     var newsImage: UIImageView = {
-        var tvLogo = UIImageView()
-        tvLogo.translatesAutoresizingMaskIntoConstraints = false
-        tvLogo.image = UIImage(named: "logo")
-        tvLogo.contentMode = .scaleAspectFill
-        tvLogo.clipsToBounds = true
-        tvLogo.layer.cornerRadius = 15
-        tvLogo.heightAnchor.constraint(equalToConstant: 150).isActive = true
-        return tvLogo
-    }()
-    
-    var spacer: UIView = {
-        var spacer = UIView()
-        spacer.translatesAutoresizingMaskIntoConstraints = false
-        spacer.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        return spacer
+        var newsImage = UIImageView()
+        newsImage.translatesAutoresizingMaskIntoConstraints = false
+        newsImage.image = UIImage(named: "logo")
+        newsImage.contentMode = .scaleAspectFill
+        newsImage.clipsToBounds = true
+        newsImage.layer.cornerRadius = 15
+        newsImage.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        return newsImage
     }()
     
     //MARK: Lifecycle:
@@ -113,12 +99,6 @@ class NewsTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        tvLogo.layer.cornerRadius = 12.5
-        tvLogo.layer.masksToBounds = true
     }
     
     //MARK: SetupUI:
@@ -136,7 +116,6 @@ class NewsTableViewCell: UITableViewCell {
         newsOwner.addSubview(tvTitle)
         newsOwner.addSubview(detailsArrow)
         newsOwner.addSubview(newsDate)
-        newsOwner.addSubview(newsFake)
         
         NSLayoutConstraint.activate([
             newsOwner.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
@@ -149,16 +128,12 @@ class NewsTableViewCell: UITableViewCell {
             tvTitle.topAnchor.constraint(equalTo: newsOwner.topAnchor),
             tvTitle.leadingAnchor.constraint(equalTo: tvLogo.trailingAnchor, constant: 5),
             
-            detailsArrow.topAnchor.constraint(equalTo: newsOwner.topAnchor),
+            detailsArrow.centerYAnchor.constraint(equalTo: newsOwner.centerYAnchor),
             detailsArrow.leadingAnchor.constraint(equalTo: tvTitle.trailingAnchor),
             detailsArrow.trailingAnchor.constraint(equalTo: newsOwner.trailingAnchor, constant: -5),
             
             newsDate.topAnchor.constraint(equalTo: tvTitle.bottomAnchor),
             newsDate.leadingAnchor.constraint(equalTo: newsOwner.leadingAnchor),
-            
-            newsFake.topAnchor.constraint(equalTo: tvTitle.bottomAnchor),
-            newsFake.leadingAnchor.constraint(equalTo: newsDate.trailingAnchor),
-            newsFake.trailingAnchor.constraint(equalTo: newsOwner.trailingAnchor)
             
         ])
     }
@@ -187,11 +162,10 @@ class NewsTableViewCell: UITableViewCell {
 
 extension NewsTableViewCell: ConfigurableNewsCell {
     func configure(with news: News) {
-        tvLogo.image = UIImage(named: "logo")
+        tvLogo.image = UIImage(named: news.name)
         tvTitle.text = news.name
         detailsArrow.image = UIImage(systemName: "arrow.right")
         newsDate.text = news.date
-        newsFake.text = news.isfake ? "Fake News" : "Real News"
         newsHeader.text = news.title
         newsImage.setImage(with: news.image)
     }

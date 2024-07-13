@@ -11,7 +11,7 @@ import SwiftUI
 class SignInView: UIViewController {
     
     // MARK: - Properties
-    private var header = UIHostingController(rootView: AuthHeaderView(title: "Sign In", description: "Sign in to your account"))
+    private var header = AuthHeaderView(title: "Sign In", subTitle: "Sign in to your account")
     
     private var emailField = CustomTextField(fieldType: .email)
     private var passwordField = CustomTextField(fieldType: .password)
@@ -32,7 +32,8 @@ class SignInView: UIViewController {
     
     // MARK: - UI Setup
     private func setupUI() {
-        view.backgroundColor = UIColor(red: 47/255, green: 56/255, blue: 71/255, alpha: 1)
+        let gradientLayer = GradientLayer(bounds: view.bounds)
+        view.layer.insertSublayer(gradientLayer, at: 0)
         setupHeader()
         setupEmailField()
         setupPasswordField()
@@ -44,15 +45,15 @@ class SignInView: UIViewController {
     }
     
     private func setupHeader() {
-        view.addSubview(header.view)
-        header.view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(header)
+        header.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            header.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            header.view.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            header.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            header.heightAnchor.constraint(equalToConstant: 210)
         ])
         
-        header.view.backgroundColor = UIColor(red: 47/255, green: 56/255, blue: 71/255, alpha: 1)
     }
     
     private func setupEmailField() {
@@ -60,7 +61,7 @@ class SignInView: UIViewController {
         emailField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            emailField.topAnchor.constraint(equalTo: header.view.bottomAnchor, constant: 20),
+            emailField.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 20),
             emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             emailField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
             emailField.heightAnchor.constraint(equalToConstant: 40)

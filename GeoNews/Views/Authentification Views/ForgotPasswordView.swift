@@ -11,9 +11,9 @@ import SwiftUI
 class ForgotPasswordView: UIViewController {
     
     // MARK: - Properties
-    private let header = UIHostingController(rootView: AuthHeaderView(title: "Forgot Password", description: "Reset your password"))
+    private let header = AuthHeaderView(title: "Forgot Password", subTitle: "Reset your password")
     private let emailField = CustomTextField(fieldType: .email)
-    private let resetPasswordButton = CustomButton(title: "Reset Password", hasBackground: true, fontSize: .big)
+    private let resetPasswordButton = CustomButton(title: "Reset", hasBackground: true, fontSize: .big)
     
     private var viewModel = ForgotPasswordViewModel()
     
@@ -32,35 +32,43 @@ class ForgotPasswordView: UIViewController {
     
     // MARK: - UI Setup
     private func setupUI() {
-        view.backgroundColor = UIColor(red: 47/255, green: 56/255, blue: 71/255, alpha: 1)
+        let gradientLayer = GradientLayer(bounds: view.bounds)
+        view.layer.insertSublayer(gradientLayer, at: 0)
         
-        addChild(header)
-        view.addSubview(header.view)
-        header.view.translatesAutoresizingMaskIntoConstraints = false
-        header.view.backgroundColor = UIColor(red: 47/255, green: 56/255, blue: 71/255, alpha: 1)
+        setupHeader()
+        setupEmailField()
+        setupResetPasswordButton()
+    }
+    
+    private func setupHeader() {
+        view.addSubview(header)
+        header.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            header.view.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
-            header.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            header.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            header.view.heightAnchor.constraint(equalToConstant: 230)
+            header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            header.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            header.heightAnchor.constraint(equalToConstant: 210)
         ])
-        
+    }
+    
+    private func setupEmailField() {
         view.addSubview(emailField)
         emailField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            emailField.topAnchor.constraint(equalTo: header.view.bottomAnchor, constant: 11),
+            emailField.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 20),
             emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emailField.heightAnchor.constraint(equalToConstant: 55),
-            emailField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
+            emailField.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
+            emailField.heightAnchor.constraint(equalToConstant: 40)
         ])
-        
+    }
+    
+    private func setupResetPasswordButton() {
         view.addSubview(resetPasswordButton)
         resetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            resetPasswordButton.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 22),
+            resetPasswordButton.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
             resetPasswordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            resetPasswordButton.heightAnchor.constraint(equalToConstant: 55),
             resetPasswordButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
+            //resetPasswordButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     

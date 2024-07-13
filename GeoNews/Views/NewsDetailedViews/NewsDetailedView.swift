@@ -36,8 +36,8 @@ class NewsDetailedView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
-        label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        label.font = UIFont(name: "FiraGO-Regular", size: 11)
+        label.textColor = .white
         label.heightAnchor.constraint(equalToConstant: 15).isActive = true
         return label
     }()
@@ -46,8 +46,8 @@ class NewsDetailedView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
-        label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        label.font = UIFont(name: "FiraGO-Regular", size: 11)
+        label.textColor = .white
         label.heightAnchor.constraint(equalToConstant: 15).isActive = true
         return label
     }()
@@ -56,8 +56,8 @@ class NewsDetailedView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
-        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
-        label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        label.font = UIFont(name: "FiraGO-Regular", size: 11)
+        label.textColor = .white
         label.widthAnchor.constraint(equalToConstant: 60).isActive = true
         label.heightAnchor.constraint(equalToConstant: 15).isActive = true
         return label
@@ -67,9 +67,9 @@ class NewsDetailedView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
-        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
+        label.font = UIFont(name: "FiraGO-Regular", size: 11)
         label.textColor = .red
-        label.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        label.widthAnchor.constraint(equalToConstant: 50).isActive = true
         label.heightAnchor.constraint(equalToConstant: 15).isActive = true
         return label
     }()
@@ -79,8 +79,8 @@ class NewsDetailedView: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
         label.text = "Category"
-        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
-        label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        label.font = UIFont(name: "FiraGO-Regular", size: 11)
+        label.textColor = .white
         label.heightAnchor.constraint(equalToConstant: 15).isActive = true
         return label
     }()
@@ -89,8 +89,8 @@ class NewsDetailedView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
-        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
-        label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        label.font = UIFont(name: "FiraGO-Regular", size: 11)
+        label.textColor = .white
         label.heightAnchor.constraint(equalToConstant: 15).isActive = true
         return label
     }()
@@ -99,8 +99,8 @@ class NewsDetailedView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
-        label.font = UIFont.systemFont(ofSize: 10, weight: .regular)
-        label.textColor = .blue
+        label.font = UIFont(name: "FiraGO-Regular", size: 11)
+        label.textColor = .white
         label.widthAnchor.constraint(equalToConstant: 30).isActive = true
         label.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return label
@@ -109,7 +109,7 @@ class NewsDetailedView: UIViewController {
     private var likesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "logo"), for: .normal)
+        button.setImage(UIImage(systemName: "hand.thumbsup"), for: .normal)
         button.heightAnchor.constraint(equalToConstant: 30).isActive = true
         button.widthAnchor.constraint(equalToConstant: 30).isActive = true
         return button
@@ -118,7 +118,7 @@ class NewsDetailedView: UIViewController {
     private var sharesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "logo"), for: .normal)
+        button.setImage(UIImage(systemName: "square.and.arrow.up"), for: .normal)
         button.heightAnchor.constraint(equalToConstant: 30).isActive = true
         button.widthAnchor.constraint(equalToConstant: 30).isActive = true
         return button
@@ -128,8 +128,8 @@ class NewsDetailedView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        label.font = UIFont(name: "FiraGO-Regular", size: 19)
+        label.textColor = .white
         label.numberOfLines = 0
         return label
     }()
@@ -138,8 +138,8 @@ class NewsDetailedView: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
-        label.textColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        label.font = UIFont(name: "FiraGO-Regular", size: 15)
+        label.textColor = .white
         label.numberOfLines = 0
         return label
     }()
@@ -156,7 +156,6 @@ class NewsDetailedView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
         setupUI()
         configureUI()
@@ -178,6 +177,9 @@ class NewsDetailedView: UIViewController {
     }
     
     private func setupUI() {
+        let gradientLayer = GradientLayer(bounds: view.bounds)
+        view.layer.insertSublayer(gradientLayer, at: 0)
+        
         setupScrollView()
         setupHeader()
         setupNewsImage()
@@ -287,6 +289,7 @@ class NewsDetailedView: UIViewController {
     }
     
     private func configureUI() {
+        tvLogo.image = UIImage(named: viewModel.selectedNews?.name ?? "logo")
         newsHeader.text = viewModel.selectedNews?.title
         newsImage.setImage(with: viewModel.selectedNews?.image ?? "logo")
         tvTitle.text = viewModel.selectedNews?.name
@@ -315,12 +318,11 @@ class NewsDetailedView: UIViewController {
         present(vc, animated: true)
     }
     
-    
     @objc private func likeButtonTapped() {
         viewModel.updateLikes { [weak self] success in
             if success {
                 self?.likesQuantity.text = "\(self?.viewModel.selectedNews?.likes ?? 0)"
-                self?.likesButton.setImage(UIImage(systemName: "sxva icon"), for: .normal)
+                self?.likesButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
             }
         }
     }

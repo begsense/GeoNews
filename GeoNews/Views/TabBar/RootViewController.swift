@@ -43,8 +43,8 @@ class RootViewController: UIViewController {
         leaderboardsView.tabBarItem = UITabBarItem(title: "Leaderboard", image: UIImage(systemName: "tortoise"), tag: 2)
         profileHostingController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "sun.max"), tag: 3)
         
-        tabBarController.tabBar.barTintColor = .green
-        tabBarController.tabBar.tintColor = UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)
+        tabBarController.tabBar.barTintColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
+        tabBarController.tabBar.tintColor = .white
         
         addChild(tabBarController)
         view.addSubview(tabBarController.view)

@@ -31,7 +31,8 @@ class SportNewsView: UIViewController {
     }
     
     private func setupUI() {
-        view.backgroundColor = .white
+        let gradientLayer = GradientLayer(bounds: view.bounds)
+        view.layer.insertSublayer(gradientLayer, at: 0)
         setupTableView()
     }
     
@@ -84,6 +85,8 @@ extension SportNewsView: UITableViewDataSource {
         if let configurableCell = cell as? ConfigurableNewsCell {
             configurableCell.configure(with: newsItem)
         }
+        
+        cell.contentView.backgroundColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1)
         
         return cell
     }
