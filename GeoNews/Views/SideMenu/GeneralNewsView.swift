@@ -14,7 +14,7 @@ protocol GeneralNewsViewDelegate: AnyObject {
 class GeneralNewsView: UIViewController {
     
     // MARK: - UI Components
-    private let viewModel = GeneralNewsViewModel()
+    private let viewModel = GeneralNewsViewModel(profileViewModel: ProfileViewModel())
     private var menuViewModel: MenuViewModel!
     
     let tableView: UITableView = {

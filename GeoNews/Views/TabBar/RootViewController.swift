@@ -22,7 +22,7 @@ class RootViewController: UIViewController {
         let newsView = NewsView()
         let quizView = UIHostingController(rootView: QuizView())
         let leaderboardsView = LeaderboardsView()
-        let profileView = ProfileView()
+        let profileView = UIHostingController(rootView: ProfileView())
         
         tabBarController.viewControllers = [
             newsView,
