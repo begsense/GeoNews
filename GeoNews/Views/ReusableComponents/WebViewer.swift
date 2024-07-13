@@ -33,7 +33,6 @@ class WebViewer: UIViewController {
         
         webView.load(URLRequest(url: url))
         
-        // TODO: - GIT BEFORE CODING
     }
     
     private func setupUI() {

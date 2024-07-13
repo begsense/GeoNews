@@ -27,7 +27,7 @@ class SignUpView: UIViewController {
         attributedString.addAttribute(.link, value: "privacy://privacyPolicy", range: (attributedString.string as NSString).range(of: "Privacy Policy"))
         
         let tv = UITextView()
-        tv.linkTextAttributes = [.foregroundColor: UIColor(red: 231/255, green: 161/255, blue: 21/255, alpha: 1)]
+        tv.linkTextAttributes = [.foregroundColor: UIColor(red: 4/255, green: 123/255, blue: 128/255, alpha: 1)]
         tv.backgroundColor = .clear
         tv.attributedText = attributedString
         tv.textColor = UIColor(white: 1, alpha: 1)
@@ -134,6 +134,7 @@ class SignUpView: UIViewController {
             termsTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             termsTextView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
         ])
+        termsTextView.delegate = self
     }
     
     private func setupSignInButton() {
@@ -201,7 +202,6 @@ class SignUpView: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 }
-
 
 extension SignUpView: UITextViewDelegate {
     

@@ -23,7 +23,7 @@ class MenuView: UIViewController {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .left
-        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.font = UIFont(name: "FiraGO-Regular", size: 20)
         label.text = "Loading..."
         label.numberOfLines = 2
         return label
@@ -37,9 +37,9 @@ class MenuView: UIViewController {
         return tableView
     }()
     
-    private let buttonChangeStyle = CustomButton(title: "Change Style", fontSize: .med)
+    private let buttonChangeStyle = CustomButton(title: "Change Style",hasBackground: true, fontSize: .med)
     
-    private var button = CustomButton(title: "Logout", fontSize: .big)
+    private var button = CustomButton(title: "Logout", hasBackground: true, fontSize: .med)
     
     enum menuOptions: String, CaseIterable {
         case general = "General"
@@ -125,7 +125,7 @@ class MenuView: UIViewController {
         NSLayoutConstraint.activate([
             buttonChangeStyle.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
             buttonChangeStyle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
-            buttonChangeStyle.widthAnchor.constraint(equalToConstant: 100)
+            buttonChangeStyle.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
     
@@ -177,9 +177,8 @@ extension MenuView: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuBarCell", for: indexPath)
         
         cell.textLabel?.text = menuOptions.allCases[indexPath.row].rawValue
-        
+        cell.textLabel?.font = UIFont(name: "FiraGO-Regular", size: 16)
         cell.contentView.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
-        
         cell.textLabel?.textColor = .white
         
         return cell
