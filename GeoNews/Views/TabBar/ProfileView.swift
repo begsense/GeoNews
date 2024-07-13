@@ -13,7 +13,7 @@ struct ProfileView: View {
     var body: some View {
         VStack {
             List {
-                ForEach(["Imedi", "Rustavi2", "Formula"], id: \.self) { name in
+                ForEach(["Imedi", "Rustavi2", "Formula", "On.ge"], id: \.self) { name in
                     HStack {
                         Text(name)
                         Spacer()

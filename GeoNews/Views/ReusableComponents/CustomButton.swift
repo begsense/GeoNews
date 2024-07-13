@@ -28,13 +28,13 @@ class CustomButton: UIButton {
         
         switch fontSize {
         case .big:
-            self.titleLabel?.font = .systemFont(ofSize: 22, weight: .bold)
+            self.titleLabel?.font = UIFont(name: "FiraGO-Regular", size: 22)
             
         case .med:
-            self.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+            self.titleLabel?.font = UIFont(name: "FiraGO-Regular", size: 18)
             
         case .small:
-            self.titleLabel?.font = .systemFont(ofSize: 16, weight: .regular)
+            self.titleLabel?.font = UIFont(name: "FiraGO-Regular", size: 16)
         }
     }
     

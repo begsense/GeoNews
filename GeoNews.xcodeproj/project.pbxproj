@@ -47,6 +47,7 @@
 		6F7A1AC82C406651006D0986 /* NewsDetailedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AC72C406651006D0986 /* NewsDetailedViewModel.swift */; };
 		6F7A1AD52C4126EA006D0986 /* NewsDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AD42C4126EA006D0986 /* NewsDetailedView.swift */; };
 		6F7A1AE12C4264FA006D0986 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1AE02C4264FA006D0986 /* ProfileViewModel.swift */; };
+		6F7A1AE52C42A742006D0986 /* FiraGO-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6F7A1AE42C42A741006D0986 /* FiraGO-Regular.ttf */; };
 		6FBA083F2C2D7E3E00A148F7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA083E2C2D7E3E00A148F7 /* AppDelegate.swift */; };
 		6FBA08412C2D7E3E00A148F7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA08402C2D7E3E00A148F7 /* SceneDelegate.swift */; };
 		6FBA08432C2D7E3E00A148F7 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA08422C2D7E3E00A148F7 /* SignInView.swift */; };
@@ -100,6 +101,7 @@
 		6F7A1AC72C406651006D0986 /* NewsDetailedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailedViewModel.swift; sourceTree = "<group>"; };
 		6F7A1AD42C4126EA006D0986 /* NewsDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailedView.swift; sourceTree = "<group>"; };
 		6F7A1AE02C4264FA006D0986 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		6F7A1AE42C42A741006D0986 /* FiraGO-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FiraGO-Regular.ttf"; sourceTree = "<group>"; };
 		6FBA083B2C2D7E3E00A148F7 /* GeoNews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoNews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FBA083E2C2D7E3E00A148F7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FBA08402C2D7E3E00A148F7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 		6FBA085E2C2EAA7400A148F7 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				6F7A1AE42C42A741006D0986 /* FiraGO-Regular.ttf */,
 				6FBA084C2C2D7E3F00A148F7 /* Info.plist */,
 				6FBA08522C2EA7D800A148F7 /* GoogleService-Info.plist */,
 			);
@@ -410,6 +413,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FBA08482C2D7E3F00A148F7 /* Assets.xcassets in Resources */,
+				6F7A1AE52C42A742006D0986 /* FiraGO-Regular.ttf in Resources */,
 				6FBA084B2C2D7E3F00A148F7 /* Base in Resources */,
 				6FBA08532C2EA7D800A148F7 /* GoogleService-Info.plist in Resources */,
 			);

@@ -28,6 +28,7 @@ class CustomTextField: UITextField {
         self.returnKeyType = .done
         self.autocorrectionType = .no
         self.autocapitalizationType = .none
+        self.font = UIFont(name: "FiraGO-Regular", size: 16)
         
         self.leftViewMode = .always
         self.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: self.frame.size.height))
@@ -57,7 +58,8 @@ class CustomTextField: UITextField {
         let color = UIColor(.gray)
         self.attributedPlaceholder = NSAttributedString(
             string: placeholderText,
-            attributes: [NSAttributedString.Key.foregroundColor: color]
+            attributes: [NSAttributedString.Key.foregroundColor: color,
+                         NSAttributedString.Key.font: UIFont(name: "FiraGO-Regular", size: 16) ?? UIFont.systemFont(ofSize: 16)]
         )
     }
 }
