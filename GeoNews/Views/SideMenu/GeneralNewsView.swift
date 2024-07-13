@@ -14,7 +14,7 @@ protocol GeneralNewsViewDelegate: AnyObject {
 class GeneralNewsView: UIViewController {
     
     // MARK: - UI Components
-    private let viewModel = GeneralNewsViewModel()
+    private var viewModel: GeneralNewsViewModel
     private var menuViewModel: MenuViewModel!
     
     let tableView: UITableView = {
@@ -25,6 +25,16 @@ class GeneralNewsView: UIViewController {
     }()
     
     weak var delegate: GeneralNewsViewDelegate?
+    
+    // MARK: - Initializer
+    init(viewModel: GeneralNewsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -42,7 +52,6 @@ class GeneralNewsView: UIViewController {
         fetchData()
         reloadTableViewCells()
     }
-    
     
     // MARK: - UI Setup
     private func setupUI() {
@@ -77,11 +86,9 @@ class GeneralNewsView: UIViewController {
         }
     }
     
-    
     @objc private func didTapMenuButton() {
         delegate?.didTapMenuButton()
     }
-    
     
     private func fetchData() {
         viewModel.fetchData()

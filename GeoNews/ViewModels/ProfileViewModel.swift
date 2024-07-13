@@ -15,6 +15,7 @@ class ProfileViewModel: ObservableObject {
     }
     
     var onDataUpdate: (([News]) -> Void)?
+    private let networkService = NetworkService()
     
     func toggleNameSelection(_ name: String) {
         if selectedNames.contains(name) {
@@ -22,9 +23,12 @@ class ProfileViewModel: ObservableObject {
         } else {
             selectedNames.append(name)
         }
+        fetchFilteredNews()
     }
     
     func fetchFilteredNews() {
-        
+        networkService.fetchData(filterByNames: selectedNames) { [weak self] filteredNews in
+            self?.onDataUpdate?(filteredNews)
+        }
     }
 }
