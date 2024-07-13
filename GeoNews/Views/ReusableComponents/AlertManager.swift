@@ -22,15 +22,15 @@ class AlertManager {
 extension AlertManager {
     
     public static func showInvalidEmailAlert(on vc: UIViewController) {
-        self.showBasicAlert(on: vc, title: "Invalid Email", message: "Please enter a valid email.")
+        self.showBasicAlert(on: vc, title: "არასწორი ელ-ფოსტა", message: "ელფოსტის ფორმატი არასწორია")
     }
     
     public static func showInvalidPasswordAlert(on vc: UIViewController) {
-        self.showBasicAlert(on: vc, title: "Invalid Password", message: "Please enter a valid password.")
+        self.showBasicAlert(on: vc, title: "არასწორი პაროლი", message: "პაროლის ფორმატი არასწორია. გამოიყენეთ მინიმუმ 8 სიმბოლო, რომელიც შეიცავს (Aa1!) სიმბოლოებს")
     }
     
     public static func showInvalidUsernameAlert(on vc: UIViewController) {
-        self.showBasicAlert(on: vc, title: "Invalid Username", message: "Please enter a valid username.")
+        self.showBasicAlert(on: vc, title: "არასწორი Username", message: "Username ფორმატი არასწორია")
     }
 }
 
@@ -74,7 +74,7 @@ extension AlertManager {
 extension AlertManager {
 
     public static func showPasswordResetSent(on vc: UIViewController) {
-        self.showBasicAlert(on: vc, title: "Password Reset Sent", message: nil)
+        self.showBasicAlert(on: vc, title: "პაროლი გამოიგზავნა", message: "პაროლი ელ-ფოსტაზე განსაახლებლად გამოგზავნილია")
     }
     
     public static func showErrorSendingPasswordReset(on vc: UIViewController, with error: Error) {

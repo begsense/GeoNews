@@ -190,7 +190,7 @@ class SignInView: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: - Loading Indicator
+    // MARK: - Loader
     private func startLoading() {
         loaderView.startAnimating()
     }

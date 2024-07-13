@@ -20,6 +20,8 @@ class SignUpView: UIViewController {
     private let signUpButton = CustomButton(title: "Sign Up", hasBackground: true, fontSize: .big)
     private let signInButton = CustomButton(title: "Already have an account? Sign In", fontSize: .med)
     
+    private let loaderView = CustomLoaderView()
+    
     private let termsTextView: UITextView = {
         let attributedString = NSMutableAttributedString(string: "By creating an account, you agree to our Terms & Conditions and you acknowledge that you have read our Privacy Policy.")
         
@@ -64,6 +66,7 @@ class SignUpView: UIViewController {
         setupTermsTextView()
         setupSignInButton()
         setupActions()
+        setupLoader()
     }
     
     private func setupHeader() {
@@ -148,6 +151,19 @@ class SignUpView: UIViewController {
         ])
     }
     
+    private func setupLoader() {
+        view.addSubview(loaderView)
+        loaderView.translatesAutoresizingMaskIntoConstraints = false
+        loaderView.isHidden = true
+        
+        NSLayoutConstraint.activate([
+            loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loaderView.widthAnchor.constraint(equalToConstant: 100),
+            loaderView.heightAnchor.constraint(equalToConstant: 100)
+        ])
+    }
+    
     // MARK: - Actions
     private func setupActions() {
         signUpButton.addAction(UIAction { [weak self] _ in
@@ -164,6 +180,7 @@ class SignUpView: UIViewController {
         viewModel.didSignUp = { [weak self] in
             guard let self = self else { return }
             DispatchQueue.main.async {
+                self.stopLoading()
                 if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
                     sceneDelegate.checkAuthentication()
                 }
@@ -173,6 +190,7 @@ class SignUpView: UIViewController {
         viewModel.didFailSignUp = { [weak self] errorMessage in
             guard let self = self else { return }
             DispatchQueue.main.async {
+                self.stopLoading()
                 if let errorMessage = errorMessage {
                     switch errorMessage {
                     case "Invalid username format":
@@ -192,6 +210,7 @@ class SignUpView: UIViewController {
     
     // MARK: - Action Handlers
     private func didTapSignUp() {
+        startLoading()
         viewModel.username = usernameField.text ?? ""
         viewModel.email = emailField.text ?? ""
         viewModel.password = passwordField.text ?? ""
@@ -200,6 +219,15 @@ class SignUpView: UIViewController {
     
     private func didTapSignIn() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: - Loader
+    private func startLoading() {
+        loaderView.startAnimating()
+    }
+    
+    private func stopLoading() {
+        loaderView.stopAnimating()
     }
 }
 

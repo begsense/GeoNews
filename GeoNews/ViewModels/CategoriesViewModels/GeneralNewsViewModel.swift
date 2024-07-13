@@ -36,7 +36,10 @@ class GeneralNewsViewModel: ObservableObject {
     }
     
     func updateNews(with news: [News]) {
-        self.newsItems = news
+        self.newsItems = news.sorted {
+            guard let date1 = $0.dateObject, let date2 = $1.dateObject else { return false }
+            return date1 > date2
+        }
         self.onDataUpdate?()
     }
     
