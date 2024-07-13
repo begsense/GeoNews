@@ -15,7 +15,6 @@ class ProfileViewModel: ObservableObject {
     }
     
     var onDataUpdate: (([News]) -> Void)?
-    private var allNews: [News] = []
     
     func toggleNameSelection(_ name: String) {
         if selectedNames.contains(name) {
@@ -25,13 +24,7 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
-    func setAllNews(_ news: [News]) {
-        allNews = news
-        fetchFilteredNews()
-    }
-    
     func fetchFilteredNews() {
-        let filteredNews = selectedNames.isEmpty ? allNews : allNews.filter { selectedNames.contains($0.name) }
-        onDataUpdate?(filteredNews)
+        
     }
 }
