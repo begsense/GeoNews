@@ -14,12 +14,5 @@ struct Quiz: Identifiable, Codable {
     let options: [String]
     let question: String
     
-    // New properties for tracking correctness
-    var userSelectedAnswer: String? = nil
-    var isCorrect: Bool {
-        if let userSelectedAnswer = userSelectedAnswer {
-            return userSelectedAnswer == answer
-        }
-        return false
-    }
+    var tappedAnswer: String? = nil
 }

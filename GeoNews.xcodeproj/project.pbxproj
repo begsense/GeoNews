@@ -20,7 +20,6 @@
 		6F75429B2C33DB3A0085839C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75429A2C33DB390085839C /* AuthService.swift */; };
 		6F75429E2C33E7BE0085839C /* NewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75429D2C33E7BE0085839C /* NewsView.swift */; };
 		6F7542A02C33E7D70085839C /* LeaderboardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75429F2C33E7D70085839C /* LeaderboardsView.swift */; };
-		6F7542A22C33E7F30085839C /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542A12C33E7F30085839C /* QuizView.swift */; };
 		6F7542A42C33E8080085839C /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542A32C33E8080085839C /* ProfileView.swift */; };
 		6F7542A72C33EBBD0085839C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 6F7542A62C33EBBD0085839C /* FirebaseFirestore */; };
 		6F7542A92C33EC0B0085839C /* LoginUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542A82C33EC0B0085839C /* LoginUserRequest.swift */; };
@@ -64,6 +63,8 @@
 		6FBA08652C2EB82800A148F7 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA08642C2EB82800A148F7 /* SignUpView.swift */; };
 		6FBA08672C2EB8E800A148F7 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA08662C2EB8E800A148F7 /* RootViewController.swift */; };
 		6FBA086A2C2EB9A800A148F7 /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA08692C2EB9A700A148F7 /* AuthHeaderView.swift */; };
+		6FDAEC2E2C440C29003AEFC7 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDAEC2D2C440C29003AEFC7 /* QuizView.swift */; };
+		6FDAEC302C442EF0003AEFC7 /* ScoreCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FDAEC2F2C442EF0003AEFC7 /* ScoreCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,7 +81,6 @@
 		6F75429A2C33DB390085839C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		6F75429D2C33E7BE0085839C /* NewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsView.swift; sourceTree = "<group>"; };
 		6F75429F2C33E7D70085839C /* LeaderboardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardsView.swift; sourceTree = "<group>"; };
-		6F7542A12C33E7F30085839C /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		6F7542A32C33E8080085839C /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		6F7542A82C33EC0B0085839C /* LoginUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserRequest.swift; sourceTree = "<group>"; };
 		6F7542AA2C33EC250085839C /* RegisterUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserRequest.swift; sourceTree = "<group>"; };
@@ -123,6 +123,8 @@
 		6FBA08642C2EB82800A148F7 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		6FBA08662C2EB8E800A148F7 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		6FBA08692C2EB9A700A148F7 /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
+		6FDAEC2D2C440C29003AEFC7 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
+		6FDAEC2F2C442EF0003AEFC7 /* ScoreCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,12 +144,11 @@
 		6F75429C2C33E7A70085839C /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				6FDAEC322C442F2F003AEFC7 /* News */,
+				6FDAEC312C442F0F003AEFC7 /* Quiz */,
 				6FBA08662C2EB8E800A148F7 /* RootViewController.swift */,
-				6F75429D2C33E7BE0085839C /* NewsView.swift */,
-				6F7542A12C33E7F30085839C /* QuizView.swift */,
 				6F75429F2C33E7D70085839C /* LeaderboardsView.swift */,
 				6F7542A32C33E8080085839C /* ProfileView.swift */,
-				6F7754812C43D55200590192 /* QuestionsView.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -361,6 +362,24 @@
 			path = ReusableComponents;
 			sourceTree = "<group>";
 		};
+		6FDAEC312C442F0F003AEFC7 /* Quiz */ = {
+			isa = PBXGroup;
+			children = (
+				6FDAEC2D2C440C29003AEFC7 /* QuizView.swift */,
+				6F7754812C43D55200590192 /* QuestionsView.swift */,
+				6FDAEC2F2C442EF0003AEFC7 /* ScoreCardView.swift */,
+			);
+			path = Quiz;
+			sourceTree = "<group>";
+		};
+		6FDAEC322C442F2F003AEFC7 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				6F75429D2C33E7BE0085839C /* NewsView.swift */,
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -451,7 +470,6 @@
 				6FBA08652C2EB82800A148F7 /* SignUpView.swift in Sources */,
 				6FBA083F2C2D7E3E00A148F7 /* AppDelegate.swift in Sources */,
 				6F7A1AB72C3FCC28006D0986 /* PoliticNewsView.swift in Sources */,
-				6F7542A22C33E7F30085839C /* QuizView.swift in Sources */,
 				6F7A1AC82C406651006D0986 /* NewsDetailedViewModel.swift in Sources */,
 				6F7A1AC12C402156006D0986 /* TechNewsViewModel.swift in Sources */,
 				6F7A1AAE2C3EAB72006D0986 /* UIImageViewExtension.swift in Sources */,
@@ -471,6 +489,7 @@
 				6F7A1AD52C4126EA006D0986 /* NewsDetailedView.swift in Sources */,
 				6FBA08672C2EB8E800A148F7 /* RootViewController.swift in Sources */,
 				6F7A1AE72C42C8E7006D0986 /* GradientLayer.swift in Sources */,
+				6FDAEC302C442EF0003AEFC7 /* ScoreCardView.swift in Sources */,
 				6F7542972C31B1B60085839C /* CustomTextField.swift in Sources */,
 				6F7A1AB02C3EB5AE006D0986 /* NetworkService.swift in Sources */,
 				6F7A1A9E2C3E8072006D0986 /* SportNewsView.swift in Sources */,
@@ -486,6 +505,7 @@
 				6F4C1FD62C3BBE1D0000D10F /* SignUpViewModel.swift in Sources */,
 				6F4C1FE02C3C14140000D10F /* NewsTableViewCell.swift in Sources */,
 				6F7754802C43B80300590192 /* QuizViewModel.swift in Sources */,
+				6FDAEC2E2C440C29003AEFC7 /* QuizView.swift in Sources */,
 				6F4C1FDA2C3BE8600000D10F /* CustomLoaderView.swift in Sources */,
 				6F7A1AAB2C3EA291006D0986 /* News.swift in Sources */,
 				6F7A1ABD2C401F94006D0986 /* SportNewsViewModel.swift in Sources */,

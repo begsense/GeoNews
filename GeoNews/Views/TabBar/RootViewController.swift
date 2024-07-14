@@ -38,9 +38,9 @@ class RootViewController: UIViewController {
             profileHostingController
         ]
         
-        newsView.tabBarItem = UITabBarItem(title: "News", image: UIImage(systemName: "aqi.high"), tag: 0)
-        quizView.tabBarItem = UITabBarItem(title: "Quiz", image: UIImage(systemName: "cloud.sun"), tag: 1)
-        leaderboardsView.tabBarItem = UITabBarItem(title: "Leaderboard", image: UIImage(systemName: "tortoise"), tag: 2)
+        newsView.tabBarItem = UITabBarItem(title: "News", image: UIImage(named: "paperplane"), tag: 0)
+        quizView.tabBarItem = UITabBarItem(title: "Quiz", image: UIImage(named: "quiz"), tag: 1)
+        leaderboardsView.tabBarItem = UITabBarItem(title: "Leaderboard", image: UIImage(named: "leaderboard"), tag: 2)
         profileHostingController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "sun.max"), tag: 3)
         
         tabBarController.tabBar.barTintColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)

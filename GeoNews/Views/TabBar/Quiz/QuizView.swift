@@ -17,10 +17,6 @@ struct QuizView: View {
                 .frame(width: 100, height: 125)
                 .scaledToFit()
             
-            VStack {
-                
-            }
-            
             Text("Quiz შედგება 10 კითხვისგან")
                 .hAlign()
             
@@ -34,14 +30,9 @@ struct QuizView: View {
                 .hAlign()
                 .padding(.bottom, 15)
             
-            Button("Start") {
+            CustomButtonSUI(title: "Start") {
                 startQuiz.toggle()
             }
-            .padding(15)
-            .frame(maxWidth: 310)
-            .font(.custom("FiraGO-Regular", size: 18))
-            .background(Color(red: 4/255, green: 123/255, blue: 128/255))
-            .cornerRadius(20)
             
             Spacer()
                 .frame(height: 100)
@@ -58,12 +49,30 @@ struct QuizView: View {
     }
 }
 
-
 extension View {
     func hAlign() -> some View {
         self
             .font(.custom("FiraGO-Regular", size: 16))
-            .frame(maxWidth: 280 ,alignment: .leading)
+            .frame(maxWidth: 280, alignment: .leading)
             .padding(10)
+    }
+}
+
+
+struct CustomButtonSUI: View {
+    var title: String
+    var onClick: () -> Void
+    
+    var body: some View {
+        Button {
+            onClick()
+        } label: {
+            Text(title)
+                .padding(15)
+                .frame(maxWidth: 310)
+                .font(.custom("FiraGO-Regular", size: 18))
+                .background(Color(red: 4/255, green: 123/255, blue: 128/255))
+                .cornerRadius(20)
+        }
     }
 }

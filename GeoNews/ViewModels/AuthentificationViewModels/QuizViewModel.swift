@@ -7,12 +7,13 @@
 
 import Foundation
 import FirebaseFirestore
-import FirebaseFirestoreSwift
+import FirebaseAuth
 
 class QuizViewModel: ObservableObject {
     @Published var questions: [Quiz] = []
+    @Published var currentIndex: Int = 0
+    @Published var score: Int = 0
     @Published var hasError: Bool = false
-    @Published var errorMessage: String? = nil
     
     private var db = Firestore.firestore()
     
@@ -25,7 +26,28 @@ class QuizViewModel: ObservableObject {
             }
         } catch {
             self.hasError = true
-            self.errorMessage = error.localizedDescription
+            //Error handling გასაკეთებელი მაქ
+        }
+    }
+    
+    func moveToNextQuestion() {
+        if currentIndex < questions.count - 1 {
+            currentIndex += 1
+        }
+    }
+    
+    func updateScore(newScore: Int, completion: @escaping (Bool, Error?) -> Void) {
+        guard let userUID = Auth.auth().currentUser?.uid else {
+            completion(false, nil)
+            return
+        }
+        
+        db.collection("users").document(userUID).updateData(["score": newScore]) { error in
+            if let error = error {
+                completion(false, error)
+            } else {
+                completion(true, nil)
+            }
         }
     }
     

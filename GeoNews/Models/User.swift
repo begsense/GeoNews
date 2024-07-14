@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct User {
+struct User: Codable {
     let username: String
     let email: String
-    let userUID: String
-    let score: Int
+    let userUID: String?
+    var score: Int
 }
