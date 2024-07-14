@@ -22,19 +22,20 @@ class CustomLoaderView: UIView {
     }
     
     private func setupLoader() {
-        let arrowPath = UIBezierPath()
+        let airplanePath = UIBezierPath()
         let center = CGPoint(x: bounds.midX, y: bounds.midY)
-        let radius: CGFloat = 22
-        let arrowSize: CGFloat = 11
+        let size: CGFloat = 40
         
-        arrowPath.move(to: CGPoint(x: center.x + radius, y: center.y))
-        arrowPath.addLine(to: CGPoint(x: center.x + radius - arrowSize, y: center.y - arrowSize))
-        arrowPath.addLine(to: CGPoint(x: center.x + radius - arrowSize, y: center.y + arrowSize))
-        arrowPath.close()
-        shapeLayer.path = arrowPath.cgPath
-        shapeLayer.strokeColor = UIColor(red: 138/255, green: 255/255, blue: 99/255, alpha: 1).cgColor
-        shapeLayer.lineWidth = 3
-        shapeLayer.fillColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1).cgColor
+        airplanePath.move(to: CGPoint(x: center.x, y: center.y - size / 2))
+        airplanePath.addLine(to: CGPoint(x: center.x - size / 4, y: center.y + size / 7))
+        airplanePath.addLine(to: CGPoint(x: center.x, y: center.y))
+        airplanePath.addLine(to: CGPoint(x: center.x + size / 4, y: center.y + size / 7))
+        airplanePath.close()
+        
+        shapeLayer.path = airplanePath.cgPath
+        shapeLayer.strokeColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1).cgColor
+        shapeLayer.lineWidth = 1
+        shapeLayer.fillColor = UIColor(red: 138/255, green: 255/255, blue: 99/255, alpha: 1).cgColor
         shapeLayer.lineCap = .round
         shapeLayer.lineJoin = .round
         

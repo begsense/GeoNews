@@ -19,6 +19,8 @@ class PoliticNewsView: UIViewController {
         return tableView
     }()
     
+    private let loaderView = CustomLoaderView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
@@ -28,6 +30,7 @@ class PoliticNewsView: UIViewController {
         setupUI()
         fetchData()
         reloadTableViewCells() 
+        setupLoader()
     }
     
     private func setupUI() {
@@ -53,6 +56,19 @@ class PoliticNewsView: UIViewController {
         tableView.register(NewsTableViewCellRedditType.self, forCellReuseIdentifier: NewsTableViewCellRedditType.identifier)
     }
     
+    private func setupLoader() {
+        view.addSubview(loaderView)
+        loaderView.translatesAutoresizingMaskIntoConstraints = false
+        loaderView.isHidden = true
+        
+        NSLayoutConstraint.activate([
+            loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loaderView.widthAnchor.constraint(equalToConstant: 100),
+            loaderView.heightAnchor.constraint(equalToConstant: 100)
+        ])
+    }
+    
     func reloadTableViewCells() {
         menuViewModel.changeCellStyles = { [weak self] in
             DispatchQueue.main.async {
@@ -62,13 +78,24 @@ class PoliticNewsView: UIViewController {
     }
     
     private func fetchData() {
+        startLoading()
         viewModel.fetchData()
         
         viewModel.onDataUpdate = { [weak self] in
             DispatchQueue.main.async {
+                self?.stopLoading()
                 self?.tableView.reloadData()
             }
         }
+    }
+    
+    // MARK: - Loader
+    private func startLoading() {
+        loaderView.startAnimating()
+    }
+    
+    private func stopLoading() {
+        loaderView.stopAnimating()
     }
 }
 

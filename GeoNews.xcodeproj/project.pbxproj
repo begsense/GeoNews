@@ -26,6 +26,10 @@
 		6F7542A92C33EC0B0085839C /* LoginUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542A82C33EC0B0085839C /* LoginUserRequest.swift */; };
 		6F7542AB2C33EC250085839C /* RegisterUserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542AA2C33EC250085839C /* RegisterUserRequest.swift */; };
 		6F7542AD2C33EE230085839C /* WebViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542AC2C33EE230085839C /* WebViewer.swift */; };
+		6F77547C2C43B00900590192 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6F77547B2C43B00900590192 /* FirebaseFirestoreSwift */; };
+		6F77547E2C43B5D300590192 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F77547D2C43B5D300590192 /* Quiz.swift */; };
+		6F7754802C43B80300590192 /* QuizViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F77547F2C43B80300590192 /* QuizViewModel.swift */; };
+		6F7754822C43D55200590192 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7754812C43D55200590192 /* QuestionsView.swift */; };
 		6F7A1A9A2C3D273F006D0986 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1A992C3D273F006D0986 /* MenuView.swift */; };
 		6F7A1A9C2C3D27E2006D0986 /* GeneralNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1A9B2C3D27E2006D0986 /* GeneralNewsView.swift */; };
 		6F7A1A9E2C3E8072006D0986 /* SportNewsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7A1A9D2C3E8072006D0986 /* SportNewsView.swift */; };
@@ -81,6 +85,9 @@
 		6F7542A82C33EC0B0085839C /* LoginUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUserRequest.swift; sourceTree = "<group>"; };
 		6F7542AA2C33EC250085839C /* RegisterUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterUserRequest.swift; sourceTree = "<group>"; };
 		6F7542AC2C33EE230085839C /* WebViewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewer.swift; sourceTree = "<group>"; };
+		6F77547D2C43B5D300590192 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		6F77547F2C43B80300590192 /* QuizViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewModel.swift; sourceTree = "<group>"; };
+		6F7754812C43D55200590192 /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
 		6F7A1A992C3D273F006D0986 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		6F7A1A9B2C3D27E2006D0986 /* GeneralNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralNewsView.swift; sourceTree = "<group>"; };
 		6F7A1A9D2C3E8072006D0986 /* SportNewsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportNewsView.swift; sourceTree = "<group>"; };
@@ -125,6 +132,7 @@
 			files = (
 				6F7542A72C33EBBD0085839C /* FirebaseFirestore in Frameworks */,
 				6FBA085A2C2EA97000A148F7 /* FirebaseAuth in Frameworks */,
+				6F77547C2C43B00900590192 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +147,7 @@
 				6F7542A12C33E7F30085839C /* QuizView.swift */,
 				6F75429F2C33E7D70085839C /* LeaderboardsView.swift */,
 				6F7542A32C33E8080085839C /* ProfileView.swift */,
+				6F7754812C43D55200590192 /* QuestionsView.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -206,6 +215,7 @@
 				6F4C1FD72C3BD45B0000D10F /* ForgotPasswordViewModel.swift */,
 				6F4C1FD52C3BBE1D0000D10F /* SignUpViewModel.swift */,
 				6F590ADB2C3B1C0600F0B761 /* SignInViewModel.swift */,
+				6F77547F2C43B80300590192 /* QuizViewModel.swift */,
 			);
 			path = AuthentificationViewModels;
 			sourceTree = "<group>";
@@ -317,6 +327,7 @@
 				6F7542AA2C33EC250085839C /* RegisterUserRequest.swift */,
 				6F590AD92C3B166900F0B761 /* User.swift */,
 				6F7A1AAA2C3EA291006D0986 /* News.swift */,
+				6F77547D2C43B5D300590192 /* Quiz.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -369,6 +380,7 @@
 			packageProductDependencies = (
 				6FBA08592C2EA97000A148F7 /* FirebaseAuth */,
 				6F7542A62C33EBBD0085839C /* FirebaseFirestore */,
+				6F77547B2C43B00900590192 /* FirebaseFirestoreSwift */,
 			);
 			productName = GeoNews;
 			productReference = 6FBA083B2C2D7E3E00A148F7 /* GeoNews.app */;
@@ -443,6 +455,7 @@
 				6F7A1AC82C406651006D0986 /* NewsDetailedViewModel.swift in Sources */,
 				6F7A1AC12C402156006D0986 /* TechNewsViewModel.swift in Sources */,
 				6F7A1AAE2C3EAB72006D0986 /* UIImageViewExtension.swift in Sources */,
+				6F77547E2C43B5D300590192 /* Quiz.swift in Sources */,
 				6F7A1A9A2C3D273F006D0986 /* MenuView.swift in Sources */,
 				6F7A1ABF2C402135006D0986 /* HealthNewsViewModel.swift in Sources */,
 				6F7542A02C33E7D70085839C /* LeaderboardsView.swift in Sources */,
@@ -472,9 +485,11 @@
 				6F7A1AA92C3EA26F006D0986 /* GeneralNewsViewModel.swift in Sources */,
 				6F4C1FD62C3BBE1D0000D10F /* SignUpViewModel.swift in Sources */,
 				6F4C1FE02C3C14140000D10F /* NewsTableViewCell.swift in Sources */,
+				6F7754802C43B80300590192 /* QuizViewModel.swift in Sources */,
 				6F4C1FDA2C3BE8600000D10F /* CustomLoaderView.swift in Sources */,
 				6F7A1AAB2C3EA291006D0986 /* News.swift in Sources */,
 				6F7A1ABD2C401F94006D0986 /* SportNewsViewModel.swift in Sources */,
+				6F7754822C43D55200590192 /* QuestionsView.swift in Sources */,
 				6FBA086A2C2EB9A800A148F7 /* AuthHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -705,6 +720,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6FBA08542C2EA97000A148F7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		6F77547B2C43B00900590192 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6FBA08542C2EA97000A148F7 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
 		6FBA08592C2EA97000A148F7 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

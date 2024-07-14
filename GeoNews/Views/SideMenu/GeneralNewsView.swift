@@ -57,6 +57,15 @@ class GeneralNewsView: UIViewController {
         reloadTableViewCells()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        menuViewModel.changeCellStyles = { [weak self] in
+            DispatchQueue.main.async {
+                print("reload")
+                self?.tableView.reloadData()
+            }
+        }
+    }
+    
     // MARK: - UI Setup
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
@@ -97,9 +106,9 @@ class GeneralNewsView: UIViewController {
     
     // MARK: - Selectors
     func reloadTableViewCells() {
-        print("reload")
         menuViewModel.changeCellStyles = { [weak self] in
             DispatchQueue.main.async {
+                print("reload")
                 self?.tableView.reloadData()
             }
         }

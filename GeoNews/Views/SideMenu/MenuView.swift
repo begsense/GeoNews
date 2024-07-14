@@ -17,8 +17,6 @@ class MenuView: UIViewController {
     
     var menuViewModel: MenuViewModel!
     
-    private var viewModel = MenuViewModel()
-    
     private let label: UILabel = {
         let label = UILabel()
         label.textColor = .label
@@ -37,7 +35,7 @@ class MenuView: UIViewController {
         return tableView
     }()
     
-    private let buttonChangeStyle = CustomButton(title: "Change Style",hasBackground: true, fontSize: .med)
+    private let buttonChangeStyle = CustomButton(title: "Change Style", hasBackground: true, fontSize: .med)
     
     private var button = CustomButton(title: "Logout", hasBackground: true, fontSize: .med)
     
@@ -56,21 +54,9 @@ class MenuView: UIViewController {
             menuViewModel = sceneDelegate.sharedMenuViewModel
         }
         
-        
+        setupBindings()
         setupUI()
-        
-        AuthService.shared.fetchUser { [weak self] user, error in
-            guard let self = self else { return }
-            if let error = error {
-                AlertManager.showFetchingUserError(on: self, with: error)
-                return
-            }
-            
-            if let user = user {
-                self.label.text = " \(user.username)\n Score: \(user.score)"
-            }
-            
-        }
+        menuViewModel.fetchUserData()
         
         button.addAction(UIAction { [weak self] _ in
             self?.didTapLogout()
@@ -81,7 +67,11 @@ class MenuView: UIViewController {
         }, for: .touchUpInside)
     }
     
-    
+    private func setupBindings() {
+        menuViewModel.updateUserLabel = { [weak self] text in
+            self?.label.text = text
+        }
+    }
     
     private func setupUI() {
         view.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
@@ -137,11 +127,11 @@ class MenuView: UIViewController {
         let alertController = UIAlertController(title: "Change Design", message: "Choose the desired style", preferredStyle: .actionSheet)
         
         let option1 = UIAlertAction(title: "StaticCell", style: .default) { [weak self] _ in
-            print("Changing cell style to StaticCell")
+            print("მოინიშნა StaticCell")
             self?.menuViewModel.currentCellIdentifier = NewsTableViewCell.identifier
         }
         let option2 = UIAlertAction(title: "RedditType", style: .default) { [weak self] _ in
-            print("Changing cell style to RedditType")
+            print("მოინიშნა RedditType")
             self?.menuViewModel.currentCellIdentifier = NewsTableViewCellRedditType.identifier
         }
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -154,13 +144,12 @@ class MenuView: UIViewController {
     }
     
     @objc private func didTapLogout() {
-        AuthService.shared.signOut { [weak self] error in
+        menuViewModel.logout { [weak self] error in
             guard let self = self else { return }
             if let error = error {
                 AlertManager.showLogoutError(on: self, with: error)
                 return
             }
-            
             if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
                 sceneDelegate.checkAuthentication()
             }
@@ -183,7 +172,6 @@ extension MenuView: UITableViewDataSource {
         
         return cell
     }
-    
 }
 
 extension MenuView: UITableViewDelegate {

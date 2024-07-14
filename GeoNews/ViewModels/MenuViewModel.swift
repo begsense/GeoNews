@@ -15,4 +15,25 @@ class MenuViewModel {
     }
 
     var changeCellStyles: (() -> Void)?
+    var updateUserLabel: ((String) -> Void)?
+    
+    func fetchUserData() {
+        AuthService.shared.fetchUser { [weak self] user, error in
+            guard let self = self else { return }
+            if error != nil {
+                  return
+            }
+            if let user = user {
+                self.updateUserLabel?(" \(user.username)\n Score: \(user.score)")
+            }
+        }
+    }
+    
+    func logout(completion: @escaping (Error?) -> Void) {
+        AuthService.shared.signOut { error in
+            completion(error)
+        }
+    }
+    
+    
 }

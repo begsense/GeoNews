@@ -19,8 +19,7 @@ class NetworkService {
         }
         
         query.getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error fetching documents: \(error)")
+            if error != nil {
                 completion([])
                 return
             }
