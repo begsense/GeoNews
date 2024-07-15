@@ -28,7 +28,7 @@ class RootViewController: UIViewController {
         let tabBarController = UITabBarController()
         let newsView =  NewsView()  //GeneralNewsView(viewModel: generalNewsViewModel)
         let quizView = UIHostingController(rootView: QuizView())
-        let leaderboardsView = LeaderboardsView()
+        let leaderboardsView = UIHostingController(rootView: LeaderboardsView(viewModel: LeaderboardsViewModel()))
         let profileHostingController = UIHostingController(rootView: ProfileView().environmentObject(profileViewModel))
         
         tabBarController.viewControllers = [

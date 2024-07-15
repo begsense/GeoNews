@@ -146,8 +146,8 @@ class MenuView: UIViewController {
     @objc private func didTapLogout() {
         menuViewModel.logout { [weak self] error in
             guard let self = self else { return }
-            if let error = error {
-                AlertManager.showLogoutError(on: self, with: error)
+            if error != nil {
+                AlertManager.showLogoutError(on: self)
                 return
             }
             if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {

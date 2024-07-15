@@ -16,6 +16,15 @@ struct QuestionsView: View {
     
     var body: some View {
         VStack(spacing: 15) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            
             GeometryReader {
                 let size = $0.size
                 ZStack(alignment: .leading) {

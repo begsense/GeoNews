@@ -166,14 +166,14 @@ class SignInView: UIViewController {
             DispatchQueue.main.async {
                 self?.stopLoading()
                 guard let errorMessage = errorMessage else { return }
+                guard let self = self else { return }
                 switch errorMessage {
                 case "Invalid email format":
-                    AlertManager.showInvalidEmailAlert(on: self!)
+                    AlertManager.showInvalidEmailAlert(on: self)
                 case "Invalid password format":
-                    AlertManager.showInvalidPasswordAlert(on: self!)
+                    AlertManager.showInvalidPasswordAlert(on: self)
                 default:
-                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: errorMessage])
-                    AlertManager.showSignInErrorAlert(on: self!, with: error)
+                    AlertManager.showSignInErrorAlert(on: self)
                 }
             }
         }

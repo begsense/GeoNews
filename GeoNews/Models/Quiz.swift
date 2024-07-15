@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestoreSwift
 
-struct Quiz: Identifiable, Codable {
+struct Quiz: Identifiable, Decodable {
     @DocumentID var id: String?
     let answer: String
     let options: [String]

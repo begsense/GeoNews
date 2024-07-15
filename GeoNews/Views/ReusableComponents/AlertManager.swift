@@ -8,7 +8,6 @@
 import UIKit
 
 class AlertManager {
-    
     public static func showBasicAlert(on vc: UIViewController, title: String, message: String?) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -18,9 +17,8 @@ class AlertManager {
     }
 }
 
-// MARK: - Show Validation Alerts
+// MARK: - ვალიდაციები
 extension AlertManager {
-    
     public static func showInvalidEmailAlert(on vc: UIViewController) {
         self.showBasicAlert(on: vc, title: "არასწორი ელ-ფოსტა", message: "ელფოსტის ფორმატი არასწორია")
     }
@@ -34,58 +32,45 @@ extension AlertManager {
     }
 }
 
-
-// MARK: - Registration Errors
+// MARK: - რეგისტრაციის შეცდომა
 extension AlertManager {
-    
     public static func showRegistrationErrorAlert(on vc: UIViewController) {
-        self.showBasicAlert(on: vc, title: "Unknown Registration Error", message: nil)
-    }
-    
-    public static func showRegistrationErrorAlert(on vc: UIViewController, with error: Error) {
-        self.showBasicAlert(on: vc, title: "Unknown Registration Error", message: "\(error.localizedDescription)")
+        self.showBasicAlert(on: vc, title: "ვერ მოხდა რეგისტრაცია", message: "დაფიქსირდა შეცდომა, გთხოვთ სცადოთ ხელახლა")
     }
 }
 
 
-// MARK: - Log In Errors
+// MARK: - ავტორიზაციის შეცდომა
 extension AlertManager {
-    
     public static func showSignInErrorAlert(on vc: UIViewController) {
-        self.showBasicAlert(on: vc, title: "Unknown Error Signing In", message: nil)
+        self.showBasicAlert(on: vc, title: "ვერ მოხდა ავტორიზაცია", message: "პაროლი არასწორია ან ხარვეზია ბაზაში. გთხოვთ სცადოთ ხელახლა")
     }
-    
-    public static func showSignInErrorAlert(on vc: UIViewController, with error: Error) {
-        self.showBasicAlert(on: vc, title: "Error Signing In", message: "\(error.localizedDescription)")
-    }
+
 }
 
 
-// MARK: - Logout Errors
+// MARK: - სისტემიდან გასვლა
 extension AlertManager {
-    
-    public static func showLogoutError(on vc: UIViewController, with error: Error) {
-        self.showBasicAlert(on: vc, title: "Log Out Error", message: "\(error.localizedDescription)")
+    public static func showLogoutError(on vc: UIViewController) {
+        self.showBasicAlert(on: vc, title: "სისტემიდან გასვლა ვერ მოხდა", message: "დაფიქსირდა შეცდომა, გთხოვთ სცადოთ ხელახლა")
     }
 }
 
 
 // MARK: - Forgot Password
 extension AlertManager {
-
     public static func showPasswordResetSent(on vc: UIViewController) {
         self.showBasicAlert(on: vc, title: "პაროლი გამოიგზავნა", message: "პაროლი ელ-ფოსტაზე განსაახლებლად გამოგზავნილია")
     }
     
-    public static func showErrorSendingPasswordReset(on vc: UIViewController, with error: Error) {
-        self.showBasicAlert(on: vc, title: "Error Sending Password Reset", message: "\(error.localizedDescription)")
+    public static func showErrorSendingPasswordReset(on vc: UIViewController) {
+        self.showBasicAlert(on: vc, title: "ახალი პაროლი ვერ გამოიგზავნა", message: "დაფიქსირდა შეცდომა, გთხოვთ სცადოთ ხელახლა")
     }
 }
 
 
 // MARK: - Fetching User Errors
 extension AlertManager {
-    
     public static func showFetchingUserError(on vc: UIViewController, with error: Error) {
         self.showBasicAlert(on: vc, title: "Error Fetching User", message: "\(error.localizedDescription)")
     }

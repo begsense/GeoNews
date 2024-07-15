@@ -201,7 +201,7 @@ class SignUpView: UIViewController {
                         AlertManager.showInvalidPasswordAlert(on: self)
                     default:
                         let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: errorMessage])
-                        AlertManager.showRegistrationErrorAlert(on: self, with: error)
+                        AlertManager.showRegistrationErrorAlert(on: self)
                     }
                 }
             }

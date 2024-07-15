@@ -27,7 +27,6 @@ class NewsTableViewCell: UITableViewCell {
     var tvLogo: UIImageView = {
         var tvLogo = UIImageView()
         tvLogo.translatesAutoresizingMaskIntoConstraints = false
-        tvLogo.image = UIImage(named: "logo")
         tvLogo.contentMode = .scaleAspectFit
         tvLogo.heightAnchor.constraint(equalToConstant: 30).isActive = true
         tvLogo.widthAnchor.constraint(equalToConstant: 30).isActive = true
@@ -82,7 +81,6 @@ class NewsTableViewCell: UITableViewCell {
     var newsImage: UIImageView = {
         var newsImage = UIImageView()
         newsImage.translatesAutoresizingMaskIntoConstraints = false
-        newsImage.image = UIImage(named: "logo")
         newsImage.contentMode = .scaleAspectFill
         newsImage.clipsToBounds = true
         newsImage.layer.cornerRadius = 15

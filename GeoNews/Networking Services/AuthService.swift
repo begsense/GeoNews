@@ -14,13 +14,8 @@ class AuthService {
     public static let shared = AuthService()
     private init() {}
 
-    public func registerUser(with userRequest: RegisterUserRequest, completion: @escaping (Bool, Error?)->Void) {
-        let username = userRequest.username
-        let email = userRequest.email
-        let password = userRequest.password
-        let score = userRequest.score
-        
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
+    public func registerUser(with userRequest: RegisterUserRequest, completion: @escaping (Bool, Error?) -> Void) {
+        Auth.auth().createUser(withEmail: userRequest.email, password: userRequest.password) { result, error in
             if let error = error {
                 completion(false, error)
                 return
@@ -31,32 +26,28 @@ class AuthService {
                 return
             }
             
-            let db = Firestore.firestore()
-            db.collection("users")
-                .document(resultUser.uid)
-                .setData([
-                    "username": username,
-                    "email": email,
-                    "score": score
-                ]) { error in
-                    if let error = error {
-                        completion(false, error)
-                        return
+            do {
+                let db = Firestore.firestore()
+                let userData = try JSONEncoder().encode(userRequest)
+                if let jsonObject = try JSONSerialization.jsonObject(with: userData) as? [String: Any] {
+                    db.collection("users").document(resultUser.uid).setData(jsonObject) { error in
+                        if let error = error {
+                            completion(false, error)
+                            return
+                        }
+                        completion(true, nil)
                     }
-                    
-                    completion(true, nil)
                 }
+            } catch {
+                completion(false, error)
+            }
         }
     }
     
-    public func signIn(with userRequest: LoginUserRequest, completion: @escaping (Error?)->Void) {
-        Auth.auth().signIn(
-            withEmail: userRequest.email,
-            password: userRequest.password
-        ) { result, error in
+    public func signIn(with userRequest: LoginUserRequest, completion: @escaping (Error?) -> Void) {
+        Auth.auth().signIn(withEmail: userRequest.email, password: userRequest.password) { _, error in
             if let error = error {
                 completion(error)
-                return
             } else {
                 completion(nil)
             }
@@ -82,24 +73,24 @@ class AuthService {
         guard let userUID = Auth.auth().currentUser?.uid else { return }
         
         let db = Firestore.firestore()
-        
-        db.collection("users")
-            .document(userUID)
-            .getDocument { snapshot, error in
-                if let error = error {
-                    completion(nil, error)
-                    return
-                }
-                
-                if let snapshot = snapshot,
-                   let snapshotData = snapshot.data(),
-                   let username = snapshotData["username"] as? String,
-                   let email = snapshotData["email"] as? String,
-                   let score = snapshotData["score"] as? Int {
-                   let user = User(username: username, email: email, userUID: userUID, score: score)
-                    completion(user, nil)
-                }
-                
+        db.collection("users").document(userUID).getDocument { snapshot, error in
+            if let error = error {
+                completion(nil, error)
+                return
             }
+            
+            guard let data = snapshot?.data() else {
+                completion(nil, nil)
+                return
+            }
+            
+            do {
+                let userData = try JSONSerialization.data(withJSONObject: data)
+                let user = try JSONDecoder().decode(User.self, from: userData)
+                completion(user, nil)
+            } catch {
+                completion(nil, error)
+            }
+        }
     }
 }

@@ -88,26 +88,21 @@ class ForgotPasswordView: UIViewController {
     // MARK: - ViewModel Callbacks
     private func setupViewModelCallbacks() {
         viewModel.didResetPassword = { [weak self] in
-            self?.showPasswordResetAlert()
+            guard let self = self else { return }
+            AlertManager.showPasswordResetSent(on: self)
         }
         
         viewModel.didFailResetPassword = { [weak self] error in
             guard let self = self else { return }
             
-       
-                let errorMessage = (error as NSError).localizedDescription
-                switch errorMessage {
-                case "Invalid email format":
-                    AlertManager.showInvalidEmailAlert(on: self)
-                default:
-                    AlertManager.showErrorSendingPasswordReset(on: self, with: error)
-                }
+            let errorMessage = (error as NSError).localizedDescription
+            switch errorMessage {
+            case "Invalid email format":
+                AlertManager.showInvalidEmailAlert(on: self)
+            default:
+                AlertManager.showErrorSendingPasswordReset(on: self)
+            }
             
         }
-    }
-    
-    // MARK: - Alert
-    private func showPasswordResetAlert() {
-        AlertManager.showPasswordResetSent(on: self)
     }
 }
