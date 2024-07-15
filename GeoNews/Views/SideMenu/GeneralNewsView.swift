@@ -50,6 +50,7 @@ class GeneralNewsView: UIViewController {
                                                            target: self,
                                                            action: #selector(didTapMenuButton))
         navigationItem.leftBarButtonItem?.tintColor = .white
+        navigationItem.titleView?.tintColor = .white
         navigationItem.rightBarButtonItem = logoBarButtonItem()
         
         setupUI()
