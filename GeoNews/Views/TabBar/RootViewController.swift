@@ -15,7 +15,7 @@ class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViewModels()
-        setUpTabBar()
+        setupTabBar()
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
@@ -24,7 +24,7 @@ class RootViewController: UIViewController {
         generalNewsViewModel = GeneralNewsViewModel(profileViewModel: profileViewModel)
     }
     
-    func setUpTabBar() {
+    func setupTabBar() {
         let tabBarController = UITabBarController()
         let newsView =  NewsView()  //GeneralNewsView(viewModel: generalNewsViewModel)
         let searchView = SearchView(viewModel: SearchViewModel())
@@ -45,9 +45,6 @@ class RootViewController: UIViewController {
         quizView.tabBarItem = UITabBarItem(title: "Quiz", image: UIImage(named: "quiz"), tag: 2)
         leaderboardsView.tabBarItem = UITabBarItem(title: "Leaderboard", image: UIImage(named: "leaderboard"), tag: 3)
         profileHostingController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "sun.max"), tag: 4)
-        
-        tabBarController.tabBar.barTintColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
-        tabBarController.tabBar.tintColor = .white
         
         addChild(tabBarController)
         view.addSubview(tabBarController.view)

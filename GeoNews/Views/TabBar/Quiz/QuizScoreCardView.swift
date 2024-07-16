@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ScoreCardView: View {
+struct QuizScoreCardView: View {
     var score: Int
     @Environment(\.dismiss) private var dismiss
     @StateObject private var viewModel = QuizViewModel()
@@ -22,16 +22,21 @@ struct ScoreCardView: View {
             VStack(spacing: 15) {
                 Text(score > 10 ? "გილოცავ! შენი ქულაა " : "კიდევ სცადე! შენი ქულაა ")
                 
-                Text("\(score)")
-                    .font(.custom("FiraGO-Regular", size: 24))
+                HStack {
+                    Text("\(score)")
+                        .font(.custom("FiraGO-Regular", size: 24))
+                    
+                    Image(score > 30 ? "medal" : "worry")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 40)
+                        .foregroundStyle(score > 80 ?
+                                         Color(red: 205/255, green: 149/255, blue: 22/255)
+                                         : Color(red: 224/255, green: 230/255, blue: 232/255))
+                }
                 
-                Image(score > 10 ? "medal" : "worry")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(height: 220)
-                    .foregroundStyle(score > 20 ?
-                                     Color(red: 205/255, green: 149/255, blue: 22/255)
-                                     : Color(red: 224/255, green: 230/255, blue: 232/255))
+                LeaderboardsView(viewModel: LeaderboardsViewModel())
+                
             }
             .padding(.horizontal, 15)
             .padding(.vertical, 20)

@@ -22,7 +22,7 @@ class SearchView: UIViewController {
     let scrollVector: UIImageView = {
        let scrollIcon = UIImageView()
         scrollIcon.image = UIImage(named: "scroll")
-        scrollIcon.tintColor = UIColor(.white.opacity(0.5))
+        scrollIcon.tintColor = UIColor(.white.opacity(0.7))
         return scrollIcon
     }()
     
@@ -76,10 +76,12 @@ class SearchView: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         setupBindings()
         viewModel.fetchData()
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     private func setupUI() {
         view.backgroundColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1)
+        tabBarController?.tabBar.tintColor = .white
         
         searchBar.delegate = self
         nameFilterPicker.dataSource = self
@@ -103,9 +105,9 @@ class SearchView: UIViewController {
             nameFilterPicker.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             nameFilterPicker.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             nameFilterPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            nameFilterPicker.heightAnchor.constraint(equalToConstant: 50),
+            nameFilterPicker.heightAnchor.constraint(equalToConstant: 40),
             
-            scrollVector.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            scrollVector.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             scrollVector.widthAnchor.constraint(equalToConstant: 20),
             scrollVector.heightAnchor.constraint(equalToConstant: 30),
             scrollVector.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -113,15 +115,15 @@ class SearchView: UIViewController {
             categoryFilterPicker.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             categoryFilterPicker.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
             categoryFilterPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            categoryFilterPicker.heightAnchor.constraint(equalToConstant: 50),
+            categoryFilterPicker.heightAnchor.constraint(equalToConstant: 40),
             
             searchBar.topAnchor.constraint(equalTo: nameFilterPicker.bottomAnchor),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
-            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 15),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
@@ -159,7 +161,6 @@ extension SearchView: UITableViewDataSource {
         if let configurableCell = cell as? ConfigurableNewsCell {
             configurableCell.configure(with: newsItem)
         }
-        cell.backgroundColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1)
         cell.contentView.backgroundColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1)
         return cell
     }
@@ -172,7 +173,13 @@ extension SearchView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        // Handle row selection
+        let selectedNews = viewModel.news(at: indexPath.row)
+        let newsDetailedViewModel = NewsDetailedViewModel()
+        newsDetailedViewModel.selectedNews = selectedNews
+        let detailView = NewsDetailedView(viewModel: newsDetailedViewModel)
+        
+        navigationController?.pushViewController(detailView, animated: true)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }
 

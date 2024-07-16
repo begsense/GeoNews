@@ -44,7 +44,7 @@ struct QuizView: View {
             Color(red: 0/255, green: 42/255, blue: 69/255)
         ]))
         .fullScreenCover(isPresented: $startQuiz, content: {
-            QuestionsView()
+            QuizQuestionsView()
         })
     }
 }

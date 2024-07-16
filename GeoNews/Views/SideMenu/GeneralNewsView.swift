@@ -75,6 +75,7 @@ class GeneralNewsView: UIViewController {
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
+        tabBarController?.tabBar.tintColor = .white
         setupTableView()
         setupLoader()
     }

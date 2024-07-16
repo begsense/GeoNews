@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct QuestionsView: View {
+struct QuizQuestionsView: View {
     @StateObject var viewModel = QuizViewModel()
     @Environment(\.dismiss) private var dismiss
     @State private var progress: CGFloat = 0
@@ -70,7 +70,7 @@ struct QuestionsView: View {
             Color(red: 0/255, green: 42/255, blue: 69/255)
         ]))
         .fullScreenCover(isPresented: $showResults, content: {
-            ScoreCardView(score: viewModel.score) {
+            QuizScoreCardView(score: viewModel.score) {
                 dismiss()
             }
         })
