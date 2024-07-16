@@ -10,14 +10,7 @@ import UIKit
 class SearchView: UIViewController {
 
     private var viewModel: SearchViewModel
-    
-    let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "მოძებნე სათაურით"
-        searchBar.searchTextField.font = UIFont(name: "FiraGO-Regular", size: 12)
-        searchBar.backgroundColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1)
-        return searchBar
-    }()
+    private var menuViewModel: MenuViewModel!
     
     let nameFilterPicker: UIPickerView = {
         let pickerView = UIPickerView()
@@ -26,7 +19,7 @@ class SearchView: UIViewController {
         return pickerView
     }()
     
-    let scrollDirection: UIImageView = {
+    let scrollVector: UIImageView = {
        let scrollIcon = UIImageView()
         scrollIcon.image = UIImage(named: "scroll")
         scrollIcon.tintColor = UIColor(.white.opacity(0.5))
@@ -40,15 +33,32 @@ class SearchView: UIViewController {
         return pickerView
     }()
     
+    let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "მოძებნე სათაურით"
+        searchBar.searchTextField.font = UIFont(name: "FiraGO-Regular", size: 12)
+        searchBar.backgroundColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1)
+        searchBar.searchTextField.textColor = .white
+        searchBar.setBackgroundImage(UIImage(), for: .any, barMetrics: .default)
+        searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
+            string: searchBar.placeholder ?? "",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
+        )
+        searchBar.searchTextField.leftView?.tintColor = .white
+        return searchBar
+    }()
+    
     let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
         tableView.backgroundColor = .none
         return tableView
     }()
     
     init(viewModel: SearchViewModel) {
         self.viewModel = viewModel
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            menuViewModel = sceneDelegate.sharedMenuViewModel
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -59,6 +69,11 @@ class SearchView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupBindings()
+        viewModel.fetchData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         setupBindings()
         viewModel.fetchData()
     }
@@ -74,36 +89,35 @@ class SearchView: UIViewController {
         
         view.addSubview(searchBar)
         view.addSubview(nameFilterPicker)
-        view.addSubview(scrollDirection)
+        view.addSubview(scrollVector)
         view.addSubview(categoryFilterPicker)
         view.addSubview(tableView)
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         nameFilterPicker.translatesAutoresizingMaskIntoConstraints = false
-        scrollDirection.translatesAutoresizingMaskIntoConstraints = false
+        scrollVector.translatesAutoresizingMaskIntoConstraints = false
         categoryFilterPicker.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             nameFilterPicker.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             nameFilterPicker.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
-            nameFilterPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            nameFilterPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             nameFilterPicker.heightAnchor.constraint(equalToConstant: 50),
             
-            scrollDirection.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            scrollDirection.widthAnchor.constraint(equalToConstant: 20),
-            scrollDirection.heightAnchor.constraint(equalToConstant: 40),
-            scrollDirection.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollVector.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            scrollVector.widthAnchor.constraint(equalToConstant: 20),
+            scrollVector.heightAnchor.constraint(equalToConstant: 30),
+            scrollVector.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             categoryFilterPicker.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             categoryFilterPicker.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
-            categoryFilterPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            categoryFilterPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             categoryFilterPicker.heightAnchor.constraint(equalToConstant: 50),
             
-            searchBar.topAnchor.constraint(equalTo: nameFilterPicker.bottomAnchor, constant: 15),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            searchBar.heightAnchor.constraint(equalToConstant: 60),
+            searchBar.topAnchor.constraint(equalTo: nameFilterPicker.bottomAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 15),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -113,6 +127,8 @@ class SearchView: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
+        tableView.register(NewsTableViewCellRedditType.self, forCellReuseIdentifier: NewsTableViewCellRedditType.identifier)
     }
     
     private func setupBindings() {
@@ -136,12 +152,13 @@ extension SearchView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath) as? NewsTableViewCell else {
-            return UITableViewCell()
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: menuViewModel.currentCellIdentifier, for: indexPath)
         
         let newsItem = viewModel.news(at: indexPath.row)
-        cell.configure(with: newsItem)
+        
+        if let configurableCell = cell as? ConfigurableNewsCell {
+            configurableCell.configure(with: newsItem)
+        }
         cell.backgroundColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1)
         cell.contentView.backgroundColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1)
         return cell

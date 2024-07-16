@@ -101,7 +101,7 @@ extension NewsView: MenuViewControllerDelegate {
         generalNews.view.addSubview(politicNews.view)
         politicNews.view.frame = view.frame
         politicNews.didMove(toParent: generalNews)
-        generalNews.title = politicNews.title
+        generalNews.navigationItem.titleView = politicNews.navigationItem.titleView
     }
     
     private func addSportNewsView() {
@@ -110,7 +110,7 @@ extension NewsView: MenuViewControllerDelegate {
         generalNews.view.addSubview(sportNews.view)
         sportNews.view.frame = view.frame
         sportNews.didMove(toParent: generalNews)
-        generalNews.title = sportNews.title
+        generalNews.navigationItem.titleView = sportNews.navigationItem.titleView
     }
     
     private func addHealthNewsView() {
@@ -119,7 +119,7 @@ extension NewsView: MenuViewControllerDelegate {
         generalNews.view.addSubview(healthNews.view)
         healthNews.view.frame = view.frame
         healthNews.didMove(toParent: generalNews)
-        generalNews.title = healthNews.title
+        generalNews.navigationItem.titleView = healthNews.navigationItem.titleView
     }
     
     private func addTechNewsView() {
@@ -128,7 +128,7 @@ extension NewsView: MenuViewControllerDelegate {
         generalNews.view.addSubview(techNews.view)
         techNews.view.frame = view.frame
         techNews.didMove(toParent: generalNews)
-        generalNews.title = techNews.title
+        generalNews.navigationItem.titleView = techNews.navigationItem.titleView
     }
     
     private func resetGeneralNewsView() {

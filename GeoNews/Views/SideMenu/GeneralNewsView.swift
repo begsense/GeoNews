@@ -24,6 +24,14 @@ class GeneralNewsView: UIViewController {
         return tableView
     }()
     
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "All News"
+        label.textColor = .white
+        label.font = UIFont(name: "FiraGO-Regular", size: 16)
+        return label
+    }()
+    
     private let loaderView = CustomLoaderView()
     
     weak var delegate: GeneralNewsViewDelegate?
@@ -31,6 +39,9 @@ class GeneralNewsView: UIViewController {
     // MARK: - Initializer
     init(viewModel: GeneralNewsViewModel) {
         self.viewModel = viewModel
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            menuViewModel = sceneDelegate.sharedMenuViewModel
+        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -41,16 +52,12 @@ class GeneralNewsView: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            menuViewModel = sceneDelegate.sharedMenuViewModel
-        }
-        title = "All News"
+        navigationItem.titleView = titleLabel
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"),
                                                            style: .done,
                                                            target: self,
                                                            action: #selector(didTapMenuButton))
         navigationItem.leftBarButtonItem?.tintColor = .white
-        navigationItem.titleView?.tintColor = .white
         navigationItem.rightBarButtonItem = logoBarButtonItem()
         
         setupUI()
@@ -59,12 +66,9 @@ class GeneralNewsView: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        menuViewModel.changeCellStyles = { [weak self] in
-            DispatchQueue.main.async {
-                print("reload")
-                self?.tableView.reloadData()
-            }
-        }
+        setupUI()
+        fetchData()
+        reloadTableViewCells()
     }
     
     // MARK: - UI Setup
@@ -99,9 +103,7 @@ class GeneralNewsView: UIViewController {
         
         NSLayoutConstraint.activate([
             loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            loaderView.widthAnchor.constraint(equalToConstant: 100),
-            loaderView.heightAnchor.constraint(equalToConstant: 100)
+            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -124,7 +126,7 @@ class GeneralNewsView: UIViewController {
             let logoImageView = UIImageView(image: logoImage)
             logoImageView.contentMode = .scaleAspectFit
             
-            let logoSize: CGFloat = 40
+            let logoSize: CGFloat = 34
             logoImageView.translatesAutoresizingMaskIntoConstraints = false
             logoImageView.heightAnchor.constraint(equalToConstant: logoSize).isActive = true
             logoImageView.widthAnchor.constraint(equalToConstant: logoSize).isActive = true

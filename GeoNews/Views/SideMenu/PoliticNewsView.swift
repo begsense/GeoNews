@@ -19,6 +19,14 @@ class PoliticNewsView: UIViewController {
         return tableView
     }()
     
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Politics"
+        label.textColor = .white
+        label.font = UIFont(name: "FiraGO-Regular", size: 16)
+        return label
+    }()
+    
     private let loaderView = CustomLoaderView()
     
     override func viewDidLoad() {
@@ -26,17 +34,17 @@ class PoliticNewsView: UIViewController {
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
             menuViewModel = sceneDelegate.sharedMenuViewModel
         }
-        title = "Politics"
+        navigationItem.titleView = titleLabel
         setupUI()
         fetchData()
-        reloadTableViewCells() 
-        setupLoader()
+        reloadTableViewCells()
     }
     
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
         setupTableView()
+        setupLoader()
     }
     
     func setupTableView() {
@@ -63,9 +71,7 @@ class PoliticNewsView: UIViewController {
         
         NSLayoutConstraint.activate([
             loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            loaderView.widthAnchor.constraint(equalToConstant: 100),
-            loaderView.heightAnchor.constraint(equalToConstant: 100)
+            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
