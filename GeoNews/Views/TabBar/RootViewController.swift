@@ -46,6 +46,9 @@ class RootViewController: UIViewController {
         leaderboardsView.tabBarItem = UITabBarItem(title: "Leaderboard", image: UIImage(named: "leaderboard"), tag: 3)
         profileHostingController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "sun.max"), tag: 4)
         
+        tabBarController.tabBar.barTintColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
+        tabBarController.tabBar.tintColor = .white
+        
         addChild(tabBarController)
         view.addSubview(tabBarController.view)
         tabBarController.didMove(toParent: self)

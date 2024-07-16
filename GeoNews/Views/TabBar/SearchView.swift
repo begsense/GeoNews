@@ -54,6 +54,13 @@ class SearchView: UIViewController {
         return tableView
     }()
     
+    let bottomView: UIView = {
+       let bottomView = UIView()
+        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        bottomView.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
+        return bottomView
+    }()
+    
     init(viewModel: SearchViewModel) {
         self.viewModel = viewModel
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
@@ -81,7 +88,6 @@ class SearchView: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1)
-        tabBarController?.tabBar.tintColor = .white
         
         searchBar.delegate = self
         nameFilterPicker.dataSource = self
@@ -94,6 +100,7 @@ class SearchView: UIViewController {
         view.addSubview(scrollVector)
         view.addSubview(categoryFilterPicker)
         view.addSubview(tableView)
+        view.addSubview(bottomView)
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         nameFilterPicker.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +131,11 @@ class SearchView: UIViewController {
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            bottomView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
+            bottomView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
         tableView.dataSource = self

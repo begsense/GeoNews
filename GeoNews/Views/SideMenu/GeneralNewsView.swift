@@ -32,6 +32,13 @@ class GeneralNewsView: UIViewController {
         return label
     }()
     
+    let bottomView: UIView = {
+       let bottomView = UIView()
+        bottomView.translatesAutoresizingMaskIntoConstraints = false
+        bottomView.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
+        return bottomView
+    }()
+    
     private let loaderView = CustomLoaderView()
     
     weak var delegate: GeneralNewsViewDelegate?
@@ -75,8 +82,8 @@ class GeneralNewsView: UIViewController {
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
-        tabBarController?.tabBar.tintColor = .white
         setupTableView()
+        setupBottomSafeArea()
         setupLoader()
     }
     
@@ -105,6 +112,16 @@ class GeneralNewsView: UIViewController {
         NSLayoutConstraint.activate([
             loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    private func setupBottomSafeArea() {
+        view.addSubview(bottomView)
+        
+        NSLayoutConstraint.activate([
+            bottomView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
+            bottomView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
