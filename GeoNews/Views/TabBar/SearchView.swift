@@ -10,6 +10,7 @@ import UIKit
 class SearchView: UIViewController {
 
     private var viewModel: SearchViewModel
+    
     private var menuViewModel: MenuViewModel!
     
     let nameFilterPicker: UIPickerView = {

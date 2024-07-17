@@ -15,7 +15,7 @@ class SearchViewModel {
     private var allNewsItems: [News] = []
     
     let names = ["TV", "Imedi", "Rustavi2", "On.ge", "Formula"]
-    let categories = ["Category", "Politics", "Sport", "Health", "Tech"]
+    let categories = ["Category", "Politics", "Sport", "Health", "Technology"]
     
     var selectedName: String = "TV" {
         didSet {
