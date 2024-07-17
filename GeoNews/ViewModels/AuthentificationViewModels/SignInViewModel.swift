@@ -18,9 +18,24 @@ class SignInViewModel {
     // MARK: - Callbacks
     var didSignIn: (() -> Void)?
     var didFailSignIn: ((String?) -> Void)?
+    var didTapNewUser: (() -> Void)?
+    var didTapForgotPassword: (() -> Void)?
     
-    // MARK: - Validation
-    func validateForm() -> Bool {
+    //MARK: - Handling
+    func handleSignIn() {
+        signIn()
+    }
+    
+    func handleNewUserTap() {
+        didTapNewUser?()
+    }
+    
+    func handleForgotPasswordTap() {
+        didTapForgotPassword?()
+    }
+    
+    // MARK: - Private functions
+    private func validateForm() -> Bool {
         if !Validator.isValidEmail(for: email) {
             errorMessage = "Invalid email format"
             isValid = false
@@ -34,8 +49,7 @@ class SignInViewModel {
         return isValid
     }
     
-    // MARK: - SignIn
-    func signIn() {
+    private func signIn() {
         if validateForm() {
             let loginRequest = LoginUserRequest(email: email, password: password)
             AuthService.shared.signIn(with: loginRequest) { [weak self] error in

@@ -14,15 +14,18 @@ class SignInView: UIViewController {
     private var header = AuthHeaderView(title: "Sign In", subTitle: "Sign in to your account")
     
     private var emailField = CustomTextField(fieldType: .email)
+    
     private var passwordField = CustomTextField(fieldType: .password)
     
     private var signInButton = CustomButton(title: "Sign In", hasBackground: true, fontSize: .big)
+    
     private var newUserButton = CustomButton(title: "New User? Create Account.", fontSize: .med)
+    
     private var forgotPasswordButton = CustomButton(title: "Forgot Password?", fontSize: .small)
     
     private var viewModel = SignInViewModel()
     
-    private let loaderView = CustomLoaderView()
+    private var loaderView = CustomLoaderView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,9 +124,7 @@ class SignInView: UIViewController {
         
         NSLayoutConstraint.activate([
             loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            loaderView.widthAnchor.constraint(equalToConstant: 100),
-            loaderView.heightAnchor.constraint(equalToConstant: 100)
+            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -131,15 +132,15 @@ class SignInView: UIViewController {
     private func setupActions() {
         signInButton.addAction(UIAction { [weak self] _ in
             self?.startLoading()
-            self?.viewModel.signIn()
+            self?.viewModel.handleSignIn()
         }, for: .touchUpInside)
         
         newUserButton.addAction(UIAction { [weak self] _ in
-            self?.didTapNewUser()
+            self?.viewModel.handleNewUserTap()
         }, for: .touchUpInside)
         
         forgotPasswordButton.addAction(UIAction { [weak self] _ in
-            self?.didTapForgotPassword()
+            self?.viewModel.handleForgotPasswordTap()
         }, for: .touchUpInside)
         
         emailField.addAction(UIAction { [weak self] _ in
@@ -155,7 +156,6 @@ class SignInView: UIViewController {
     private func bindViewModel() {
         viewModel.didSignIn = { [weak self] in
             DispatchQueue.main.async {
-                self?.stopLoading()
                 if let sceneDelegate = self?.view.window?.windowScene?.delegate as? SceneDelegate {
                     sceneDelegate.checkAuthentication()
                 }
@@ -164,9 +164,9 @@ class SignInView: UIViewController {
         
         viewModel.didFailSignIn = { [weak self] errorMessage in
             DispatchQueue.main.async {
-                self?.stopLoading()
                 guard let errorMessage = errorMessage else { return }
                 guard let self = self else { return }
+                self.stopLoading()
                 switch errorMessage {
                 case "Invalid email format":
                     AlertManager.showInvalidEmailAlert(on: self)
@@ -177,18 +177,22 @@ class SignInView: UIViewController {
                 }
             }
         }
+        
+        viewModel.didTapNewUser = { [weak self] in
+            DispatchQueue.main.async {
+                let vc = SignUpView()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        
+        viewModel.didTapForgotPassword = { [weak self] in
+            DispatchQueue.main.async {
+                let vc = ForgotPasswordView()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
     
-    // MARK: - Navigation
-    private func didTapNewUser() {
-        let vc = SignUpView()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    private func didTapForgotPassword() {
-        let vc = ForgotPasswordView()
-        navigationController?.pushViewController(vc, animated: true)
-    }
     
     // MARK: - Loader
     private func startLoading() {

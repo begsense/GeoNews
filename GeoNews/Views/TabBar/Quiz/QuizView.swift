@@ -47,6 +47,9 @@ struct QuizView: View {
                 CustomButtonSUI(title: "Start") {
                     startQuiz.toggle()
                 }
+                
+                Spacer()
+                    .frame(height: 15)
             }
             .foregroundStyle(Color.white)
             .frame(maxWidth: .infinity * 0.75)

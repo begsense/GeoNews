@@ -11,18 +11,21 @@ import SwiftUI
 class SignUpView: UIViewController {
     
     // MARK: - Properties
-    private let header = AuthHeaderView(title: "Sign Up", subTitle: "Create your account")
+    private var header = AuthHeaderView(title: "Sign Up", subTitle: "Create your account")
     
-    private let usernameField = CustomTextField(fieldType: .username)
-    private let emailField = CustomTextField(fieldType: .email)
-    private let passwordField = CustomTextField(fieldType: .password)
+    private var usernameField = CustomTextField(fieldType: .username)
     
-    private let signUpButton = CustomButton(title: "Sign Up", hasBackground: true, fontSize: .big)
-    private let signInButton = CustomButton(title: "Already have an account? Sign In", fontSize: .med)
+    private var emailField = CustomTextField(fieldType: .email)
     
-    private let loaderView = CustomLoaderView()
+    private var passwordField = CustomTextField(fieldType: .password)
     
-    private let termsTextView: UITextView = {
+    private var signUpButton = CustomButton(title: "Sign Up", hasBackground: true, fontSize: .big)
+    
+    private var signInButton = CustomButton(title: "Already have an account? Sign In", fontSize: .med)
+    
+    private var loaderView = CustomLoaderView()
+    
+    private var termsTextView: UITextView = {
         let attributedString = NSMutableAttributedString(string: "By creating an account, you agree to our Terms & Conditions and you acknowledge that you have read our Privacy Policy.")
         
         attributedString.addAttribute(.link, value: "terms://termsAndConditions", range: (attributedString.string as NSString).range(of: "Terms & Conditions"))
@@ -40,7 +43,7 @@ class SignUpView: UIViewController {
         return tv
     }()
     
-    private let viewModel = SignUpViewModel()
+    private var viewModel = SignUpViewModel()
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -159,20 +162,31 @@ class SignUpView: UIViewController {
         NSLayoutConstraint.activate([
             loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            loaderView.widthAnchor.constraint(equalToConstant: 100),
-            loaderView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
     
     // MARK: - Actions
     private func setupActions() {
         signUpButton.addAction(UIAction { [weak self] _ in
-            self?.didTapSignUp()
+            self?.startLoading()
+            self?.viewModel.handleSignUp()
         }, for: .touchUpInside)
         
         signInButton.addAction(UIAction { [weak self] _ in
-            self?.didTapSignIn()
+            self?.viewModel.handleSignInTap()
         }, for: .touchUpInside)
+        
+        usernameField.addAction(UIAction { [weak self] _ in
+            self?.viewModel.username = self?.usernameField.text ?? ""
+        }, for: .editingChanged)
+        
+        emailField.addAction(UIAction { [weak self] _ in
+            self?.viewModel.email = self?.emailField.text ?? ""
+        }, for: .editingChanged)
+        
+        passwordField.addAction(UIAction { [weak self] _ in
+            self?.viewModel.password = self?.passwordField.text ?? ""
+        }, for: .editingChanged)
     }
     
     // MARK: - ViewModel Binding
@@ -200,25 +214,15 @@ class SignUpView: UIViewController {
                     case "Invalid password format":
                         AlertManager.showInvalidPasswordAlert(on: self)
                     default:
-                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: errorMessage])
                         AlertManager.showRegistrationErrorAlert(on: self)
                     }
                 }
             }
         }
-    }
-    
-    // MARK: - Action Handlers
-    private func didTapSignUp() {
-        startLoading()
-        viewModel.username = usernameField.text ?? ""
-        viewModel.email = emailField.text ?? ""
-        viewModel.password = passwordField.text ?? ""
-        viewModel.signUp()
-    }
-    
-    private func didTapSignIn() {
-        navigationController?.popViewController(animated: true)
+        
+        viewModel.didTapSignIn = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
     }
     
     // MARK: - Loader

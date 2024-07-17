@@ -16,8 +16,14 @@ class ForgotPasswordViewModel {
     var didFailResetPassword: ((Error) -> Void)?
     var didResetPassword: (() -> Void)?
     
-    // MARK: - Validation
-    func validateEmail() -> Bool {
+    //MARK: - Handlers
+    
+    func resetPasswordHandler() {
+        resetPassword()
+    }
+    
+    // MARK: - Private functions
+    private func validateEmail() -> Bool {
         guard Validator.isValidEmail(for: email) else {
             let error = NSError(domain: "Validation", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid email format"])
             didFailResetPassword?(error)
@@ -27,7 +33,7 @@ class ForgotPasswordViewModel {
     }
     
     // MARK: - Reset Password
-    func resetPassword() {
+    private func resetPassword() {
         guard validateEmail() else {
             return
         }

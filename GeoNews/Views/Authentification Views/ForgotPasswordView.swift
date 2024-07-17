@@ -12,7 +12,9 @@ class ForgotPasswordView: UIViewController {
     
     // MARK: - Properties
     private let header = AuthHeaderView(title: "Forgot Password", subTitle: "Reset your password")
+    
     private let emailField = CustomTextField(fieldType: .email)
+    
     private let resetPasswordButton = CustomButton(title: "Reset", hasBackground: true, fontSize: .big)
     
     private var viewModel = ForgotPasswordViewModel()
@@ -22,7 +24,7 @@ class ForgotPasswordView: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupActions()
-        setupViewModelCallbacks()
+        bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +45,7 @@ class ForgotPasswordView: UIViewController {
     private func setupHeader() {
         view.addSubview(header)
         header.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             header.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             header.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -53,6 +56,7 @@ class ForgotPasswordView: UIViewController {
     private func setupEmailField() {
         view.addSubview(emailField)
         emailField.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             emailField.topAnchor.constraint(equalTo: header.bottomAnchor, constant: 20),
             emailField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -64,29 +68,27 @@ class ForgotPasswordView: UIViewController {
     private func setupResetPasswordButton() {
         view.addSubview(resetPasswordButton)
         resetPasswordButton.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             resetPasswordButton.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
             resetPasswordButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             resetPasswordButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75)
-            //resetPasswordButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
     // MARK: - Actions
     private func setupActions() {
-        resetPasswordButton.addTarget(self, action: #selector(didTapResetPassword), for: .touchUpInside)
+        resetPasswordButton.addAction(UIAction { [weak self] _ in
+            self?.viewModel.resetPasswordHandler()
+        }, for: .touchUpInside)
         
         emailField.addAction(UIAction { [weak self] _ in
             self?.viewModel.email = self?.emailField.text ?? ""
         }, for: .editingChanged)
     }
     
-    @objc private func didTapResetPassword() {
-        viewModel.resetPassword()
-    }
-    
-    // MARK: - ViewModel Callbacks
-    private func setupViewModelCallbacks() {
+    // MARK: - ViewModel Binding
+    private func bindViewModel() {
         viewModel.didResetPassword = { [weak self] in
             guard let self = self else { return }
             AlertManager.showPasswordResetSent(on: self)

@@ -14,22 +14,12 @@ class SearchView: UIViewController {
     
     let nameFilterPicker: UIPickerView = {
         let pickerView = UIPickerView()
-        pickerView.backgroundColor = UIColor(red: 4/255, green: 123/255, blue: 128/255, alpha: 1)
-        pickerView.layer.cornerRadius = 10
+        pickerView.backgroundColor = .none
         return pickerView
-    }()
-    
-    let scrollVector: UIImageView = {
-       let scrollIcon = UIImageView()
-        scrollIcon.image = UIImage(named: "scroll")
-        scrollIcon.tintColor = UIColor(.white.opacity(0.7))
-        return scrollIcon
     }()
     
     let categoryFilterPicker: UIPickerView = {
         let pickerView = UIPickerView()
-        pickerView.backgroundColor = UIColor(red: 4/255, green: 123/255, blue: 128/255, alpha: 1)
-        pickerView.layer.cornerRadius = 10
         return pickerView
     }()
     
@@ -97,43 +87,36 @@ class SearchView: UIViewController {
         
         view.addSubview(searchBar)
         view.addSubview(nameFilterPicker)
-        view.addSubview(scrollVector)
         view.addSubview(categoryFilterPicker)
         view.addSubview(tableView)
         view.addSubview(bottomView)
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         nameFilterPicker.translatesAutoresizingMaskIntoConstraints = false
-        scrollVector.translatesAutoresizingMaskIntoConstraints = false
         categoryFilterPicker.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            nameFilterPicker.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            nameFilterPicker.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
-            nameFilterPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            nameFilterPicker.heightAnchor.constraint(equalToConstant: 40),
-            
-            scrollVector.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            scrollVector.widthAnchor.constraint(equalToConstant: 20),
-            scrollVector.heightAnchor.constraint(equalToConstant: 30),
-            scrollVector.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            categoryFilterPicker.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            categoryFilterPicker.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.4),
-            categoryFilterPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            categoryFilterPicker.heightAnchor.constraint(equalToConstant: 40),
-            
-            searchBar.topAnchor.constraint(equalTo: nameFilterPicker.bottomAnchor),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             
             tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5),
             tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -90),
             
-            bottomView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
+            nameFilterPicker.topAnchor.constraint(equalTo: tableView.bottomAnchor),
+            nameFilterPicker.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45),
+            nameFilterPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            nameFilterPicker.heightAnchor.constraint(equalToConstant: 90),
+            
+            categoryFilterPicker.topAnchor.constraint(equalTo: tableView.bottomAnchor),
+            categoryFilterPicker.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.45),
+            categoryFilterPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            categoryFilterPicker.heightAnchor.constraint(equalToConstant: 90),
+            
+            bottomView.topAnchor.constraint(equalTo: nameFilterPicker.bottomAnchor),
             bottomView.widthAnchor.constraint(equalTo: view.widthAnchor),
             bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])

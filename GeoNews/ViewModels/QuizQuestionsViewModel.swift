@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
-class QuizViewModel: ObservableObject {
+class QuizQuestionsViewModel: ObservableObject {
     @Published var questions: [Quiz] = []
     @Published var currentIndex: Int = 0
     @Published var score: Int = 0

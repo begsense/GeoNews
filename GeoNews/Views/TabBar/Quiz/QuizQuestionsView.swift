@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct QuizQuestionsView: View {
-    @StateObject var viewModel = QuizViewModel()
+    @StateObject var viewModel = QuizQuestionsViewModel()
     @Environment(\.dismiss) private var dismiss
     @State private var progress: CGFloat = 0
     @State private var selectedAnswer: String = ""
@@ -62,6 +62,9 @@ struct QuizQuestionsView: View {
                     }
                 }
             }
+            
+            Spacer()
+                .frame(height: 15)
         }
         .foregroundStyle(Color.white)
         .padding(15)

@@ -19,14 +19,14 @@ class NetworkService {
         }
 
         query.getDocuments { (querySnapshot, error) in
-            if let error = error {
+            if error != nil {
                 completion([])
                 return
             }
 
             let newsItems = querySnapshot?.documents.compactMap { document -> News? in
                 do {
-                    var news = try document.data(as: News.self)
+                    let news = try document.data(as: News.self)
                     return news
                 } catch {
                     return nil
@@ -46,14 +46,14 @@ class NetworkService {
         }
 
         query.getDocuments { (querySnapshot, error) in
-            if let error = error {
+            if error != nil {
                 completion([])
                 return
             }
 
             let newsItems = querySnapshot?.documents.compactMap { document -> News? in
                 do {
-                    var news = try document.data(as: News.self)
+                    let news = try document.data(as: News.self)
                     return news
                 } catch {
                     return nil
@@ -69,7 +69,7 @@ class NetworkService {
         let newsRef = db.collection("news").whereField("title", isEqualTo: newsTitle)
 
         newsRef.getDocuments { (querySnapshot, error) in
-            if let error = error {
+            if error != nil {
                 completion(false)
                 return
             }
@@ -83,7 +83,7 @@ class NetworkService {
             let newsRefToUpdate = db.collection("news").document(newsId)
 
             newsRefToUpdate.updateData(["likes": FieldValue.increment(Int64(1))]) { error in
-                if let error = error {
+                if error != nil {
                     completion(false)
                 } else {
                     completion(true)

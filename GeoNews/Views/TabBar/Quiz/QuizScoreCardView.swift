@@ -10,7 +10,7 @@ import SwiftUI
 struct QuizScoreCardView: View {
     var score: Int
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var viewModel = QuizViewModel()
+    @StateObject private var viewModel = QuizQuestionsViewModel()
     var onDismiss: () -> Void
     
     var body: some View {
@@ -35,6 +35,7 @@ struct QuizScoreCardView: View {
                                          : Color(red: 224/255, green: 230/255, blue: 232/255))
                 }
                 
+                
                 LeaderboardsView(viewModel: LeaderboardsViewModel())
                 
             }
@@ -49,11 +50,12 @@ struct QuizScoreCardView: View {
             Spacer()
             
             CustomButtonSUI(title: "Back to Home") {
-                viewModel.updateScore(newScore: score) { success, error in
-                    onDismiss()
-                    dismiss()
-                }
+                onDismiss()
+                dismiss()
             }
+            
+            Spacer()
+                .frame(height: 15)
         }
         .foregroundStyle(Color.white)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -63,5 +65,8 @@ struct QuizScoreCardView: View {
             Color(red: 0/255, green: 62/255, blue: 99/255),
             Color(red: 0/255, green: 42/255, blue: 69/255)
         ]))
+        .onAppear {
+            viewModel.updateScore(newScore: score) { success, error in }
+        }
     }
 }

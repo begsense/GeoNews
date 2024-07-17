@@ -19,9 +19,19 @@ class SignUpViewModel {
     // MARK: - Callbacks
     var didSignUp: (() -> Void)?
     var didFailSignUp: ((String?) -> Void)?
+    var didTapSignIn: (() -> Void)?
     
-    // MARK: - Validation
-    func validateForm() -> Bool {
+    // MARK: - Handling
+    func handleSignUp() {
+        signUp()
+    }
+    
+    func handleSignInTap() {
+        didTapSignIn?()
+    }
+    
+    // MARK: - Private functions
+    private func validateForm() -> Bool {
         if !Validator.isValidUsername(for: username) {
             errorMessage = "Invalid username format"
             isValid = false
@@ -38,8 +48,7 @@ class SignUpViewModel {
         return isValid
     }
     
-    // MARK: - SignUp
-    func signUp() {
+    private func signUp() {
         if validateForm() {
             let registerRequest = RegisterUserRequest(username: username, email: email, password: password, score: 0)
             AuthService.shared.registerUser(with: registerRequest) { [weak self] success, error in
