@@ -56,6 +56,11 @@ class SearchViewModel {
             filteredNews = filteredNews.filter { $0.title.lowercased().contains(searchTitle.lowercased()) }
         }
         
+        filteredNews.sort {
+            guard let date1 = $0.dateObject, let date2 = $1.dateObject else { return false }
+            return date1 > date2
+        }
+        
         self.newsItems = filteredNews
         self.onDataUpdate?()
     }

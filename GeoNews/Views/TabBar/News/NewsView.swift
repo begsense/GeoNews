@@ -16,7 +16,7 @@ class NewsView: UIViewController {
     private var menuState: MenuState = .closed
     
     private var menuView = MenuView()
-    private var generalNews = GeneralNewsView(viewModel: GeneralNewsViewModel(profileViewModel: ProfileViewModel()))
+    private var generalNews = GeneralNewsView(viewModel: GeneralNewsViewModel())
     private lazy var politicNews = PoliticNewsView()
     private lazy var sportNews = SportNewsView()
     private lazy var healthNews = HealthNewsView()

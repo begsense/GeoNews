@@ -8,18 +8,10 @@
 import Foundation
 
 class GeneralNewsViewModel: ObservableObject {
-    @Published private(set) var newsItems: [News] = []
+    private var newsItems: [News] = []
     var onDataUpdate: (() -> Void)?
     
     private let networkService = NetworkService()
-    private var profileViewModel: ProfileViewModel?
-    
-    init(profileViewModel: ProfileViewModel) {
-        self.profileViewModel = profileViewModel
-        self.profileViewModel?.onDataUpdate = { [weak self] filteredNews in
-            self?.updateNews(with: filteredNews)
-        }
-    }
     
     func fetchData() {
         networkService.fetchData { [weak self] newsItems in
@@ -30,7 +22,6 @@ class GeneralNewsViewModel: ObservableObject {
                 return date1 > date2
             }
             
-            self.profileViewModel?.onDataUpdate?(newsItems)
             self.onDataUpdate?()
         }
     }

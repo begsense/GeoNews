@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ExchangeRates: Decodable {
+struct CurrencyExchangeRates: Decodable {
     let conversionRates: [String: Double]
     
     enum CodingKeys: String, CodingKey {
