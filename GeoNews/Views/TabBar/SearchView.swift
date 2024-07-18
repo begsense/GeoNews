@@ -13,17 +13,6 @@ class SearchView: UIViewController {
     
     private var menuViewModel: MenuViewModel!
     
-    let nameFilterPicker: UIPickerView = {
-        let pickerView = UIPickerView()
-        pickerView.backgroundColor = .none
-        return pickerView
-    }()
-    
-    let categoryFilterPicker: UIPickerView = {
-        let pickerView = UIPickerView()
-        return pickerView
-    }()
-    
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "მოძებნე სათაურით"
@@ -41,8 +30,19 @@ class SearchView: UIViewController {
     
     let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = .none
+        tableView.backgroundColor = .clear
         return tableView
+    }()
+    
+    let nameFilterPicker: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.backgroundColor = .clear
+        return pickerView
+    }()
+    
+    let categoryFilterPicker: UIPickerView = {
+        let pickerView = UIPickerView()
+        return pickerView
     }()
     
     let bottomView: UIView = {
@@ -214,7 +214,10 @@ extension SearchView: UIPickerViewDataSource, UIPickerViewDelegate {
         let label = UILabel()
         label.textColor = .white
         label.textAlignment = .center
-        label.font = UIFont(name: "FiraGO-Regular", size: 16)
+        label.font = UIFont(name: "FiraGO-Regular", size: 20)
+        
+        label.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 0.6)
+        label.layer.cornerRadius = 15
         
         if pickerView == nameFilterPicker {
             label.text = viewModel.names[row]

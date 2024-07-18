@@ -2,14 +2,13 @@
 //  ExchangeViewModel.swift
 //  GeoNews
 //
-//  Created by M1 on 17.07.2024.
+//  Created by M1 on 18.07.2024.
 //
 
 import Foundation
 
 class ExchangeViewModel: ObservableObject {
     @Published var conversionRates: [String: Double] = [:]
-    @Published var cryptoRates: [String: Double] = [:]
     @Published var baseCurrency: String = "GEL" {
         didSet {
             fetchExchangeRates()
@@ -17,7 +16,7 @@ class ExchangeViewModel: ObservableObject {
     }
     @Published var targetCurrency: String = "USD" {
         didSet {
-            filterConversionRates()
+            fetchExchangeRates()
         }
     }
     @Published var selectedExchangeType: ExchangeType = .currency {
@@ -25,96 +24,88 @@ class ExchangeViewModel: ObservableObject {
             fetchExchangeRates()
         }
     }
-    @Published var targetCrypto: String = "bitcoin" {
+    @Published var targetCrypto: String = "BTC" {
         didSet {
             fetchExchangeRates()
         }
     }
-    
+    @Published var moneyInput: String = "1" {
+        didSet {
+            if moneyInput.count > characterLimit && oldValue.count <= characterLimit {
+                moneyInput = oldValue
+            }
+        }
+    }
+    @Published var result: Double = 0.0
+
+    private var characterLimit: Int = 7
+
     enum ExchangeType: String, CaseIterable, Identifiable {
         case currency = "Currency"
         case crypto = "Cryptocurrency"
         
         var id: String { self.rawValue }
     }
-    
-    let supportedCryptos = ["bitcoin", "ethereum", "ripple", "litecoin"]
-    
+
     init() {
         fetchExchangeRates()
     }
-    
+
     func fetchExchangeRates() {
+        var urlString = ""
         switch selectedExchangeType {
         case .currency:
-            let urlString = "https://v6.exchangerate-api.com/v6/b3c995272224c354797eadfb/latest/\(baseCurrency)"
-            guard let url = URL(string: urlString) else { return }
-            
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let data = data {
+            urlString = "https://v6.exchangerate-api.com/v6/b3c995272224c354797eadfb/latest/\(baseCurrency)"
+        case .crypto:
+            urlString = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=\(targetCrypto)&tsyms=\(baseCurrency)&api_key=ff40c731679562a0a9fb0274336e8ff36378a250198b2b6842aba8b12a7147f3"
+        }
+        
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                // Print raw data for debugging
+                if let jsonString = String(data: data, encoding: .utf8) {
+                    print("Raw JSON Response: \(jsonString)")
+                }
+                
+                switch self.selectedExchangeType {
+                case .currency:
                     do {
                         let exchangeRates = try JSONDecoder().decode(CurrencyExchangeRates.self, from: data)
                         DispatchQueue.main.async {
                             self.conversionRates = exchangeRates.conversionRates
-                            self.filterConversionRates()
+                            self.calculateResult()
                         }
                     } catch {
                         print("Error decoding currency exchange rates: \(error)")
                     }
-                } else if let error = error {
-                    print("Network error fetching currency exchange rates: \(error)")
-                }
-            }.resume()
-            
-        case .crypto:
-            let urlString = "https://api.coingecko.com/api/v3/simple/price?ids=\(targetCrypto)&vs_currencies=\(baseCurrency)&x_cg_demo_api_key=CG-NeuCxE3hLPNpQc12y6sqWWUA"
-            guard let url = URL(string: urlString) else { return }
-            
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let data = data {
+                    
+                case .crypto:
                     do {
-                        let cryptoRates = try JSONDecoder().decode(CryptoRates.self, from: data)
+                        let cryptoRates = try JSONDecoder().decode([String: [String: Double]].self, from: data)
                         DispatchQueue.main.async {
-                            switch self.targetCrypto {
-                            case "bitcoin":
-                                if let bitcoinRates = cryptoRates.bitcoin {
-                                    self.cryptoRates = bitcoinRates
-                                } else {
-                                    self.cryptoRates = [:]
-                                }
-                            case "ethereum":
-                                if let ethereumRates = cryptoRates.ethereum {
-                                    self.cryptoRates = ethereumRates
-                                } else {
-                                    self.cryptoRates = [:]
-                                }
-                            case "ripple":
-                                if let rippleRates = cryptoRates.ripple {
-                                    self.cryptoRates = rippleRates
-                                } else {
-                                    self.cryptoRates = [:]
-                                }
-                            case "litecoin":
-                                if let litecoinRates = cryptoRates.litecoin {
-                                    self.cryptoRates = litecoinRates
-                                } else {
-                                    self.cryptoRates = [:]
-                                }
-                            default:
-                                self.cryptoRates = [:]
+                            if let rates = cryptoRates[self.targetCrypto], let rate = rates[self.baseCurrency] {
+                                self.result = Double(self.moneyInput)! * rate
                             }
                         }
                     } catch {
                         print("Error decoding crypto exchange rates: \(error)")
                     }
                 }
-            }.resume()
-        }
+            }
+        }.resume()
     }
 
-    
-    func filterConversionRates() {
-        guard let rate = conversionRates[targetCurrency] else { return }
-        conversionRates = [targetCurrency: rate]
+
+    private func calculateResult() {
+        guard let inputValue = Double(moneyInput) else {
+            result = 0.0
+            return
+        }
+        
+        if let rate = conversionRates[targetCurrency] {
+            result = inputValue * rate
+        }
     }
 }

@@ -69,6 +69,15 @@ extension View {
     }
 }
 
+extension View {
+    func CurrencyImageResize(name: String) -> some View {
+        Image(name)
+            .resizable()
+            .scaledToFit()
+            .frame(width: 65, height: 65)
+    }
+}
+
 
 struct CustomButtonSUI: View {
     var title: String
