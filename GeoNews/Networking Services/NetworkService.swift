@@ -64,7 +64,7 @@ class NetworkService {
         }
     }
 
-    func updateLikes(for newsTitle: String, completion: @escaping (Bool) -> Void) {
+    func updateLikes(for newsTitle: String, increment: Bool, completion: @escaping (Bool) -> Void) {
         let db = Firestore.firestore()
         let newsRef = db.collection("news").whereField("title", isEqualTo: newsTitle)
 
@@ -82,7 +82,8 @@ class NetworkService {
             let newsId = document.documentID
             let newsRefToUpdate = db.collection("news").document(newsId)
 
-            newsRefToUpdate.updateData(["likes": FieldValue.increment(Int64(1))]) { error in
+            let incrementValue = increment ? Int64(1) : Int64(-1)
+            newsRefToUpdate.updateData(["likes": FieldValue.increment(incrementValue)]) { error in
                 if error != nil {
                     completion(false)
                 } else {

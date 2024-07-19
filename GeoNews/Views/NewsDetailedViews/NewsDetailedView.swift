@@ -42,34 +42,22 @@ class NewsDetailedView: UIViewController {
         return label
     }()
     
+    private var newsImage: UIImageView = {
+        var tvLogo = UIImageView()
+        tvLogo.translatesAutoresizingMaskIntoConstraints = false
+        tvLogo.image = UIImage(named: "logo")
+        tvLogo.contentMode = .scaleAspectFill
+        tvLogo.clipsToBounds = true
+        tvLogo.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        return tvLogo
+    }()
+    
     private var newsDate: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.font = UIFont(name: "FiraGO-Regular", size: 11)
         label.textColor = .white
-        label.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        return label
-    }()
-    
-    private var markedAs: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .right
-        label.font = UIFont(name: "FiraGO-Regular", size: 11)
-        label.textColor = .white
-        label.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        return label
-    }()
-    
-    private var newsFake: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .right
-        label.font = UIFont(name: "FiraGO-Regular", size: 11)
-        label.textColor = .red
-        label.widthAnchor.constraint(equalToConstant: 50).isActive = true
         label.heightAnchor.constraint(equalToConstant: 15).isActive = true
         return label
     }()
@@ -134,6 +122,34 @@ class NewsDetailedView: UIViewController {
         return label
     }()
     
+    private var readLater: UIButton = {
+       let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "readLater"), for: .normal)
+        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        return button
+    }()
+    
+    private var lineBreak: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+       // view.backgroundColor = UIColor(red: 138/255, green: 255/255, blue: 99/255, alpha: 1)
+        view.backgroundColor = UIColor(red: 4/255, green: 123/255, blue: 128/255, alpha: 1)
+        view.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        view.layer.cornerRadius = 15
+        return view
+    }()
+    
+    private var favorite: UIButton = {
+       let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(systemName: "heart"), for: .normal)
+        button.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        return button
+    }()
+    
     private var newsDetails: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -144,30 +160,20 @@ class NewsDetailedView: UIViewController {
         return label
     }()
     
-    private var newsImage: UIImageView = {
-        var tvLogo = UIImageView()
-        tvLogo.translatesAutoresizingMaskIntoConstraints = false
-        tvLogo.image = UIImage(named: "logo")
-        tvLogo.contentMode = .scaleAspectFill
-        tvLogo.clipsToBounds = true
-        tvLogo.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        return tvLogo
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
-        configureUI()
-        sharesButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        likesButton.addTarget(self, action: #selector(likeButtonTapped), for: .touchUpInside)
+        updateUI()
+        
     }
     
     init(viewModel: NewsDetailedViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        
-        self.viewModel.shareAction = { [weak self] in
+        setupActions()
+        configureUI()
+        viewModel.didShare = { [weak self] in
             self?.shareContent()
         }
     }
@@ -184,6 +190,7 @@ class NewsDetailedView: UIViewController {
         setupHeader()
         setupNewsImage()
         setupNewsOwner()
+        setupReadLaterAndFavoriteLine()
         setupNewsDetails()
     }
     
@@ -234,8 +241,6 @@ class NewsDetailedView: UIViewController {
         newsOwner.addSubview(newsDate)
         newsOwner.addSubview(newsCategoryTitle)
         newsOwner.addSubview(newsCategory)
-        newsOwner.addSubview(markedAs)
-        newsOwner.addSubview(newsFake)
         newsOwner.addSubview(likesQuantity)
         newsOwner.addSubview(likesButton)
         newsOwner.addSubview(sharesButton)
@@ -255,19 +260,13 @@ class NewsDetailedView: UIViewController {
             newsDate.leadingAnchor.constraint(equalTo: tvLogo.trailingAnchor, constant: 5),
             
             newsCategoryTitle.topAnchor.constraint(equalTo: newsOwner.topAnchor),
-            newsCategoryTitle.leadingAnchor.constraint(equalTo: newsDate.trailingAnchor, constant: 10),
+            newsCategoryTitle.leadingAnchor.constraint(equalTo: newsDate.trailingAnchor, constant: 30),
             
             newsCategory.topAnchor.constraint(equalTo: newsCategoryTitle.bottomAnchor),
-            newsCategory.leadingAnchor.constraint(equalTo: newsDate.trailingAnchor, constant: 10),
-            
-            markedAs.topAnchor.constraint(equalTo: newsOwner.topAnchor),
-            markedAs.leadingAnchor.constraint(equalTo: newsCategory.trailingAnchor, constant: 10),
-            
-            newsFake.topAnchor.constraint(equalTo: markedAs.bottomAnchor),
-            newsFake.leadingAnchor.constraint(equalTo: newsCategory.trailingAnchor, constant: 10),
+            newsCategory.leadingAnchor.constraint(equalTo: newsDate.trailingAnchor, constant: 30),
             
             likesQuantity.topAnchor.constraint(equalTo: newsOwner.topAnchor),
-            likesQuantity.leadingAnchor.constraint(equalTo: newsFake.trailingAnchor, constant: 10),
+            likesQuantity.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: -135),
             
             likesButton.topAnchor.constraint(equalTo: newsOwner.topAnchor),
             likesButton.leadingAnchor.constraint(equalTo: likesQuantity.trailingAnchor, constant: 5),
@@ -277,11 +276,29 @@ class NewsDetailedView: UIViewController {
         ])
     }
     
+    private func setupReadLaterAndFavoriteLine() {
+        contentView.addSubview(readLater)
+        contentView.addSubview(lineBreak)
+        contentView.addSubview(favorite)
+        
+        NSLayoutConstraint.activate([
+            readLater.topAnchor.constraint(equalTo: newsOwner.bottomAnchor, constant: 10),
+            readLater.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
+            lineBreak.topAnchor.constraint(equalTo: newsOwner.bottomAnchor, constant: 20),
+            lineBreak.leadingAnchor.constraint(equalTo: readLater.trailingAnchor),
+            lineBreak.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
+            
+            favorite.topAnchor.constraint(equalTo: newsOwner.bottomAnchor, constant: 10),
+            favorite.leadingAnchor.constraint(equalTo: lineBreak.trailingAnchor)
+        ])
+    }
+    
     private func setupNewsDetails() {
         contentView.addSubview(newsDetails)
         
         NSLayoutConstraint.activate([
-            newsDetails.topAnchor.constraint(equalTo: newsOwner.bottomAnchor, constant: 10),
+            newsDetails.topAnchor.constraint(equalTo: favorite.bottomAnchor, constant: 10),
             newsDetails.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             newsDetails.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             newsDetails.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
@@ -295,16 +312,52 @@ class NewsDetailedView: UIViewController {
         tvTitle.text = viewModel.selectedNews?.name
         newsDate.text = viewModel.selectedNews?.date
         newsCategory.text = viewModel.selectedNews?.category
-        markedAs.text = viewModel.selectedNews?.isfake ?? false ? "Marked As" : ""
-        newsFake.text = viewModel.selectedNews?.isfake ?? false ? "Fake News" : ""
         likesQuantity.text = "\(viewModel.selectedNews?.likes ?? 0)"
         newsDetails.text = viewModel.selectedNews?.details
     }
     
     //MARK: Actions
+    private func setupActions() {
+        likesButton.addAction(UIAction { [weak self] _ in
+            self?.viewModel.toggleLikes { [weak self] success in
+                if success {
+                    self?.updateUI()
+                }
+            }
+        }, for: .touchUpInside)
+        
+        sharesButton.addAction(UIAction { [weak self] _ in
+            self?.viewModel.shareNews()
+        }, for: .touchUpInside)
+        
+        readLater.addAction(UIAction { [weak self] _ in
+            self?.viewModel.toggleReadLater { [weak self] isReadLater in
+                let imageName = isReadLater ? "bookmark.fill" : "bookmark"
+                self?.readLater.setImage(UIImage(systemName: imageName), for: .normal)
+            }
+        }, for: .touchUpInside)
+        
+        favorite.addAction(UIAction { [weak self] _ in
+            self?.viewModel.toggleFavorite { [weak self] isFavorite in
+                let imageName = isFavorite ? "heart.fill" : "heart"
+                self?.favorite.setImage(UIImage(systemName: imageName), for: .normal)
+            }
+        }, for: .touchUpInside)
+    }
     
-    @objc private func shareButtonTapped() {
-        viewModel.shareNews()
+    private func updateUI() {
+        guard let newsTitle = viewModel.selectedNews?.title else { return }
+        
+        let likedImage = UIImage(systemName: "hand.thumbsup.fill")
+        let unlikedImage = UIImage(systemName: "hand.thumbsup")
+        likesButton.setImage(UserDefaultsManager.shared.isNewsLiked(newsTitle) ? likedImage : unlikedImage, for: .normal)
+        likesQuantity.text = "\(viewModel.selectedNews?.likes ?? 0)"
+        
+        let readLaterImage = UserDefaultsManager.shared.getReadLaterNews().contains(where: { $0.title == newsTitle }) ? UIImage(systemName: "bookmark.fill") : UIImage(systemName: "bookmark")
+        readLater.setImage(readLaterImage, for: .normal)
+        
+        let favoriteImage = UserDefaultsManager.shared.getFavoriteNews().contains(where: { $0.title == newsTitle }) ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")
+        favorite.setImage(favoriteImage, for: .normal)
     }
     
     private func shareContent() {
@@ -318,12 +371,4 @@ class NewsDetailedView: UIViewController {
         present(vc, animated: true)
     }
     
-    @objc private func likeButtonTapped() {
-        viewModel.updateLikes { [weak self] success in
-            if success {
-                self?.likesQuantity.text = "\(self?.viewModel.selectedNews?.likes ?? 0)"
-                self?.likesButton.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
-            }
-        }
-    }
 }

@@ -15,6 +15,7 @@
 		6F590AD82C3B141800F0B761 /* AuthValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F590AD72C3B141800F0B761 /* AuthValidator.swift */; };
 		6F590ADA2C3B166900F0B761 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F590AD92C3B166900F0B761 /* User.swift */; };
 		6F590ADC2C3B1C0600F0B761 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F590ADB2C3B1C0600F0B761 /* SignInViewModel.swift */; };
+		6F6D445E2C4A661A00BCA265 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6D445D2C4A661A00BCA265 /* UserDefaultManager.swift */; };
 		6F7542972C31B1B60085839C /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542962C31B1B60085839C /* CustomTextField.swift */; };
 		6F7542992C32E9B80085839C /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542982C32E9B80085839C /* CustomButton.swift */; };
 		6F75429B2C33DB3A0085839C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75429A2C33DB390085839C /* AuthService.swift */; };
@@ -84,6 +85,7 @@
 		6F590AD72C3B141800F0B761 /* AuthValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthValidator.swift; sourceTree = "<group>"; };
 		6F590AD92C3B166900F0B761 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6F590ADB2C3B1C0600F0B761 /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
+		6F6D445D2C4A661A00BCA265 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		6F7542962C31B1B60085839C /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		6F7542982C32E9B80085839C /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		6F75429A2C33DB390085839C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 			children = (
 				6F75429A2C33DB390085839C /* AuthService.swift */,
 				6F7A1AAF2C3EB5AE006D0986 /* NetworkService.swift */,
+				6F6D445D2C4A661A00BCA265 /* UserDefaultManager.swift */,
 			);
 			path = "Networking Services";
 			sourceTree = "<group>";
@@ -546,6 +549,7 @@
 				6F7754802C43B80300590192 /* QuizQuestionsViewModel.swift in Sources */,
 				6FDAEC2E2C440C29003AEFC7 /* QuizView.swift in Sources */,
 				6F4C1FDA2C3BE8600000D10F /* CustomLoaderView.swift in Sources */,
+				6F6D445E2C4A661A00BCA265 /* UserDefaultManager.swift in Sources */,
 				6F7A1AAB2C3EA291006D0986 /* News.swift in Sources */,
 				6F7A1ABD2C401F94006D0986 /* SportNewsViewModel.swift in Sources */,
 				6F7754822C43D55200590192 /* QuizQuestionsView.swift in Sources */,

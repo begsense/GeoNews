@@ -8,5 +8,19 @@
 import Foundation
 
 class ProfileViewModel: ObservableObject {
-   //TODO
+    @Published var readLaterNews: [News] = []
+    @Published var favoriteNews: [News] = []
+
+    init() {
+        fetchReadLaterNews()
+        fetchFavoriteNews()
+    }
+
+    func fetchReadLaterNews() {
+        readLaterNews = UserDefaultsManager.shared.getReadLaterNews()
+    }
+
+    func fetchFavoriteNews() {
+        favoriteNews = UserDefaultsManager.shared.getFavoriteNews()
+    }
 }
