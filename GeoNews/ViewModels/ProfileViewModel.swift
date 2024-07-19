@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import UIKit
 
-class ProfileViewModel: ObservableObject {
-    @Published var readLaterNews: [News] = []
-    @Published var favoriteNews: [News] = []
+class ProfileViewModel {
+    var readLaterNews: [News] = []
+    var favoriteNews: [News] = []
 
     init() {
         fetchReadLaterNews()
@@ -22,5 +23,13 @@ class ProfileViewModel: ObservableObject {
 
     func fetchFavoriteNews() {
         favoriteNews = UserDefaultsManager.shared.getFavoriteNews()
+    }
+
+    func saveProfileImage(_ image: UIImage) {
+        FileManagerHelper.shared.saveProfileImage(image)
+    }
+
+    func loadProfileImage() -> UIImage? {
+        return FileManagerHelper.shared.loadProfileImage()
     }
 }

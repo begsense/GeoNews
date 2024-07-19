@@ -22,7 +22,7 @@ class RootViewController: UIViewController {
         let searchView = SearchView(viewModel: SearchViewModel())
         let quizView = UIHostingController(rootView: QuizView())
         let exchangeView = UIHostingController(rootView: ExchangeView(viewModel: ExchangeViewModel()))
-        let profileView = UIHostingController(rootView: ProfileView())
+        let profileView = ProfileView(viewModel: ProfileViewModel())
         
         tabBarController.viewControllers = [
             newsView,

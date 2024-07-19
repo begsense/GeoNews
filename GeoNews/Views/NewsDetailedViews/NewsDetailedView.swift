@@ -9,6 +9,7 @@ import UIKit
 
 class NewsDetailedView: UIViewController {
     
+    //MARK: - Properties
     private var viewModel: NewsDetailedViewModel
     
     private var scrollView = UIScrollView()
@@ -160,6 +161,7 @@ class NewsDetailedView: UIViewController {
         return label
     }()
     
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -182,6 +184,7 @@ class NewsDetailedView: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - UISetup
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)

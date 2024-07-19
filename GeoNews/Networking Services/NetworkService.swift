@@ -18,12 +18,7 @@ class NetworkService {
             query = query.whereField(field, isEqualTo: value)
         }
 
-        query.getDocuments { (querySnapshot, error) in
-            if error != nil {
-                completion([])
-                return
-            }
-
+        query.getDocuments { (querySnapshot, _) in
             let newsItems = querySnapshot?.documents.compactMap { document -> News? in
                 do {
                     let news = try document.data(as: News.self)
@@ -45,12 +40,7 @@ class NetworkService {
             query = query.whereField("name", in: names)
         }
 
-        query.getDocuments { (querySnapshot, error) in
-            if error != nil {
-                completion([])
-                return
-            }
-
+        query.getDocuments { (querySnapshot, _) in
             let newsItems = querySnapshot?.documents.compactMap { document -> News? in
                 do {
                     let news = try document.data(as: News.self)
@@ -63,6 +53,7 @@ class NetworkService {
             completion(newsItems)
         }
     }
+
 
     func updateLikes(for newsTitle: String, increment: Bool, completion: @escaping (Bool) -> Void) {
         let db = Firestore.firestore()
