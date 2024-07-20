@@ -19,9 +19,10 @@ class MenuView: UIViewController {
     
     private let label: UILabel = {
         let label = UILabel()
-        label.textColor = .label
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.textAlignment = .left
-        label.font = UIFont(name: "FiraGO-Regular", size: 20)
+        label.font = UIFont(name: "FiraGO-Regular", size: 16)
         label.text = "Loading..."
         label.numberOfLines = 2
         return label
@@ -79,11 +80,10 @@ class MenuView: UIViewController {
         view.addSubview(button)
         view.addSubview(label)
         button.translatesAutoresizingMaskIntoConstraints = false
-        label.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             label.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 5),

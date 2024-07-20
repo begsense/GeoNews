@@ -24,7 +24,7 @@ class MenuViewModel {
                   return
             }
             if let user = user {
-                self.updateUserLabel?(" \(user.username)\n Score: \(user.score)")
+                self.updateUserLabel?("Hello \(user.username)\n\(user.email)")
             }
         }
     }
