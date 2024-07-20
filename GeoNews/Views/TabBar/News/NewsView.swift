@@ -55,7 +55,7 @@ extension NewsView: GeneralNewsViewDelegate {
         switch menuState {
         case .closed:
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
-                self.navView?.view.frame.origin.x = self.generalNews.view.frame.size.width - 150
+                self.navView?.view.frame.origin.x = self.generalNews.view.frame.size.width/2
             } completion: { [weak self] done in
                 if done {
                     self?.menuState = .opened

@@ -7,6 +7,23 @@
 
 import UIKit
 
+class CenterScaleFlowLayout: UICollectionViewFlowLayout {
+    override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        guard let attributes = super.layoutAttributesForElements(in: rect) else { return nil }
+        
+        let center = collectionView!.bounds.size.width / 2
+        
+        for attribute in attributes {
+            let distance = abs(attribute.center.x - center)
+            let scale = max(1 - distance / center, 0.8) // Adjust scale factor as needed
+            attribute.transform = CGAffineTransform(scaleX: scale, y: scale)
+        }
+        
+        return attributes
+    }
+}
+
+
 class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
     var viewModel: ProfileViewModel
@@ -67,6 +84,7 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
         profileImageView.addGestureRecognizer(tapGesture)
     }
+    
     
     private func setupPicker() {
         view.addSubview(cellPicker)
