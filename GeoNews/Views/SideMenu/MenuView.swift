@@ -17,26 +17,38 @@ class MenuView: UIViewController {
     
     var viewModel: MenuViewModel
     
-    private let label: UILabel = {
+    private var userName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.textAlignment = .left
-        label.font = UIFont(name: "FiraGO-Regular", size: 16)
+        label.font = UIFont(name: "FiraGO-Regular", size: 24)
         label.text = "Loading..."
         label.numberOfLines = 2
         return label
     }()
     
-    let tableView: UITableView = {
+    private var categories: UITableView = {
         let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .none
         tableView.separatorStyle = .none
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "menuBarCell")
         return tableView
     }()
     
-    private var button = CustomButton(title: "Logout", hasBackground: true, fontSize: .med)
+    private var userEmail: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.textAlignment = .left
+        label.font = UIFont(name: "FiraGO-Regular", size: 14)
+        label.text = "Loading..."
+        label.numberOfLines = 2
+        return label
+    }()
+    
+    private var logoutButton = CustomButton(title: "Logout", hasBackground: true, fontSize: .med)
     
     enum menuOptions: String, CaseIterable {
         case general = "General"
@@ -50,11 +62,11 @@ class MenuView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupBindings()
+        bindViewModel()
         setupUI()
         viewModel.fetchUserData()
         
-        button.addAction(UIAction { [weak self] _ in
+        logoutButton.addAction(UIAction { [weak self] _ in
             self?.didTapLogout()
         }, for: .touchUpInside)
         
@@ -69,57 +81,83 @@ class MenuView: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupBindings() {
-        viewModel.updateUserLabel = { [weak self] text in
-            self?.label.text = text
-        }
-    }
-    
     private func setupUI() {
         view.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
-        view.addSubview(button)
-        view.addSubview(label)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 5),
-            button.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            button.widthAnchor.constraint(equalToConstant: 180)
-        ])
-        
-        setupTableView()
+        setupUserName()
+        setupCategories()
+        setupLogoutButton()
+        setupUserEmail()
     }
     
-    func setupTableView() {
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+    private func setupUserName() {
+        view.addSubview(userName)
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 20),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
-            tableView.widthAnchor.constraint(equalToConstant: 100),
-            tableView.heightAnchor.constraint(equalToConstant: 350)
+            userName.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            userName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
+            userName.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-        
-        tableView.dataSource = self
-        tableView.delegate = self
     }
     
-    @objc private func didTapLogout() {
-        viewModel.logout { [weak self] error in
-            guard let self = self else { return }
-            if error != nil {
-                AlertManager.showLogoutError(on: self)
-                return
-            }
-            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+    private func setupCategories() {
+        view.addSubview(categories)
+        
+        NSLayoutConstraint.activate([
+            categories.topAnchor.constraint(equalTo: userName.bottomAnchor, constant: 70),
+            categories.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            categories.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            categories.heightAnchor.constraint(equalToConstant: 350)
+        ])
+        
+        categories.dataSource = self
+        categories.delegate = self
+    }
+    
+    private func setupLogoutButton() {
+        view.addSubview(logoutButton)
+        logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
+            logoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            logoutButton.widthAnchor.constraint(equalToConstant: 150)
+        ])
+    }
+
+    private func setupUserEmail() {
+        view.addSubview(userEmail)
+        userEmail.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            userEmail.bottomAnchor.constraint(equalTo: logoutButton.topAnchor, constant: -15),
+            userEmail.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            userEmail.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
+    private func bindViewModel() {
+        viewModel.updateUserName = { [weak self] text in
+            self?.userName.text = text
+        }
+        
+        viewModel.updateUserEmail = { [weak self] text in
+            self?.userEmail.text = text
+        }
+        
+        viewModel.logoutSuccess = { [weak self] in
+            if let sceneDelegate = self?.view.window?.windowScene?.delegate as? SceneDelegate {
                 sceneDelegate.checkAuthentication()
             }
         }
+        
+        viewModel.logoutFailure = { [weak self] error in
+            guard let self = self else { return }
+            AlertManager.showLogoutError(on: self)
+        }
+    }
+    
+    @objc private func didTapLogout() {
+        viewModel.logout()
     }
 }
 
@@ -132,6 +170,7 @@ extension MenuView: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuBarCell", for: indexPath)
         
         cell.textLabel?.text = menuOptions.allCases[indexPath.row].rawValue
+        cell.imageView?.image = UIImage(named: menuOptions.allCases[indexPath.row].rawValue)
         cell.textLabel?.font = UIFont(name: "FiraGO-Regular", size: 16)
         cell.contentView.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
         cell.textLabel?.textColor = .white

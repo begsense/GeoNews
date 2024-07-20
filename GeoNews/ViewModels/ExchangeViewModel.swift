@@ -75,10 +75,6 @@ class ExchangeViewModel: ObservableObject {
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let data = data {
-                // Print raw data for debugging
-                if let jsonString = String(data: data, encoding: .utf8) {
-                    print("Raw JSON Response: \(jsonString)")
-                }
                 
                 switch self.selectedExchangeType {
                 case .currency:

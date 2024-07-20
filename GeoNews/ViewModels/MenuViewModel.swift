@@ -15,25 +15,35 @@ class MenuViewModel {
     }
 
     var changeCellStyles: (() -> Void)?
-    var updateUserLabel: ((String) -> Void)?
+    
+    var updateUserName: ((String) -> Void)?
+    
+    var updateUserEmail: ((String) -> Void)?
+    
+    var logoutSuccess: (() -> Void)?
+    
+    var logoutFailure: ((Error?) -> Void)?
     
     func fetchUserData() {
         AuthService.shared.fetchUser { [weak self] user, error in
             guard let self = self else { return }
-            if error != nil {
-                  return
+            if let error = error {
+                return
             }
             if let user = user {
-                self.updateUserLabel?("Hello \(user.username)\n\(user.email)")
+                self.updateUserName?("Hello, \n\(user.username)")
+                self.updateUserEmail?(user.email)
             }
         }
     }
     
-    func logout(completion: @escaping (Error?) -> Void) {
-        AuthService.shared.signOut { error in
-            completion(error)
+    func logout() {
+        AuthService.shared.signOut { [weak self] error in
+            if let error = error {
+                self?.logoutFailure?(error)
+            } else {
+                self?.logoutSuccess?()
+            }
         }
     }
-    
-    
 }
