@@ -39,6 +39,17 @@ class ExchangeViewModel: ObservableObject {
     @Published var result: Double = 0.0
 
     private var characterLimit: Int = 7
+    
+    var formattedResult: String {
+        let formattedString = String(format: "%.4f", result)
+        if formattedString.contains(".") {
+            let components = formattedString.split(separator: ".")
+            if components.count > 1, !components[1].allSatisfy({ $0 == "0" }) {
+                return formattedString
+            }
+        }
+        return String(format: "%.0f", result)
+    }
 
     enum ExchangeType: String, CaseIterable, Identifiable {
         case currency = "Currency"

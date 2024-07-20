@@ -15,7 +15,6 @@ class GeneralNewsView: UIViewController {
     
     // MARK: - UI Components
     private var viewModel: GeneralNewsViewModel
-    private var menuViewModel: MenuViewModel!
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -46,9 +45,6 @@ class GeneralNewsView: UIViewController {
     // MARK: - Initializer
     init(viewModel: GeneralNewsViewModel) {
         self.viewModel = viewModel
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            menuViewModel = sceneDelegate.sharedMenuViewModel
-        }
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -69,13 +65,6 @@ class GeneralNewsView: UIViewController {
         
         setupUI()
         fetchData()
-        reloadTableViewCells()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        setupUI()
-        fetchData()
-        reloadTableViewCells()
     }
     
     // MARK: - UI Setup
@@ -126,14 +115,6 @@ class GeneralNewsView: UIViewController {
     }
     
     // MARK: - Selectors
-    func reloadTableViewCells() {
-        menuViewModel.changeCellStyles = { [weak self] in
-            DispatchQueue.main.async {
-                print("reload")
-                self?.tableView.reloadData()
-            }
-        }
-    }
     
     @objc private func didTapMenuButton() {
         delegate?.didTapMenuButton()
@@ -185,7 +166,8 @@ extension GeneralNewsView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: menuViewModel.currentCellIdentifier, for: indexPath)
+        let cellIdentifier = viewModel.cellIdentifier
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
         let newsItem = viewModel.news(at: indexPath.row)
         

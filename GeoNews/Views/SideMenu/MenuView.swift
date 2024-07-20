@@ -15,7 +15,7 @@ class MenuView: UIViewController {
     
     weak var delegate: MenuViewControllerDelegate?
     
-    var menuViewModel: MenuViewModel!
+    var viewModel: MenuViewModel
     
     private let label: UILabel = {
         let label = UILabel()
@@ -35,8 +35,6 @@ class MenuView: UIViewController {
         return tableView
     }()
     
-    private let buttonChangeStyle = CustomButton(title: "Change Style", hasBackground: true, fontSize: .med)
-    
     private var button = CustomButton(title: "Logout", hasBackground: true, fontSize: .med)
     
     enum menuOptions: String, CaseIterable {
@@ -50,25 +48,28 @@ class MenuView: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            menuViewModel = sceneDelegate.sharedMenuViewModel
-        }
         
         setupBindings()
         setupUI()
-        menuViewModel.fetchUserData()
+        viewModel.fetchUserData()
         
         button.addAction(UIAction { [weak self] _ in
             self?.didTapLogout()
         }, for: .touchUpInside)
         
-        buttonChangeStyle.addAction(UIAction { [weak self] _ in
-            self?.didClickChangeStyleButton()
-        }, for: .touchUpInside)
+    }
+    
+    init(viewModel: MenuViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupBindings() {
-        menuViewModel.updateUserLabel = { [weak self] text in
+        viewModel.updateUserLabel = { [weak self] text in
             self?.label.text = text
         }
     }
@@ -91,7 +92,6 @@ class MenuView: UIViewController {
         ])
         
         setupTableView()
-        setupChangeStyleButton()
     }
     
     func setupTableView() {
@@ -109,42 +109,8 @@ class MenuView: UIViewController {
         tableView.delegate = self
     }
     
-    func setupChangeStyleButton() {
-        view.addSubview(buttonChangeStyle)
-        buttonChangeStyle.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            buttonChangeStyle.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20),
-            buttonChangeStyle.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
-            buttonChangeStyle.widthAnchor.constraint(equalToConstant: 150)
-        ])
-    }
-    
-    private func didClickChangeStyleButton() {
-        showChangeStyleMenu()
-    }
-    
-    private func showChangeStyleMenu() {
-        let alertController = UIAlertController(title: "Change Design", message: "Choose the desired style", preferredStyle: .actionSheet)
-        
-        let option1 = UIAlertAction(title: "StaticCell", style: .default) { [weak self] _ in
-            print("მოინიშნა StaticCell")
-            self?.menuViewModel.currentCellIdentifier = NewsTableViewCell.identifier
-        }
-        let option2 = UIAlertAction(title: "RedditType", style: .default) { [weak self] _ in
-            print("მოინიშნა RedditType")
-            self?.menuViewModel.currentCellIdentifier = NewsTableViewCellRedditType.identifier
-        }
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
-        alertController.addAction(option1)
-        alertController.addAction(option2)
-        alertController.addAction(cancel)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
     @objc private func didTapLogout() {
-        menuViewModel.logout { [weak self] error in
+        viewModel.logout { [weak self] error in
             guard let self = self else { return }
             if error != nil {
                 AlertManager.showLogoutError(on: self)

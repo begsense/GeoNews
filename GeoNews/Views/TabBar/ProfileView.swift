@@ -8,6 +8,7 @@
 import UIKit
 
 class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+
     var viewModel: ProfileViewModel
     
     private var profileImageView: UIImageView = {
@@ -18,8 +19,15 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 50
         imageView.clipsToBounds = true
-        imageView.image = UIImage(named: "logo") // Default image
+        imageView.image = UIImage(systemName: "person.crop.circle")
         return imageView
+    }()
+    
+    private var cellPicker: UIPickerView = {
+        let pickerView = UIPickerView()
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+        pickerView.backgroundColor = .clear
+        return pickerView
     }()
     
     init(viewModel: ProfileViewModel) {
@@ -35,10 +43,17 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         super.viewDidLoad()
         view.backgroundColor = .orange
         setupUI()
-        loadProfileImage()
+        bindViewModel()
+        cellPicker.dataSource = self
+        cellPicker.delegate = self
     }
     
     private func setupUI() {
+        setupProfileImage()
+        setupPicker()
+    }
+    
+    private func setupProfileImage() {
         view.addSubview(profileImageView)
         
         NSLayoutConstraint.activate([
@@ -53,10 +68,29 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         profileImageView.addGestureRecognizer(tapGesture)
     }
     
-    private func loadProfileImage() {
-        if let image = viewModel.loadProfileImage() {
-            profileImageView.image = image
+    private func setupPicker() {
+        view.addSubview(cellPicker)
+        
+        NSLayoutConstraint.activate([
+            cellPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            cellPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            cellPicker.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            cellPicker.heightAnchor.constraint(equalToConstant: 80)
+        ])
+    }
+    
+    private func bindViewModel() {
+        viewModel.onProfileImageUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                if let image = self?.viewModel.loadProfileImage() {
+                    self?.profileImageView.image = image
+                } else {
+                    self?.profileImageView.image = UIImage(named: "logo")
+                }
+            }
         }
+        
+        viewModel.onProfileImageUpdated?()
     }
     
     @objc private func profileImageTapped() {
@@ -70,11 +104,28 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         picker.dismiss(animated: true, completion: nil)
         if let image = info[.originalImage] as? UIImage {
             viewModel.saveProfileImage(image)
-            profileImageView.image = image
         }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ProfileView: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return CellStyleManager.shared.cellStyles.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return CellStyleManager.shared.cellStyles[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        CellStyleManager.shared.selectCellStyle(at: row)
     }
 }

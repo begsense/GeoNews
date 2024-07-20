@@ -15,12 +15,12 @@ class NewsView: UIViewController {
     
     private var menuState: MenuState = .closed
     
-    private var menuView = MenuView()
+    private var menuView = MenuView(viewModel: MenuViewModel())
     private var generalNews = GeneralNewsView(viewModel: GeneralNewsViewModel())
-    private lazy var politicNews = PoliticNewsView()
-    private lazy var sportNews = SportNewsView()
-    private lazy var healthNews = HealthNewsView()
-    private lazy var techNews = TechNewsView()
+    private var politicNews = PoliticNewsView(viewModel: PoliticsNewsViewModel())
+    private var sportNews = SportNewsView(viewModel: SportNewsViewModel())
+    private var healthNews = HealthNewsView(viewModel: HealthNewsViewModel())
+    private var techNews = TechNewsView(viewModel: TechNewsViewModel())
     
     private var navView: UINavigationController?
     

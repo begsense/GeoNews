@@ -67,22 +67,22 @@ struct ExchangeView: View {
     }
     
     private var currencyExchangeResult: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 Text(viewModel.moneyInput)
                 
                 CurrencyImageResize(name: viewModel.baseCurrency)
-                
-                CurrencyImageResize(name: "equals")
             }
             
+            CurrencyImageResize(name: "equals")
+            
             HStack {
-                Text(String(format: "%.4f", viewModel.result))
+                Text(viewModel.formattedResult)
                 
                 CurrencyImageResize(name: viewModel.targetCurrency)
             }
         }
-        .font(.custom("FiraGO-Regular", size: 65))
+        .font(.custom("FiraGO-Regular", size: 40))
         .foregroundColor(.white)
         .background(RoundedRectangle(cornerRadius: 20, style: .continuous)
             .fill(Color(red: 8/255, green: 40/255, blue: 67/255).opacity(0.85))
@@ -131,17 +131,17 @@ struct ExchangeView: View {
                 Text(viewModel.moneyInput)
                 
                 CurrencyImageResize(name: viewModel.baseCurrency)
-                
-                CurrencyImageResize(name: "equals")
             }
             
+            CurrencyImageResize(name: "equals")
+            
             HStack {
-                Text(String(format: "%.3f", viewModel.result))
+                Text(viewModel.formattedResult)
                 
                 CurrencyImageResize(name: viewModel.targetCrypto)
             }
         }
-        .font(.custom("FiraGO-Regular", size: 65))
+        .font(.custom("FiraGO-Regular", size: 40))
         .foregroundColor(.white)
         .background(RoundedRectangle(cornerRadius: 20, style: .continuous)
             .fill(Color(red: 8/255, green: 40/255, blue: 67/255).opacity(0.85))

@@ -13,6 +13,16 @@ class PoliticsNewsViewModel {
     
     private let networkService = NetworkService()
     
+    var cellIdentifier: String = NewsTableViewCell.identifier
+    
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(cellStyleChanged(_:)), name: .cellStyleChanged, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .cellStyleChanged, object: nil)
+    }
+    
     func fetchData() {
         networkService.fetchData(filterBy: "category", equalTo: "Politics") { [weak self] newsItems in
             guard let self = self else { return }
@@ -32,5 +42,12 @@ class PoliticsNewsViewModel {
     
     func news(at index: Int) -> News {
         return newsItems[index]
+    }
+    
+    @objc func cellStyleChanged(_ notification: Notification) {
+        if let newCellIdentifier = notification.object as? String {
+            cellIdentifier = newCellIdentifier
+            onDataUpdate?()
+        }
     }
 }

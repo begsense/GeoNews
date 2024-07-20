@@ -11,7 +11,9 @@ import UIKit
 class ProfileViewModel {
     var readLaterNews: [News] = []
     var favoriteNews: [News] = []
-
+    
+    var onProfileImageUpdated: (() -> Void)?
+    
     init() {
         fetchReadLaterNews()
         fetchFavoriteNews()
@@ -27,6 +29,7 @@ class ProfileViewModel {
 
     func saveProfileImage(_ image: UIImage) {
         FileManagerHelper.shared.saveProfileImage(image)
+        onProfileImageUpdated?()
     }
 
     func loadProfileImage() -> UIImage? {

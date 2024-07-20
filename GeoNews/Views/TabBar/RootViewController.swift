@@ -19,7 +19,7 @@ class RootViewController: UIViewController {
     func setupTabBar() {
         let tabBarController = UITabBarController()
         let newsView =  NewsView()  //GeneralNewsView(viewModel: generalNewsViewModel)
-        let searchView = SearchView(viewModel: SearchViewModel())
+        let searchView = SearchView(viewModel: SearchViewModel(), profileViewModel: ProfileViewModel())
         let quizView = UIHostingController(rootView: QuizView())
         let exchangeView = UIHostingController(rootView: ExchangeView(viewModel: ExchangeViewModel()))
         let profileView = ProfileView(viewModel: ProfileViewModel())

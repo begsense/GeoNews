@@ -9,8 +9,7 @@ import UIKit
 
 class PoliticNewsView: UIViewController {
     
-    private let viewModel = PoliticsNewsViewModel()
-    private var menuViewModel: MenuViewModel!
+    private let viewModel: PoliticsNewsViewModel
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -31,13 +30,18 @@ class PoliticNewsView: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            menuViewModel = sceneDelegate.sharedMenuViewModel
-        }
         navigationItem.titleView = titleLabel
         setupUI()
         fetchData()
-        reloadTableViewCells()
+    }
+    
+    init(viewModel: PoliticsNewsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setupUI() {
@@ -75,14 +79,6 @@ class PoliticNewsView: UIViewController {
         ])
     }
     
-    func reloadTableViewCells() {
-        menuViewModel.changeCellStyles = { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
-    }
-    
     private func fetchData() {
         startLoading()
         viewModel.fetchData()
@@ -111,7 +107,8 @@ extension PoliticNewsView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: menuViewModel.currentCellIdentifier, for: indexPath)
+        let cellIdentifier = viewModel.cellIdentifier
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
         let newsItem = viewModel.news(at: indexPath.row)
         

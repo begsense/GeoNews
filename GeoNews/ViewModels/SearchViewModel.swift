@@ -8,7 +8,7 @@
 import Foundation
 
 class SearchViewModel {
-    @Published private(set) var newsItems: [News] = []
+    var newsItems: [News] = []
     var onDataUpdate: (() -> Void)?
     
     private let networkService = NetworkService()
@@ -27,6 +27,16 @@ class SearchViewModel {
         didSet {
             applyFilters()
         }
+    }
+    
+    var cellIdentifier: String = NewsTableViewCell.identifier
+    
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(cellStyleChanged(_:)), name: .cellStyleChanged, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .cellStyleChanged, object: nil)
     }
     
     func fetchData() {
@@ -71,5 +81,12 @@ class SearchViewModel {
     
     func news(at index: Int) -> News {
         return newsItems[index]
+    }
+    
+    @objc private func cellStyleChanged(_ notification: Notification) {
+        if let newCellIdentifier = notification.object as? String {
+            cellIdentifier = newCellIdentifier
+            onDataUpdate?()
+        }
     }
 }

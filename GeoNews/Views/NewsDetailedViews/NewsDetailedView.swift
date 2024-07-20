@@ -126,7 +126,7 @@ class NewsDetailedView: UIViewController {
     private var readLater: UIButton = {
        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "readLater"), for: .normal)
+        button.setImage(UIImage(systemName: "bell"), for: .normal)
         button.heightAnchor.constraint(equalToConstant: 20).isActive = true
         button.widthAnchor.constraint(equalToConstant: 20).isActive = true
         return button
@@ -335,7 +335,7 @@ class NewsDetailedView: UIViewController {
         
         readLater.addAction(UIAction { [weak self] _ in
             self?.viewModel.toggleReadLater { [weak self] isReadLater in
-                let imageName = isReadLater ? "bookmark.fill" : "bookmark"
+                let imageName = isReadLater ? "bell.fill" : "bell"
                 self?.readLater.setImage(UIImage(systemName: imageName), for: .normal)
             }
         }, for: .touchUpInside)
@@ -356,7 +356,7 @@ class NewsDetailedView: UIViewController {
         likesButton.setImage(UserDefaultsManager.shared.isNewsLiked(newsTitle) ? likedImage : unlikedImage, for: .normal)
         likesQuantity.text = "\(viewModel.selectedNews?.likes ?? 0)"
         
-        let readLaterImage = UserDefaultsManager.shared.getReadLaterNews().contains(where: { $0.title == newsTitle }) ? UIImage(systemName: "bookmark.fill") : UIImage(systemName: "bookmark")
+        let readLaterImage = UserDefaultsManager.shared.getReadLaterNews().contains(where: { $0.title == newsTitle }) ? UIImage(systemName: "bell.fill") : UIImage(systemName: "bell")
         readLater.setImage(readLaterImage, for: .normal)
         
         let favoriteImage = UserDefaultsManager.shared.getFavoriteNews().contains(where: { $0.title == newsTitle }) ? UIImage(systemName: "heart.fill") : UIImage(systemName: "heart")

@@ -74,7 +74,7 @@ extension View {
         Image(name)
             .resizable()
             .scaledToFit()
-            .frame(width: 65, height: 65)
+            .frame(width: 50, height: 50)
     }
 }
 
