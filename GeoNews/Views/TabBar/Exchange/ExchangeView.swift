@@ -134,6 +134,7 @@ struct ExchangeView: View {
             }
             
             CurrencyImageResize(name: "equals")
+                .foregroundStyle(Color.white)
             
             HStack {
                 Text(viewModel.formattedResult)

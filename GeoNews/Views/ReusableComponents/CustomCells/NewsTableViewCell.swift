@@ -17,15 +17,15 @@ class NewsTableViewCell: UITableViewCell {
         String(describing: self)
     }
     
-    var newsOwner: UIView = {
-        var newsOwner = UIView()
+    private var newsOwner: UIView = {
+        let newsOwner = UIView()
         newsOwner.translatesAutoresizingMaskIntoConstraints = false
         newsOwner.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return newsOwner
     }()
     
-    var tvLogo: UIImageView = {
-        var tvLogo = UIImageView()
+    private var tvLogo: UIImageView = {
+        let tvLogo = UIImageView()
         tvLogo.translatesAutoresizingMaskIntoConstraints = false
         tvLogo.contentMode = .scaleAspectFit
         tvLogo.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -35,7 +35,7 @@ class NewsTableViewCell: UITableViewCell {
         return tvLogo
     }()
     
-    var tvTitle: UILabel = {
+    private var tvTitle: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
@@ -45,7 +45,7 @@ class NewsTableViewCell: UITableViewCell {
         return label
     }()
     
-    var detailsArrow: UIImageView = {
+    private var detailsArrow: UIImageView = {
         var detailsArrow = UIImageView()
         detailsArrow.translatesAutoresizingMaskIntoConstraints = false
         detailsArrow.image = UIImage(systemName: "arrow")
@@ -56,18 +56,18 @@ class NewsTableViewCell: UITableViewCell {
         return detailsArrow
     }()
     
-    var newsDate: UILabel = {
+    private var newsDate: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont(name: "FiraGO-Regular", size: 12)
+        label.font = UIFont(name: "FiraGO-Regular", size: 10)
         label.textColor = .white
         label.widthAnchor.constraint(equalToConstant: 100).isActive = true
         label.heightAnchor.constraint(equalToConstant: 20).isActive = true
         return label
     }()
     
-    var newsHeader: UILabel = {
+    private var newsHeader: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
@@ -78,8 +78,8 @@ class NewsTableViewCell: UITableViewCell {
         return label
     }()
     
-    var newsImage: UIImageView = {
-        var newsImage = UIImageView()
+    private var newsImage: UIImageView = {
+        let newsImage = UIImageView()
         newsImage.translatesAutoresizingMaskIntoConstraints = false
         newsImage.contentMode = .scaleAspectFill
         newsImage.clipsToBounds = true
@@ -89,7 +89,6 @@ class NewsTableViewCell: UITableViewCell {
     }()
     
     //MARK: Lifecycle:
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -117,8 +116,8 @@ class NewsTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             newsOwner.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
-            newsOwner.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
-            newsOwner.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
+            newsOwner.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            newsOwner.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
             tvLogo.topAnchor.constraint(equalTo: newsOwner.topAnchor),
             tvLogo.leadingAnchor.constraint(equalTo: newsOwner.leadingAnchor),
@@ -141,8 +140,8 @@ class NewsTableViewCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             newsHeader.topAnchor.constraint(equalTo: newsOwner.bottomAnchor),
-            newsHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
-            newsHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40)
+            newsHeader.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            newsHeader.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
     }
     
@@ -155,7 +154,6 @@ class NewsTableViewCell: UITableViewCell {
             newsImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
         ])
     }
-    
 }
 
 extension NewsTableViewCell: ConfigurableNewsCell {

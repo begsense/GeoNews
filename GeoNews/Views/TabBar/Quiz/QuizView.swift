@@ -69,12 +69,23 @@ extension View {
     }
 }
 
+extension Image {
+    static func currencyImage(name: String, defaultName: String = "question") -> Image {
+        if let _ = UIImage(named: name) {
+            return Image(name)
+        } else {
+            return Image(defaultName)
+        }
+    }
+}
+
 extension View {
     func CurrencyImageResize(name: String) -> some View {
-        Image(name)
+        Image.currencyImage(name: name)
             .resizable()
             .scaledToFit()
             .frame(width: 50, height: 50)
+            .foregroundStyle(name == "equals" ? .white : Color(red: 4/255, green: 123/255, blue: 128/255))
     }
 }
 

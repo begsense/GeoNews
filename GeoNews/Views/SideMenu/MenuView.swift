@@ -17,14 +17,36 @@ class MenuView: UIViewController {
     
     var viewModel: MenuViewModel
     
+    private var hello: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.textAlignment = .left
+        label.font = UIFont(name: "FiraGO-Regular", size: 18)
+        label.text = "Hello,"
+        return label
+    }()
+    
+    private var profileImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 15
+        imageView.clipsToBounds = true
+        imageView.tintColor = .white
+        imageView.image = UIImage(systemName: "person.crop.circle")
+        return imageView
+    }()
+    
     private var userName: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.textAlignment = .left
-        label.font = UIFont(name: "FiraGO-Regular", size: 24)
+        label.font = UIFont(name: "FiraGO-Regular", size: 18)
         label.text = "Loading..."
-        label.numberOfLines = 2
         return label
     }()
     
@@ -61,15 +83,13 @@ class MenuView: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        bindViewModel()
         setupUI()
-        viewModel.fetchUserData()
-        
-        logoutButton.addAction(UIAction { [weak self] _ in
-            self?.didTapLogout()
-        }, for: .touchUpInside)
-        
+        bindViewModel()
+        logoutAction()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadProfileImage()
     }
     
     init(viewModel: MenuViewModel) {
@@ -83,19 +103,36 @@ class MenuView: UIViewController {
     
     private func setupUI() {
         view.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
+        setupHelloMessage()
         setupUserName()
         setupCategories()
         setupLogoutButton()
         setupUserEmail()
     }
     
-    private func setupUserName() {
-        view.addSubview(userName)
+    private func setupHelloMessage() {
+        view.addSubview(hello)
         
         NSLayoutConstraint.activate([
-            userName.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
-            userName.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 35),
-            userName.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            hello.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            hello.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            hello.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
+    private func setupUserName() {
+        let userInfoStackView = UIStackView(arrangedSubviews: [profileImage, userName])
+        userInfoStackView.translatesAutoresizingMaskIntoConstraints = false
+        userInfoStackView.axis = .horizontal
+        userInfoStackView.spacing = 10
+        userInfoStackView.alignment = .center
+
+        view.addSubview(userInfoStackView)
+
+        NSLayoutConstraint.activate([
+            userInfoStackView.topAnchor.constraint(equalTo: hello.bottomAnchor, constant: 5),
+            userInfoStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            userInfoStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     
@@ -119,7 +156,7 @@ class MenuView: UIViewController {
         
         NSLayoutConstraint.activate([
             logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
-            logoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            logoutButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             logoutButton.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
@@ -130,14 +167,23 @@ class MenuView: UIViewController {
         
         NSLayoutConstraint.activate([
             userEmail.bottomAnchor.constraint(equalTo: logoutButton.topAnchor, constant: -15),
-            userEmail.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            userEmail.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             userEmail.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     
+    private func logoutAction() {
+        logoutButton.addAction(UIAction { [weak self] _ in
+            self?.didTapLogout()
+        }, for: .touchUpInside)
+    }
+    
     private func bindViewModel() {
+        viewModel.fetchUserData()
+        
         viewModel.updateUserName = { [weak self] text in
             self?.userName.text = text
+            self?.loadProfileImage()
         }
         
         viewModel.updateUserEmail = { [weak self] text in
@@ -156,8 +202,14 @@ class MenuView: UIViewController {
         }
     }
     
-    @objc private func didTapLogout() {
+    private func didTapLogout() {
         viewModel.logout()
+    }
+    
+    private func loadProfileImage() {
+        if let profileImage = FileManagerHelper.shared.loadProfileImage() {
+            self.profileImage.image = profileImage
+        }
     }
 }
 

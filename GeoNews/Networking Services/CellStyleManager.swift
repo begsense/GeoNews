@@ -12,7 +12,7 @@ class CellStyleManager {
     
     private init() {}
     
-    var cellStyles = ["StaticCell", "RedditType"]
+    var cellStyles = ["GeoNews", "AppleNews"]
     private var currentCellIdentifier: String = NewsTableViewCell.identifier {
         didSet {
             NotificationCenter.default.post(name: .cellStyleChanged, object: currentCellIdentifier)
@@ -21,10 +21,10 @@ class CellStyleManager {
     
     func selectCellStyle(at index: Int) {
         switch cellStyles[index] {
-        case "StaticCell":
+        case "GeoNews":
             currentCellIdentifier = NewsTableViewCell.identifier
-        case "RedditType":
-            currentCellIdentifier = NewsTableViewCellRedditType.identifier
+        case "AppleNews":
+            currentCellIdentifier = NewsTableViewCellAppleType.identifier
         default:
             break
         }

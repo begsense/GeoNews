@@ -65,7 +65,7 @@ class TechNewsView: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
-        tableView.register(NewsTableViewCellRedditType.self, forCellReuseIdentifier: NewsTableViewCellRedditType.identifier)
+        tableView.register(NewsTableViewCellAppleType.self, forCellReuseIdentifier: NewsTableViewCellAppleType.identifier)
     }
     
     private func setupLoader() {
@@ -123,7 +123,7 @@ extension TechNewsView: UITableViewDataSource {
 
 extension TechNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 280
+        return 275
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

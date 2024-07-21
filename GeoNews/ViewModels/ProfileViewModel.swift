@@ -51,7 +51,7 @@ class ProfileViewModel {
                   return
             }
             if let user = user {
-                self.updateUserLabel?("Hello \(user.username)\n Your Score Is: \(user.score)")
+                self.updateUserLabel?("Hello, \(user.username)\n Your Score Is: \(user.score)")
             }
         }
     }

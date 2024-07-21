@@ -85,7 +85,7 @@ class ExchangeViewModel: ObservableObject {
                             self.calculateResult()
                         }
                     } catch {
-                        print("Error decoding currency exchange rates: \(error)")
+                        print("vtxovot rom sworad sheiyvanos currency")
                     }
                     
                 case .crypto:
@@ -97,7 +97,7 @@ class ExchangeViewModel: ObservableObject {
                             }
                         }
                     } catch {
-                        print("Error decoding crypto exchange rates: \(error)")
+                        print("vtxovot rom sworad sheiyvanos currency")
                     }
                 }
             }

@@ -71,8 +71,8 @@ class GeneralNewsView: UIViewController {
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
-        setupTableView()
         setupBottomSafeArea()
+        setupTableView()
         setupLoader()
     }
     
@@ -82,15 +82,15 @@ class GeneralNewsView: UIViewController {
         
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor)
         ])
         
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
-        tableView.register(NewsTableViewCellRedditType.self, forCellReuseIdentifier: NewsTableViewCellRedditType.identifier)
+        tableView.register(NewsTableViewCellAppleType.self, forCellReuseIdentifier: NewsTableViewCellAppleType.identifier)
     }
     
     private func setupLoader() {
@@ -108,8 +108,9 @@ class GeneralNewsView: UIViewController {
         view.addSubview(bottomView)
         
         NSLayoutConstraint.activate([
-            bottomView.topAnchor.constraint(equalTo: tableView.bottomAnchor),
-            bottomView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
@@ -182,7 +183,7 @@ extension GeneralNewsView: UITableViewDataSource {
 
 extension GeneralNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 280
+        return 275
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -8,13 +8,6 @@
 import Foundation
 
 class MenuViewModel {
-    var currentCellIdentifier: String = NewsTableViewCell.identifier {
-        didSet {
-            changeCellStyles?()
-        }
-    }
-
-    var changeCellStyles: (() -> Void)?
     
     var updateUserName: ((String) -> Void)?
     
@@ -27,11 +20,11 @@ class MenuViewModel {
     func fetchUserData() {
         AuthService.shared.fetchUser { [weak self] user, error in
             guard let self = self else { return }
-            if let error = error {
+            if error != nil {
                 return
             }
             if let user = user {
-                self.updateUserName?("Hello, \n\(user.username)")
+                self.updateUserName?("\(user.username)")
                 self.updateUserEmail?(user.email)
             }
         }
