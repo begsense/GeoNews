@@ -29,8 +29,8 @@ class NewsTableViewCell: UITableViewCell {
         tvLogo.translatesAutoresizingMaskIntoConstraints = false
         tvLogo.contentMode = .scaleAspectFit
         tvLogo.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        tvLogo.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        tvLogo.layer.cornerRadius = 15
+        tvLogo.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        tvLogo.tintColor = UIColor(red: 90/255, green: 191/255, blue: 242/255, alpha: 1)
         tvLogo.clipsToBounds = true
         return tvLogo
     }()
@@ -83,7 +83,6 @@ class NewsTableViewCell: UITableViewCell {
         newsImage.translatesAutoresizingMaskIntoConstraints = false
         newsImage.contentMode = .scaleAspectFill
         newsImage.clipsToBounds = true
-        newsImage.layer.cornerRadius = 15
         newsImage.heightAnchor.constraint(equalToConstant: 150).isActive = true
         return newsImage
     }()
@@ -115,7 +114,7 @@ class NewsTableViewCell: UITableViewCell {
         newsOwner.addSubview(newsDate)
         
         NSLayoutConstraint.activate([
-            newsOwner.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
+            newsOwner.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             newsOwner.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             newsOwner.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             

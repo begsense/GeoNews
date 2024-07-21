@@ -8,7 +8,6 @@
 import UIKit
 
 class SavedNewsCell: UICollectionViewCell {
-    
     //MARK: Properties:
     static var identifier: String {
         String(describing: self)
@@ -25,8 +24,8 @@ class SavedNewsCell: UICollectionViewCell {
     }()
     
     private var savedNewsTitle: UILabel = {
-       let label = UILabel()
-        label.text = "Sorry error displaying title"
+        let label = UILabel()
+        label.text = "Loading..."
         label.font = UIFont(name: "FiraGO-Regular", size: 8)
         label.textColor = .white
         label.numberOfLines = 0
@@ -46,7 +45,6 @@ class SavedNewsCell: UICollectionViewCell {
     }
     
     //MARK: SetupUI:
-    
     func setupUI() {
         contentView.addSubview(savedNewsImage)
         contentView.addSubview(savedNewsTitle)

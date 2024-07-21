@@ -325,6 +325,7 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         viewModel.updateUserLabel = { [weak self] text in
             self?.userLabel.text = text
         }
+        
     }
     
     @objc private func profileImageTapped() {

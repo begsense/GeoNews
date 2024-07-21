@@ -26,7 +26,7 @@ class NewsTableViewCellAppleType: UITableViewCell {
         tvLogo.contentMode = .scaleAspectFit
         tvLogo.heightAnchor.constraint(equalToConstant: 30).isActive = true
         tvLogo.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        tvLogo.layer.cornerRadius = 15
+        tvLogo.tintColor = .white
         tvLogo.clipsToBounds = true
         return tvLogo
     }()
@@ -58,7 +58,7 @@ class NewsTableViewCellAppleType: UITableViewCell {
         label.font = UIFont(name: "FiraGO-Regular", size: 15)
         label.textColor = .white
         label.numberOfLines = 0
-        label.heightAnchor.constraint(equalToConstant: 190).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 150).isActive = true
         return label
     }()
     
@@ -68,7 +68,7 @@ class NewsTableViewCellAppleType: UITableViewCell {
         newsImage.contentMode = .scaleAspectFill
         newsImage.clipsToBounds = true
         newsImage.layer.cornerRadius = 15
-        newsImage.heightAnchor.constraint(equalToConstant: 210).isActive = true
+        newsImage.heightAnchor.constraint(equalToConstant: 200).isActive = true
         return newsImage
     }()
     
@@ -99,7 +99,7 @@ class NewsTableViewCellAppleType: UITableViewCell {
         
         NSLayoutConstraint.activate([
             newsOwner.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4),
-            newsOwner.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 10),
+            newsOwner.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             newsOwner.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             
             tvLogo.topAnchor.constraint(equalTo: newsOwner.topAnchor),

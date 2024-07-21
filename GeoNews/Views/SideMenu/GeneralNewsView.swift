@@ -91,6 +91,9 @@ class GeneralNewsView: UIViewController {
         tableView.delegate = self
         tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
         tableView.register(NewsTableViewCellAppleType.self, forCellReuseIdentifier: NewsTableViewCellAppleType.identifier)
+        tableView.register(NewsTableViewCellBBCType.self, forCellReuseIdentifier: NewsTableViewCellBBCType.identifier)
+        tableView.register(NewsTableViewCellFastType.self, forCellReuseIdentifier: NewsTableViewCellFastType.identifier)
+        tableView.register(NewsTableViewCellCNNType.self, forCellReuseIdentifier: NewsTableViewCellCNNType.identifier)
     }
     
     private func setupLoader() {
@@ -167,8 +170,7 @@ extension GeneralNewsView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = viewModel.cellIdentifier
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: viewModel.cellIdentifier, for: indexPath)
         
         let newsItem = viewModel.news(at: indexPath.row)
         
@@ -183,7 +185,21 @@ extension GeneralNewsView: UITableViewDataSource {
 
 extension GeneralNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 275
+        switch viewModel.cellIdentifier  {
+        case NewsTableViewCell.identifier:
+            return 275
+        case NewsTableViewCellAppleType.identifier:
+            return 220
+        case NewsTableViewCellBBCType.identifier:
+            return 170
+        case NewsTableViewCellFastType.identifier:
+            return 130
+        case NewsTableViewCellCNNType.identifier:
+            return 220
+        default:
+            return 275
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -12,7 +12,7 @@ class CellStyleManager {
     
     private init() {}
     
-    var cellStyles = ["GeoNews", "AppleNews"]
+    var cellStyles = ["GeoNews", "AppleNews", "BBCNews", "FastNews", "CNNNews"]
     private var currentCellIdentifier: String = NewsTableViewCell.identifier {
         didSet {
             NotificationCenter.default.post(name: .cellStyleChanged, object: currentCellIdentifier)
@@ -25,6 +25,12 @@ class CellStyleManager {
             currentCellIdentifier = NewsTableViewCell.identifier
         case "AppleNews":
             currentCellIdentifier = NewsTableViewCellAppleType.identifier
+        case "BBCNews":
+            currentCellIdentifier = NewsTableViewCellBBCType.identifier
+        case "FastNews":
+            currentCellIdentifier = NewsTableViewCellFastType.identifier
+        case "CNNNews":
+            currentCellIdentifier = NewsTableViewCellCNNType.identifier
         default:
             break
         }

@@ -12,7 +12,6 @@ struct News: Codable, Hashable {
     let date: String
     let details: String
     let image: String
-    let isfake: Bool
     let name: String
     let title: String
     let likes: Int
