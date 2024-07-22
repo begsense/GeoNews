@@ -133,6 +133,7 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
         viewModel.fetchFavoriteNews()
         viewModel.fetchReadLaterNews()
         setupReadLaterCollectionView()
@@ -411,7 +412,6 @@ extension ProfileView: UICollectionViewDelegate {
         let detailView = NewsDetailedView(viewModel: newsDetailedViewModel)
         
         navigationController?.pushViewController(detailView, animated: true)
-        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
 }

@@ -188,7 +188,6 @@ extension SearchView: UITableViewDelegate {
         let detailView = NewsDetailedView(viewModel: newsDetailedViewModel)
         
         navigationController?.pushViewController(detailView, animated: true)
-        navigationController?.setNavigationBarHidden(false, animated: true)
     }
 }
 

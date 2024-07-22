@@ -72,6 +72,11 @@ class ExchangeViewModel: ObservableObject {
                             "BTM", "UTK", "CLOAK", "SKY", "AURA", "UBQ", "SMART", "EXP", "DCT", "NLG",
                             "NAV", "SAN", "NEBL", "BTCD", "XBY", "DMD", "IOP", "SLR", "XAS", "EMC2"]
     
+    var availableFiatCurrencies = ["GEL", "USD", "EUR", "JPY", "GBP", "AUD", "CAD", "CHF", "CNY", "HKD",
+                                   "NZD", "SEK", "KRW", "SGD", "NOK", "MXN", "INR", "RUB", "ZAR", "TRY",
+                                   "AED", "DKK", "PLN", "THB", "IDR", "HUF", "CZK", "ILS", "CLP", "PHP",
+                                   "COP", "MYR", "RON", "BRL"]
+    
     var formattedResult: String {
         let formattedString = String(format: "%.4f", result)
         if formattedString.contains(".") {

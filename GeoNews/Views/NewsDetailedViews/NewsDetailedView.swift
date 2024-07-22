@@ -164,7 +164,7 @@ class NewsDetailedView: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        navigationController?.setNavigationBarHidden(false, animated: true)
         setupUI()
         updateUI()
         

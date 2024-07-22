@@ -87,46 +87,51 @@ struct ExchangeView: View {
         .background(RoundedRectangle(cornerRadius: 20, style: .continuous)
             .fill(Color(red: 8/255, green: 40/255, blue: 67/255).opacity(0.85))
             .frame(maxWidth: .infinity))
-        
     }
     
     private var currencyExchangeInputs: some View {
         VStack {
-            TextField("1", text: $viewModel.moneyInput)
-                .frame(width: 130, height: 40)
-                .padding(8)
-                .background(Color.gray.opacity(0.4))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .foregroundColor(.white.opacity(0.8))
-                .multilineTextAlignment(.center)
-                .textCase(.uppercase)
-            
-            HStack {
-                Picker("Base Currency", selection: $viewModel.baseCurrency) {
-                    ForEach(viewModel.availableCurrencies, id: \.self) { currency in
-                        Text(currency).tag(currency)
+            GeometryReader { geometry in
+                VStack(spacing: 16) {
+                    TextField("1", text: $viewModel.moneyInput)
+                        .frame(width: geometry.size.width * 0.6, height: 40)
+                        .padding(8)
+                        .background(Color.gray.opacity(0.4))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .foregroundColor(.white.opacity(0.8))
+                        .multilineTextAlignment(.center)
+                        .textCase(.uppercase)
+                    
+                    HStack(spacing: 20) {
+                        Picker("Base Currency", selection: $viewModel.baseCurrency) {
+                            ForEach(viewModel.availableCurrencies, id: \.self) { currency in
+                                Text(currency).tag(currency)
+                            }
+                        }
+                        .frame(width: geometry.size.width / 2.5, height: 40)
+                        .padding(8)
+                        .accentColor(.white.opacity(0.8))
+                        .background(Color.gray.opacity(0.4))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .multilineTextAlignment(.center)
+                        .pickerStyle(MenuPickerStyle())
+                        
+                        Picker("Target Currency", selection: $viewModel.targetCurrency) {
+                            ForEach(viewModel.availableCurrencies, id: \.self) { currency in
+                                Text(currency).tag(currency)
+                            }
+                        }
+                        .frame(width: geometry.size.width / 2.5, height: 40)
+                        .padding(8)
+                        .accentColor(.white.opacity(0.8))
+                        .background(Color.gray.opacity(0.4))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .multilineTextAlignment(.center)
                     }
+                    .frame(height: 40)
                 }
-                .frame(width: 100, height: 40)
-                .padding(8)
-                .accentColor(.white.opacity(0.8))
-                .background(Color.gray.opacity(0.4))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .multilineTextAlignment(.center)
-                .pickerStyle(MenuPickerStyle())
-                
-                Picker("Target Currency", selection: $viewModel.targetCurrency) {
-                    ForEach(viewModel.availableCurrencies, id: \.self) { currency in
-                        Text(currency).tag(currency)
-                    }
-                }
-                .frame(width: 100, height: 40)
-                .padding(8)
-                .accentColor(.white.opacity(0.8))
-                .background(Color.gray.opacity(0.4))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .multilineTextAlignment(.center)
             }
+            .frame(height: 100)
         }
         .padding()
     }
@@ -153,46 +158,51 @@ struct ExchangeView: View {
         .background(RoundedRectangle(cornerRadius: 20, style: .continuous)
             .fill(Color(red: 8/255, green: 40/255, blue: 67/255).opacity(0.85))
             .frame(maxWidth: .infinity))
-        
     }
     
     private var cryptoExchangeInputs: some View {
         VStack {
-            TextField("1", text: $viewModel.moneyInput)
-                .frame(width: 130, height: 40)
-                .padding(8)
-                .background(Color.gray.opacity(0.4))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .foregroundColor(.white.opacity(0.8))
-                .multilineTextAlignment(.center)
-                .textCase(.uppercase)
-            
-            HStack {
-                Picker("Base Currency", selection: $viewModel.baseCurrency) {
-                    ForEach(viewModel.availableCurrencies, id: \.self) { currency in
-                        Text(currency).tag(currency)
+            GeometryReader { geometry in
+                VStack(spacing: 16) {
+                    TextField("1", text: $viewModel.moneyInput)
+                        .frame(width: geometry.size.width * 0.6, height: 40)
+                        .padding(8)
+                        .background(Color.gray.opacity(0.4))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .foregroundColor(.white.opacity(0.8))
+                        .multilineTextAlignment(.center)
+                        .textCase(.uppercase)
+                    
+                    HStack(spacing: 20) {
+                        Picker("Base Currency", selection: $viewModel.baseCurrency) {
+                            ForEach(viewModel.availableFiatCurrencies, id: \.self) { currency in
+                                Text(currency).tag(currency)
+                            }
+                        }
+                        .frame(width: geometry.size.width / 2.5, height: 40)
+                        .padding(8)
+                        .accentColor(.white.opacity(0.8))
+                        .background(Color.gray.opacity(0.4))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .multilineTextAlignment(.center)
+                        .pickerStyle(MenuPickerStyle())
+                        
+                        Picker("Target Currency", selection: $viewModel.targetCrypto) {
+                            ForEach(viewModel.availableCryptos, id: \.self) { currency in
+                                Text(currency).tag(currency)
+                            }
+                        }
+                        .frame(width: geometry.size.width / 2.5, height: 40)
+                        .padding(8)
+                        .accentColor(.white.opacity(0.8))
+                        .background(Color.gray.opacity(0.4))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                        .multilineTextAlignment(.center)
                     }
+                    .frame(height: 40)
                 }
-                .frame(width: 100, height: 40)
-                .padding(8)
-                .accentColor(.white.opacity(0.8))
-                .background(Color.gray.opacity(0.4))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .multilineTextAlignment(.center)
-                .pickerStyle(MenuPickerStyle())
-                
-                Picker("Target Crypto", selection: $viewModel.targetCrypto) {
-                    ForEach(viewModel.availableCryptos, id: \.self) { crypto in
-                        Text(crypto).tag(crypto)
-                    }
-                }
-                .frame(width: 100, height: 40)
-                .padding(8)
-                .accentColor(.white.opacity(0.8))
-                .background(Color.gray.opacity(0.4))
-                .clipShape(RoundedRectangle(cornerRadius: 8))
-                .multilineTextAlignment(.center)
             }
+            .frame(height: 100)
         }
         .padding()
     }
