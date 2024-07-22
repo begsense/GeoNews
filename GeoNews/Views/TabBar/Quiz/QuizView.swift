@@ -69,19 +69,9 @@ extension View {
     }
 }
 
-extension Image {
-    static func currencyImage(name: String, defaultName: String = "question") -> Image {
-        if let _ = UIImage(named: name) {
-            return Image(name)
-        } else {
-            return Image(defaultName)
-        }
-    }
-}
-
 extension View {
     func CurrencyImageResize(name: String) -> some View {
-        Image.currencyImage(name: name)
+        Image(name)
             .resizable()
             .scaledToFit()
             .frame(width: 50, height: 50)

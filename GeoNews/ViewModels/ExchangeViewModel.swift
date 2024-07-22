@@ -55,8 +55,7 @@ class ExchangeViewModel: ObservableObject {
                                "SAR", "SBD", "SCR", "SDG", "SEK", "SGD", "SHP", "SLE", "SLL", "SOS",
                                "SRD", "SSP", "STN", "SYP", "SZL", "THB", "TJS", "TMT", "TND", "TOP",
                                "TRY", "TTD", "TVD", "TWD", "TZS", "UAH", "UGX", "UYU", "UZS", "VES",
-                               "VND", "VUV", "WST", "XAF", "XCD", "XDR", "XOF", "XPF", "YER", "ZAR",
-                               "ZMW", "ZWL"]
+                               "VND", "VUV", "WST", "XAF", "XCD", "XPF", "YER", "ZAR", "ZMW", "ZWL"]
     
     var availableCryptos = ["BTC", "ETH", "LTC", "XRP", "BCH", "EOS", "XLM", "ADA", "TRX", "NEO",
                             "MIOTA", "XEM", "DASH", "ETC", "XMR", "ZEC", "VEN", "BNB", "OMG", "QTUM",
