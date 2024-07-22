@@ -37,8 +37,40 @@ class ExchangeViewModel: ObservableObject {
         }
     }
     @Published var result: Double = 0.0
-
+    
     private var characterLimit: Int = 7
+    
+    var availableCurrencies = ["GEL", "USD", "EUR", "GBP", "CAD", "AUD", "JPY", "INR", "NZD", "AED",
+                               "AFN", "ALL", "AMD", "ANG", "AOA", "ARS", "AWG", "AZN", "BAM", "BBD",
+                               "BDT", "BGN", "BHD", "BIF", "BMD", "BND", "BOB", "BRL", "BSD", "BTN",
+                               "BWP", "BYN", "BZD", "CDF", "CHF", "CLP", "CNY", "COP", "CRC", "CUP",
+                               "CVE", "CZK", "DJF", "DKK", "DOP", "DZD", "EGP", "ERN", "ETB", "FJD",
+                               "FKP", "FOK", "GGP", "GHS", "GIP", "GMD", "GNF", "GTQ", "GYD", "HKD",
+                               "HNL", "HRK", "HTG", "HUF", "IDR", "ILS", "IMP", "IQD", "IRR", "ISK",
+                               "JEP", "JMD", "JOD", "KES", "KGS", "KHR", "KID", "KMF", "KRW", "KWD",
+                               "KYD", "KZT", "LAK", "LBP", "LKR", "LRD", "LSL", "LYD", "MAD", "MDL",
+                               "MGA", "MKD", "MMK", "MNT", "MOP", "MRU", "MUR", "MVR", "MWK", "MXN",
+                               "MYR", "MZN", "NAD", "NGN", "NIO", "NOK", "NPR", "OMR", "PAB", "PEN",
+                               "PGK", "PHP", "PKR", "PLN", "PYG", "QAR", "RON", "RSD", "RUB", "RWF",
+                               "SAR", "SBD", "SCR", "SDG", "SEK", "SGD", "SHP", "SLE", "SLL", "SOS",
+                               "SRD", "SSP", "STN", "SYP", "SZL", "THB", "TJS", "TMT", "TND", "TOP",
+                               "TRY", "TTD", "TVD", "TWD", "TZS", "UAH", "UGX", "UYU", "UZS", "VES",
+                               "VND", "VUV", "WST", "XAF", "XCD", "XDR", "XOF", "XPF", "YER", "ZAR",
+                               "ZMW", "ZWL"]
+    
+    var availableCryptos = ["BTC", "ETH", "LTC", "XRP", "BCH", "EOS", "XLM", "ADA", "TRX", "NEO",
+                            "MIOTA", "XEM", "DASH", "ETC", "XMR", "ZEC", "VEN", "BNB", "OMG", "QTUM",
+                            "BTG", "LSK", "ICX", "DGD", "STEEM", "BCN", "SC", "BTS", "STRAT", "WAVES",
+                            "DOGE", "MKR", "ZRX", "DGB", "REP", "BAT", "IOST", "ZIL", "AE", "XVG",
+                            "NPXS", "GNT", "SNT", "WTC", "RHOC", "KNC", "AION", "DCN", "QASH", "CNX",
+                            "ARK", "LINK", "PIVX", "WAN", "HOT", "POLY", "PAY", "ELF", "POWR",
+                            "MAID", "GAS", "NANO", "DENT", "FUN", "KMD", "MONA", "SYS", "LRC",
+                            "ZEN", "FCT", "GXS", "SUB", "QSP", "ENG", "CVC", "PART", "EDO",
+                            "MANA", "RLC", "STORM", "REQ", "NXT", "POE", "MTL", "CMT", "TNB", "BLZ",
+                            "STORJ", "DRGN", "PPT", "QKC", "BRD", "LOOM", "NXS", "BNT", "THETA", "GRS",
+                            "MITH", "DATA", "CND", "BAY", "GO", "NCASH", "STQ", "VTC", "POT", "GBYTE",
+                            "BTM", "UTK", "CLOAK", "SKY", "AURA", "UBQ", "SMART", "EXP", "DCT", "NLG",
+                            "NAV", "SAN", "NEBL", "BTCD", "XBY", "DMD", "IOP", "SLR", "XAS", "EMC2"]
     
     var formattedResult: String {
         let formattedString = String(format: "%.4f", result)
@@ -50,18 +82,18 @@ class ExchangeViewModel: ObservableObject {
         }
         return String(format: "%.0f", result)
     }
-
+    
     enum ExchangeType: String, CaseIterable, Identifiable {
         case currency = "Currency"
         case crypto = "Cryptocurrency"
         
         var id: String { self.rawValue }
     }
-
+    
     init() {
         fetchExchangeRates()
     }
-
+    
     func fetchExchangeRates() {
         var urlString = ""
         switch selectedExchangeType {
@@ -85,7 +117,7 @@ class ExchangeViewModel: ObservableObject {
                             self.calculateResult()
                         }
                     } catch {
-                        print("vtxovot rom sworad sheiyvanos currency")
+                        print("Error decoding currency rates")
                     }
                     
                 case .crypto:
@@ -97,14 +129,13 @@ class ExchangeViewModel: ObservableObject {
                             }
                         }
                     } catch {
-                        print("vtxovot rom sworad sheiyvanos currency")
+                        print("Error decoding crypto rates")
                     }
                 }
             }
         }.resume()
     }
-
-
+    
     private func calculateResult() {
         guard let inputValue = Double(moneyInput) else {
             result = 0.0

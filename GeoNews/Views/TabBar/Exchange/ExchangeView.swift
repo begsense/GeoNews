@@ -91,8 +91,9 @@ struct ExchangeView: View {
     }
     
     private var currencyExchangeInputs: some View {
-        HStack {
+        VStack {
             TextField("1", text: $viewModel.moneyInput)
+                .frame(width: 130, height: 40)
                 .padding(8)
                 .background(Color.gray.opacity(0.4))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -100,27 +101,32 @@ struct ExchangeView: View {
                 .multilineTextAlignment(.center)
                 .textCase(.uppercase)
             
-            TextField("GEL", text: $viewModel.baseCurrency)
+            HStack {
+                Picker("Base Currency", selection: $viewModel.baseCurrency) {
+                    ForEach(viewModel.availableCurrencies, id: \.self) { currency in
+                        Text(currency).tag(currency)
+                    }
+                }
+                .frame(width: 100, height: 40)
                 .padding(8)
+                .accentColor(.white.opacity(0.8))
                 .background(Color.gray.opacity(0.4))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.center)
-                .textCase(.uppercase)
-                .onSubmit {
-                    viewModel.fetchExchangeRates()
+                .pickerStyle(MenuPickerStyle())
+                
+                Picker("Target Currency", selection: $viewModel.targetCurrency) {
+                    ForEach(viewModel.availableCurrencies, id: \.self) { currency in
+                        Text(currency).tag(currency)
+                    }
                 }
-            
-            TextField("USD", text: $viewModel.targetCurrency)
+                .frame(width: 100, height: 40)
                 .padding(8)
+                .accentColor(.white.opacity(0.8))
                 .background(Color.gray.opacity(0.4))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.center)
-                .textCase(.uppercase)
-                .onSubmit {
-                    viewModel.fetchExchangeRates()
-                }
+            }
         }
         .padding()
     }
@@ -151,8 +157,9 @@ struct ExchangeView: View {
     }
     
     private var cryptoExchangeInputs: some View {
-        HStack {
+        VStack {
             TextField("1", text: $viewModel.moneyInput)
+                .frame(width: 130, height: 40)
                 .padding(8)
                 .background(Color.gray.opacity(0.4))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -160,27 +167,32 @@ struct ExchangeView: View {
                 .multilineTextAlignment(.center)
                 .textCase(.uppercase)
             
-            TextField("GEL", text: $viewModel.baseCurrency)
+            HStack {
+                Picker("Base Currency", selection: $viewModel.baseCurrency) {
+                    ForEach(viewModel.availableCurrencies, id: \.self) { currency in
+                        Text(currency).tag(currency)
+                    }
+                }
+                .frame(width: 100, height: 40)
                 .padding(8)
+                .accentColor(.white.opacity(0.8))
                 .background(Color.gray.opacity(0.4))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.center)
-                .textCase(.uppercase)
-                .onSubmit {
-                    viewModel.fetchExchangeRates()
+                .pickerStyle(MenuPickerStyle())
+                
+                Picker("Target Crypto", selection: $viewModel.targetCrypto) {
+                    ForEach(viewModel.availableCryptos, id: \.self) { crypto in
+                        Text(crypto).tag(crypto)
+                    }
                 }
-            
-            TextField("BTC", text: $viewModel.targetCrypto)
+                .frame(width: 100, height: 40)
                 .padding(8)
+                .accentColor(.white.opacity(0.8))
                 .background(Color.gray.opacity(0.4))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
-                .foregroundColor(.white.opacity(0.8))
                 .multilineTextAlignment(.center)
-                .textCase(.uppercase)
-                .onSubmit {
-                    viewModel.fetchExchangeRates()
-                }
+            }
         }
         .padding()
     }

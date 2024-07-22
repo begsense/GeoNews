@@ -14,7 +14,7 @@ class SearchViewModel {
     private let networkService = NetworkService()
     private var allNewsItems: [News] = []
     
-    let names = ["TV", "Imedi", "Rustavi2", "On.ge", "Formula"]
+    let names = ["TV", "Imedi", "Rustavi2", "On.ge", "Formula", "1TV"]
     let categories = ["Category", "Politics", "Sport", "Health", "Technology"]
     
     var selectedName: String = "TV" {

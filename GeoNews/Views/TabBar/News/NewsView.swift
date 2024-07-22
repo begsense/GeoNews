@@ -13,6 +13,14 @@ class NewsView: UIViewController {
         case closed
     }
     
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "All News"
+        label.textColor = .white
+        label.font = UIFont(name: "FiraGO-Regular", size: 16)
+        return label
+    }()
+    
     private var menuState: MenuState = .closed
     
     private var menuView = MenuView(viewModel: MenuViewModel())
@@ -133,7 +141,7 @@ extension NewsView: MenuViewControllerDelegate {
     
     private func resetGeneralNewsView() {
         removeAllChildViews()
-        generalNews.title = "All News"
+        generalNews.navigationItem.titleView = titleLabel
     }
     
     private func removeAllChildViews() {

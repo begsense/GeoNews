@@ -135,6 +135,8 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         super.viewWillAppear(animated)
         viewModel.fetchFavoriteNews()
         viewModel.fetchReadLaterNews()
+        setupReadLaterCollectionView()
+        setupEmptyReadLaterImageView()
     }
     
     private func setupUI() {
