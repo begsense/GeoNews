@@ -8,7 +8,7 @@
 import UIKit
 
 class NewsTableViewCellCNNType: UITableViewCell {
-    //MARK: Properties:
+    //MARK: - Properties
     static var identifier: String {
         String(describing: self)
     }
@@ -61,7 +61,7 @@ class NewsTableViewCellCNNType: UITableViewCell {
         return label
     }()
     
-    //MARK: Lifecycle:
+    //MARK: - LifeCycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -76,7 +76,7 @@ class NewsTableViewCellCNNType: UITableViewCell {
         gradientLayer.frame = newsImage.bounds
     }
     
-    //MARK: SetupUI:
+    //MARK: - UI Setup
     func setupUI() {
         contentView.backgroundColor = .clear
         
@@ -115,7 +115,6 @@ class NewsTableViewCellCNNType: UITableViewCell {
         ])
     }
 }
-
 
 extension NewsTableViewCellCNNType: ConfigurableNewsCell {
     func configure(with news: News) {

@@ -12,7 +12,7 @@ protocol ConfigurableNewsCell {
 }
 
 class NewsTableViewCell: UITableViewCell {
-    //MARK: Properties:
+    //MARK: Properties
     static var identifier: String {
         String(describing: self)
     }
@@ -87,7 +87,7 @@ class NewsTableViewCell: UITableViewCell {
         return newsImage
     }()
     
-    //MARK: Lifecycle:
+    //MARK: LifeCycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -97,7 +97,7 @@ class NewsTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: SetupUI:
+    //MARK: - UI Setup
     func setupUI() {
         contentView.backgroundColor = .clear
         

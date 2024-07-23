@@ -9,17 +9,25 @@ import UIKit
 import SwiftUI
 
 class ForgotPasswordView: UIViewController {
+    //MARK: - Properties
+    private var header = AuthHeaderView(title: "Forgot Password", subTitle: "Reset your password")
     
-    // MARK: - Properties
-    private let header = AuthHeaderView(title: "Forgot Password", subTitle: "Reset your password")
+    private var emailField = CustomTextField(fieldType: .email)
     
-    private let emailField = CustomTextField(fieldType: .email)
+    private var resetPasswordButton = CustomButton(title: "Reset", hasBackground: true, fontSize: .big)
     
-    private let resetPasswordButton = CustomButton(title: "Reset", hasBackground: true, fontSize: .big)
+    private var viewModel: ForgotPasswordViewModel
     
-    private var viewModel = ForgotPasswordViewModel()
+    //MARK: - LifeCycle
+    init( viewModel: ForgotPasswordViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    // MARK: - LifeCycle
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -32,7 +40,7 @@ class ForgotPasswordView: UIViewController {
         navigationController?.navigationBar.isHidden = false
     }
     
-    // MARK: - UI Setup
+    //MARK: - UI Setup
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
@@ -76,7 +84,7 @@ class ForgotPasswordView: UIViewController {
         ])
     }
     
-    // MARK: - Actions
+    //MARK: - Actions
     private func setupActions() {
         resetPasswordButton.addAction(UIAction { [weak self] _ in
             self?.viewModel.resetPasswordHandler()
@@ -87,7 +95,7 @@ class ForgotPasswordView: UIViewController {
         }, for: .editingChanged)
     }
     
-    // MARK: - ViewModel Binding
+    //MARK: - ViewModel Binding
     private func bindViewModel() {
         viewModel.didResetPassword = { [weak self] in
             guard let self = self else { return }
@@ -104,7 +112,6 @@ class ForgotPasswordView: UIViewController {
             default:
                 AlertManager.showErrorSendingPasswordReset(on: self)
             }
-            
         }
     }
 }

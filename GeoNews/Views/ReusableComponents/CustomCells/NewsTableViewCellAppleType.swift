@@ -8,7 +8,7 @@
 import UIKit
 
 class NewsTableViewCellAppleType: UITableViewCell {
-    //MARK: Properties:
+    //MARK: - Properties
     static var identifier: String {
         String(describing: self)
     }
@@ -72,7 +72,7 @@ class NewsTableViewCellAppleType: UITableViewCell {
         return newsImage
     }()
     
-    //MARK: Lifecycle:
+    //MARK: - LifeCycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -82,7 +82,7 @@ class NewsTableViewCellAppleType: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: SetupUI:
+    //MARK: - UI Setup
     func setupUI() {
         contentView.backgroundColor = .clear
         
@@ -140,7 +140,6 @@ class NewsTableViewCellAppleType: UITableViewCell {
         ])
     }
 }
-
 
 extension NewsTableViewCellAppleType: ConfigurableNewsCell {
     func configure(with news: News) {

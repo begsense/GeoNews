@@ -8,7 +8,7 @@
 import UIKit
 
 class NewsTableViewCellFastType: UITableViewCell {
-    //MARK: Properties:
+    //MARK: - Properties
     static var identifier: String {
         String(describing: self)
     }
@@ -55,7 +55,7 @@ class NewsTableViewCellFastType: UITableViewCell {
         return label
     }()
     
-    //MARK: Lifecycle:
+    //MARK: - LifeCycle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -65,7 +65,7 @@ class NewsTableViewCellFastType: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: SetupUI:
+    //MARK: - UI Setup
     func setupUI() {
         contentView.backgroundColor = .clear
         
@@ -112,7 +112,6 @@ class NewsTableViewCellFastType: UITableViewCell {
         ])
     }
 }
-
 
 extension NewsTableViewCellFastType: ConfigurableNewsCell {
     func configure(with news: News) {

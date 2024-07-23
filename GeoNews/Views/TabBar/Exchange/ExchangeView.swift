@@ -100,7 +100,7 @@ struct ExchangeView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .foregroundColor(.white.opacity(0.8))
                         .multilineTextAlignment(.center)
-                        .textCase(.uppercase)
+                        .keyboardType(.decimalPad)
                     
                     HStack(spacing: 20) {
                         Picker("Base Currency", selection: $viewModel.baseCurrency) {
@@ -171,7 +171,7 @@ struct ExchangeView: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .foregroundColor(.white.opacity(0.8))
                         .multilineTextAlignment(.center)
-                        .textCase(.uppercase)
+                        .keyboardType(.decimalPad)
                     
                     HStack(spacing: 20) {
                         Picker("Base Currency", selection: $viewModel.baseCurrency) {

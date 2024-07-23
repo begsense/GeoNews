@@ -116,6 +116,13 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         return imageView
     }()
     
+    private var bottomView: UIView = {
+        let bottomView = UIView()
+         bottomView.translatesAutoresizingMaskIntoConstraints = false
+         bottomView.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
+         return bottomView
+     }()
+    
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -143,6 +150,7 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
+        
         setupScrollView()
         setupProfileImage()
         setupUserLabel()
@@ -154,6 +162,7 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         setupEmptyReadLaterImageView()
         setupPickerTitle()
         setupPicker()
+        setupBottomView()
     }
     
     private func setupScrollView() {
@@ -296,6 +305,17 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         
         cellPicker.dataSource = self
         cellPicker.delegate = self
+    }
+    
+    private func setupBottomView() {
+        view.addSubview(bottomView)
+        
+        NSLayoutConstraint.activate([
+            bottomView.topAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            bottomView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bottomView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bottomView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     private func bindViewModel() {

@@ -8,7 +8,7 @@
 import UIKit
 
 class SavedNewsCell: UICollectionViewCell {
-    //MARK: Properties:
+    //MARK: - Properties
     static var identifier: String {
         String(describing: self)
     }
@@ -34,7 +34,7 @@ class SavedNewsCell: UICollectionViewCell {
         return label
     }()
     
-    //MARK: Lifecycle:
+    //MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -44,10 +44,11 @@ class SavedNewsCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: SetupUI:
+    //MARK: - UI Setup
     func setupUI() {
         contentView.addSubview(savedNewsImage)
         contentView.addSubview(savedNewsTitle)
+        
         NSLayoutConstraint.activate([
             savedNewsImage.topAnchor.constraint(equalTo: contentView.topAnchor),
             savedNewsImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

@@ -9,8 +9,7 @@ import UIKit
 import SwiftUI
 
 class SignUpView: UIViewController {
-    
-    // MARK: - Properties
+    //MARK: - Properties
     private var header = AuthHeaderView(title: "Sign Up", subTitle: "Create your account")
     
     private var usernameField = CustomTextField(fieldType: .username)
@@ -43,9 +42,18 @@ class SignUpView: UIViewController {
         return tv
     }()
     
-    private var viewModel = SignUpViewModel()
+    private var viewModel: SignUpViewModel
     
-    // MARK: - LifeCycle
+    //MARK: - LifeCycle
+    init(viewModel: SignUpViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -57,7 +65,7 @@ class SignUpView: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
     
-    // MARK: - UI Setup
+    //MARK: - UI Setup
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
@@ -165,7 +173,7 @@ class SignUpView: UIViewController {
         ])
     }
     
-    // MARK: - Actions
+    //MARK: - Actions
     private func setupActions() {
         signUpButton.addAction(UIAction { [weak self] _ in
             self?.startLoading()
@@ -189,7 +197,7 @@ class SignUpView: UIViewController {
         }, for: .editingChanged)
     }
     
-    // MARK: - ViewModel Binding
+    //MARK: - ViewModel Binding
     private func bindViewModel() {
         viewModel.didSignUp = { [weak self] in
             guard let self = self else { return }
@@ -225,7 +233,7 @@ class SignUpView: UIViewController {
         }
     }
     
-    // MARK: - Loader
+    //MARK: - Loader
     private func startLoading() {
         loaderView.startAnimating()
     }
@@ -236,7 +244,6 @@ class SignUpView: UIViewController {
 }
 
 extension SignUpView: UITextViewDelegate {
-    
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         handleURLInteraction(URL)
         return false

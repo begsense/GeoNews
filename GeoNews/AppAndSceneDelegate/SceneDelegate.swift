@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-
+    
     var window: UIWindow?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     public func checkAuthentication() {
         if Auth.auth().currentUser == nil {
-            self.goToController(with: SignInView())
+            self.goToController(with: SignInView(viewModel: SignInViewModel()))
         } else {
             self.goToController(with: RootViewController())
         }
@@ -36,9 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         DispatchQueue.main.async { [weak self] in
             UIView.animate(withDuration: 0.25) {
                 self?.window?.layer.opacity = 0
-                
             } completion: { [weak self] _ in
-                
                 let nav = UINavigationController(rootViewController: viewController)
                 nav.modalPresentationStyle = .fullScreen
                 self?.window?.rootViewController = nav

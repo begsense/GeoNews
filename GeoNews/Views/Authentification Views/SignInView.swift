@@ -9,8 +9,7 @@ import UIKit
 import SwiftUI
 
 class SignInView: UIViewController {
-    
-    // MARK: - Properties
+    //MARK: - Properties
     private var header = AuthHeaderView(title: "Sign In", subTitle: "Sign in to your account")
     
     private var emailField = CustomTextField(fieldType: .email)
@@ -23,9 +22,19 @@ class SignInView: UIViewController {
     
     private var forgotPasswordButton = CustomButton(title: "Forgot Password?", fontSize: .small)
     
-    private var viewModel = SignInViewModel()
+    private var viewModel: SignInViewModel
     
     private var loaderView = CustomLoaderView()
+    
+    //MARK: - LifeCycle
+    init(viewModel: SignInViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +42,7 @@ class SignInView: UIViewController {
         bindViewModel()
     }
     
-    // MARK: - UI Setup
+    //MARK: - UI Setup
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
@@ -128,7 +137,7 @@ class SignInView: UIViewController {
         ])
     }
     
-    // MARK: - Actions
+    //MARK: - Actions
     private func setupActions() {
         signInButton.addAction(UIAction { [weak self] _ in
             self?.startLoading()
@@ -152,7 +161,7 @@ class SignInView: UIViewController {
         }, for: .editingChanged)
     }
     
-    // MARK: - ViewModel Binding
+    //MARK: - ViewModel Binding
     private func bindViewModel() {
         viewModel.didSignIn = { [weak self] in
             DispatchQueue.main.async {
@@ -180,19 +189,18 @@ class SignInView: UIViewController {
         
         viewModel.didTapNewUser = { [weak self] in
             DispatchQueue.main.async {
-                let vc = SignUpView()
+                let vc = SignUpView(viewModel: SignUpViewModel())
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
         
         viewModel.didTapForgotPassword = { [weak self] in
             DispatchQueue.main.async {
-                let vc = ForgotPasswordView()
+                let vc = ForgotPasswordView(viewModel: ForgotPasswordViewModel())
                 self?.navigationController?.pushViewController(vc, animated: true)
             }
         }
     }
-    
     
     // MARK: - Loader
     private func startLoading() {
