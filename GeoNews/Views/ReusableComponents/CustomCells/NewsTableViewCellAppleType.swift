@@ -24,6 +24,7 @@ class NewsTableViewCellAppleType: UITableViewCell {
         let tvLogo = UIImageView()
         tvLogo.translatesAutoresizingMaskIntoConstraints = false
         tvLogo.contentMode = .scaleAspectFit
+        tvLogo.layer.cornerRadius = 6
         tvLogo.heightAnchor.constraint(equalToConstant: 30).isActive = true
         tvLogo.widthAnchor.constraint(equalToConstant: 30).isActive = true
         tvLogo.tintColor = .white

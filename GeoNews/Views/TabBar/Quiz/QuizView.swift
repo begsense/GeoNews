@@ -9,6 +9,7 @@ import SwiftUI
 
 struct QuizView: View {
     @State var startQuiz: Bool = false
+    @State var showLeaderboard: Bool = false
     
     var body: some View {
         ZStack {
@@ -24,6 +25,8 @@ struct QuizView: View {
                 .zIndex(-1)
             
             VStack {
+                Spacer()
+                
                 Image("logo")
                     .resizable()
                     .frame(width: 100, height: 125)
@@ -40,9 +43,20 @@ struct QuizView: View {
                 
                 Text("მაქსიმალური შეფასება 100 ქულა")
                     .hAlign()
-                    .padding(.bottom, 15)
                 
                 Spacer()
+                    .frame(height: 100)
+                
+                Button {
+                    showLeaderboard.toggle()
+                } label: {
+                    Text("See Leaderboard")
+                        .font(.custom("FiraGO-Regular", size: 18))
+                        .foregroundStyle(Color(red: 138/255, green: 255/255, blue: 99/255, opacity: 0.85))
+                }
+                
+                Spacer()
+                    .frame(height: 50)
                 
                 CustomButtonSUI(title: "Start") {
                     startQuiz.toggle()
@@ -55,6 +69,9 @@ struct QuizView: View {
             .frame(maxWidth: .infinity * 0.75)
             .fullScreenCover(isPresented: $startQuiz, content: {
                 QuizQuestionsView()
+            })
+            .sheet(isPresented: $showLeaderboard, content: {
+                LeaderboardsView(viewModel: LeaderboardsViewModel())
             })
         }
     }
@@ -75,7 +92,7 @@ extension View {
             .resizable()
             .scaledToFit()
             .frame(width: 50, height: 50)
-            .foregroundStyle(name == "equals" ? .white : Color(red: 4/255, green: 123/255, blue: 128/255))
+            .foregroundStyle(name == "equals" ? .white : Color(red: 138/255, green: 255/255, blue: 99/255))
     }
 }
 

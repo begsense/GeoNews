@@ -28,6 +28,7 @@ class NewsTableViewCell: UITableViewCell {
         let tvLogo = UIImageView()
         tvLogo.translatesAutoresizingMaskIntoConstraints = false
         tvLogo.contentMode = .scaleAspectFit
+        tvLogo.layer.cornerRadius = 6
         tvLogo.heightAnchor.constraint(equalToConstant: 30).isActive = true
         tvLogo.widthAnchor.constraint(equalToConstant: 25).isActive = true
         tvLogo.tintColor = UIColor(red: 90/255, green: 191/255, blue: 242/255, alpha: 1)
@@ -83,6 +84,7 @@ class NewsTableViewCell: UITableViewCell {
         newsImage.translatesAutoresizingMaskIntoConstraints = false
         newsImage.contentMode = .scaleAspectFill
         newsImage.clipsToBounds = true
+        newsImage.layer.cornerRadius = 20
         newsImage.heightAnchor.constraint(equalToConstant: 150).isActive = true
         return newsImage
     }()
