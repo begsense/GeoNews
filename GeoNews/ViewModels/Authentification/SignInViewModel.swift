@@ -8,14 +8,13 @@
 import Foundation
 
 class SignInViewModel {
-    
-    // MARK: - Properties
+    //MARK: - Properties
     var email: String = ""
     var password: String = ""
     var errorMessage: String?
     var isValid: Bool = false
     
-    // MARK: - Callbacks
+    //MARK: - Callbacks
     var didSignIn: (() -> Void)?
     var didFailSignIn: ((String?) -> Void)?
     var didTapNewUser: (() -> Void)?
@@ -34,7 +33,7 @@ class SignInViewModel {
         didTapForgotPassword?()
     }
     
-    // MARK: - Private functions
+    //MARK: - Private Functions
     private func validateForm() -> Bool {
         if !Validator.isValidEmail(for: email) {
             errorMessage = "Invalid email format"

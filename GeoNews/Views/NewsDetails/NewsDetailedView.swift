@@ -8,14 +8,7 @@
 import UIKit
 
 class NewsDetailedView: UIViewController {
-    
     //MARK: - Properties
-    private var viewModel: NewsDetailedViewModel
-    
-    private var scrollView = UIScrollView()
-    
-    private var contentView = UIView()
-    
     private var newsOwner: UIView = {
         var newsOwner = UIView()
         newsOwner.translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +117,7 @@ class NewsDetailedView: UIViewController {
     }()
     
     private var readLater: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "bell"), for: .normal)
         button.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -133,9 +126,8 @@ class NewsDetailedView: UIViewController {
     }()
     
     private var lineBreak: UIView = {
-       let view = UIView()
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-       // view.backgroundColor = UIColor(red: 138/255, green: 255/255, blue: 99/255, alpha: 1)
         view.backgroundColor = UIColor(red: 4/255, green: 123/255, blue: 128/255, alpha: 1)
         view.heightAnchor.constraint(equalToConstant: 2).isActive = true
         view.layer.cornerRadius = 15
@@ -143,7 +135,7 @@ class NewsDetailedView: UIViewController {
     }()
     
     private var favorite: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -161,30 +153,32 @@ class NewsDetailedView: UIViewController {
         return label
     }()
     
-    //MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        setupUI()
-        updateUI()
-        
-    }
+    private var scrollView = UIScrollView()
     
+    private var contentView = UIView()
+    
+    private var viewModel: NewsDetailedViewModel
+    
+    //MARK: - Lifecycle
     init(viewModel: NewsDetailedViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        setupActions()
-        configureUI()
-        viewModel.didShare = { [weak self] in
-            self?.shareContent()
-        }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - UISetup
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        setupUI()
+        updateUI()
+        configureUI()
+        setupActions()
+    }
+    
+    //MARK: - UI Setup
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
@@ -319,7 +313,7 @@ class NewsDetailedView: UIViewController {
         newsDetails.text = viewModel.selectedNews?.details
     }
     
-    //MARK: Actions
+    //MARK: - Actions / ViewModelBinding
     private func setupActions() {
         likesButton.addAction(UIAction { [weak self] _ in
             self?.viewModel.toggleLikes { [weak self] success in
@@ -346,6 +340,10 @@ class NewsDetailedView: UIViewController {
                 self?.favorite.setImage(UIImage(systemName: imageName), for: .normal)
             }
         }, for: .touchUpInside)
+        
+        viewModel.didShare = { [weak self] in
+            self?.shareContent()
+        }
     }
     
     private func updateUI() {
@@ -370,8 +368,6 @@ class NewsDetailedView: UIViewController {
         
         let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
         vc.popoverPresentationController?.sourceView = sharesButton
-        
         present(vc, animated: true)
     }
-    
 }

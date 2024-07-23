@@ -38,7 +38,7 @@ class GeneralNewsView: UIViewController {
         return bottomView
     }()
     
-    private let loaderView = CustomLoaderView()
+    private var loaderView = CustomLoaderView()
     
     weak var delegate: GeneralNewsViewDelegate?
     
@@ -154,7 +154,7 @@ class GeneralNewsView: UIViewController {
         }
     }
     
-    // MARK: - Loader
+    //MARK: - Loader
     private func startLoading() {
         loaderView.startAnimating()
     }

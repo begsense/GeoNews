@@ -8,20 +8,19 @@
 import Foundation
 
 class SignUpViewModel {
-    
-    // MARK: - Properties
+    //MARK: - Properties
     var username: String = ""
     var email: String = ""
     var password: String = ""
     var errorMessage: String?
     var isValid: Bool = false
     
-    // MARK: - Callbacks
+    //MARK: - Callbacks
     var didSignUp: (() -> Void)?
     var didFailSignUp: ((String?) -> Void)?
     var didTapSignIn: (() -> Void)?
     
-    // MARK: - Handling
+    //MARK: - Handling
     func handleSignUp() {
         signUp()
     }
@@ -30,7 +29,7 @@ class SignUpViewModel {
         didTapSignIn?()
     }
     
-    // MARK: - Private functions
+    //MARK: - Private functions
     private func validateForm() -> Bool {
         if !Validator.isValidUsername(for: username) {
             errorMessage = "Invalid username format"

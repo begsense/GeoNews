@@ -8,14 +8,22 @@
 import Foundation
 
 class SearchViewModel {
-    var newsItems: [News] = []
-    var onDataUpdate: (() -> Void)?
-    
-    private let networkService = NetworkService()
+    //MARK: - Properties
     private var allNewsItems: [News] = []
     
-    let names = ["TV", "Imedi", "Rustavi2", "On.ge", "Formula", "1TV"]
-    let categories = ["Category", "Politics", "Sport", "Health", "Technology"]
+    private var filteredNewsItems: [News] = [] {
+        didSet {
+            onDataUpdate?()
+        }
+    }
+    
+    var onDataUpdate: (() -> Void)?
+    
+    var isError: ((Bool) -> Void)?
+    
+    var names = ["TV", "Imedi", "Rustavi2", "On.ge", "Formula", "1TV"]
+    
+    var categories = ["Category", "Politics", "Sport", "Health", "Technology"]
     
     var selectedName: String = "TV" {
         didSet {
@@ -29,7 +37,15 @@ class SearchViewModel {
         }
     }
     
-    var cellIdentifier: String = NewsTableViewCell.identifier
+    var cellIdentifier: String = NewsTableViewCell.identifier {
+        didSet {
+            onDataUpdate?()
+        }
+    }
+    
+    var numberOfItems: Int {
+        filteredNewsItems.count
+    }
     
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(cellStyleChanged(_:)), name: .cellStyleChanged, object: nil)
@@ -39,19 +55,43 @@ class SearchViewModel {
         NotificationCenter.default.removeObserver(self, name: .cellStyleChanged, object: nil)
     }
     
-    func fetchData() {
-        networkService.fetchData { [weak self] newsItems in
-            guard let self = self else { return }
-            self.allNewsItems = newsItems
-            self.applyFilters()
-        }
-    }
-    
+    // MARK: - Public Methods
     func searchNews(byTitle title: String) {
         applyFilters(searchTitle: title)
     }
     
-    func applyFilters(searchTitle: String = "") {
+    func news(at index: Int) -> News {
+        return filteredNewsItems[index]
+    }
+    
+    func fetchDataHandler() {
+        getData()
+    }
+    
+    func applyFiltersHandler() {
+        applyFilters()
+    }
+    
+    //MARK: - Private functions
+    private func getData() {
+        NetworkService().fetchData { [weak self] newsItems in
+            guard let self = self else { return }
+            if newsItems.isEmpty {
+                self.isError?(true)
+            } else {
+                self.allNewsItems = newsItems
+                self.applyFilters()
+            }
+        }
+    }
+    
+    @objc private func cellStyleChanged(_ notification: Notification) {
+        if let newCellIdentifier = notification.object as? String {
+            cellIdentifier = newCellIdentifier
+        }
+    }
+    
+    private func applyFilters(searchTitle: String = "") {
         var filteredNews = allNewsItems
         
         if selectedName != "TV" {
@@ -71,22 +111,6 @@ class SearchViewModel {
             return date1 > date2
         }
         
-        self.newsItems = filteredNews
-        self.onDataUpdate?()
-    }
-    
-    func numberOfItems() -> Int {
-        return newsItems.count
-    }
-    
-    func news(at index: Int) -> News {
-        return newsItems[index]
-    }
-    
-    @objc private func cellStyleChanged(_ notification: Notification) {
-        if let newCellIdentifier = notification.object as? String {
-            cellIdentifier = newCellIdentifier
-            onDataUpdate?()
-        }
+        self.filteredNewsItems = filteredNews
     }
 }

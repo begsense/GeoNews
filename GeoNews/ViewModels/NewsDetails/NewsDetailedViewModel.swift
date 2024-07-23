@@ -8,17 +8,15 @@
 import Foundation
 
 class NewsDetailedViewModel {
-    
-    // MARK: - Properties
     var selectedNews: News?
     
-    // MARK: - Callbacks
+    //MARK: - Callbacks
     var didShare: (() -> Void)?
     var didUpdateLikes: (() -> Void)?
     var didUpdateReadLater: ((Bool) -> Void)?
     var didUpdateFavorite: ((Bool) -> Void)?
     
-    // MARK: - Handlers
+    //MARK: - Handlers
     func shareNews() {
         didShare?()
     }

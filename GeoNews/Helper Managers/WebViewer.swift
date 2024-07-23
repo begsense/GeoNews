@@ -9,9 +9,8 @@ import UIKit
 import WebKit
 
 class WebViewer: UIViewController {
-    
-    private let webView = WKWebView()
-    private let urlString: String
+    private var webView = WKWebView()
+    private var urlString: String
     
     init(with urlString: String) {
         self.urlString = urlString
@@ -32,7 +31,6 @@ class WebViewer: UIViewController {
         }
         
         webView.load(URLRequest(url: url))
-        
     }
     
     private func setupUI() {

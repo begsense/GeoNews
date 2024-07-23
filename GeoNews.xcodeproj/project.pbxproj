@@ -182,6 +182,16 @@
 			path = CustomCells;
 			sourceTree = "<group>";
 		};
+		6F67FFEA2C4FB2D400CB5CD9 /* Helper Managers */ = {
+			isa = PBXGroup;
+			children = (
+				6F590AD52C3AB7EC00F0B761 /* AlertManager.swift */,
+				6F590AD72C3B141800F0B761 /* AuthValidator.swift */,
+				6F7542AC2C33EE230085839C /* WebViewer.swift */,
+			);
+			path = "Helper Managers";
+			sourceTree = "<group>";
+		};
 		6F75429C2C33E7A70085839C /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -215,15 +225,14 @@
 			path = SideMenu;
 			sourceTree = "<group>";
 		};
-		6F7A1AA72C3E9F57006D0986 /* Authentification Views */ = {
+		6F7A1AA72C3E9F57006D0986 /* Authentification */ = {
 			isa = PBXGroup;
 			children = (
-				6F590AD72C3B141800F0B761 /* AuthValidator.swift */,
 				6FBA08642C2EB82800A148F7 /* SignUpView.swift */,
 				6FBA08622C2EB02A00A148F7 /* ForgotPasswordView.swift */,
 				6FBA08422C2D7E3E00A148F7 /* SignInView.swift */,
 			);
-			path = "Authentification Views";
+			path = Authentification;
 			sourceTree = "<group>";
 		};
 		6F7A1AAC2C3EAB53006D0986 /* Networking Services */ = {
@@ -246,22 +255,22 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		6F7A1AC42C4065ED006D0986 /* NewsDetailedViews */ = {
+		6F7A1AC42C4065ED006D0986 /* NewsDetails */ = {
 			isa = PBXGroup;
 			children = (
 				6F7A1AD42C4126EA006D0986 /* NewsDetailedView.swift */,
 			);
-			path = NewsDetailedViews;
+			path = NewsDetails;
 			sourceTree = "<group>";
 		};
-		6F7A1AC92C4124EF006D0986 /* AuthentificationViewModels */ = {
+		6F7A1AC92C4124EF006D0986 /* Authentification */ = {
 			isa = PBXGroup;
 			children = (
 				6F4C1FD72C3BD45B0000D10F /* ForgotPasswordViewModel.swift */,
 				6F4C1FD52C3BBE1D0000D10F /* SignUpViewModel.swift */,
 				6F590ADB2C3B1C0600F0B761 /* SignInViewModel.swift */,
 			);
-			path = AuthentificationViewModels;
+			path = Authentification;
 			sourceTree = "<group>";
 		};
 		6F7A1ACA2C412539006D0986 /* CategoriesViewModels */ = {
@@ -276,12 +285,12 @@
 			path = CategoriesViewModels;
 			sourceTree = "<group>";
 		};
-		6F7A1ACB2C41257B006D0986 /* NewsDetailedViewModels */ = {
+		6F7A1ACB2C41257B006D0986 /* NewsDetails */ = {
 			isa = PBXGroup;
 			children = (
 				6F7A1AC72C406651006D0986 /* NewsDetailedViewModel.swift */,
 			);
-			path = NewsDetailedViewModels;
+			path = NewsDetails;
 			sourceTree = "<group>";
 		};
 		6FB0603A2C493E9300EFEDE5 /* Exchange */ = {
@@ -312,6 +321,7 @@
 		6FBA083D2C2D7E3E00A148F7 /* GeoNews */ = {
 			isa = PBXGroup;
 			children = (
+				6F67FFEA2C4FB2D400CB5CD9 /* Helper Managers */,
 				6F7A1AB52C3FC898006D0986 /* Extensions */,
 				6F7A1AAC2C3EAB53006D0986 /* Networking Services */,
 				6FBA085B2C2EA9E900A148F7 /* AppAndSceneDelegate */,
@@ -337,8 +347,8 @@
 		6FBA085C2C2EAA1B00A148F7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6F7A1AC42C4065ED006D0986 /* NewsDetailedViews */,
-				6F7A1AA72C3E9F57006D0986 /* Authentification Views */,
+				6F7A1AC42C4065ED006D0986 /* NewsDetails */,
+				6F7A1AA72C3E9F57006D0986 /* Authentification */,
 				6F7A1A982C3D271A006D0986 /* SideMenu */,
 				6F75429C2C33E7A70085839C /* TabBar */,
 				6FBA08682C2EB98000A148F7 /* ReusableComponents */,
@@ -389,9 +399,9 @@
 		6FBA08612C2EAAD200A148F7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				6F7A1ACB2C41257B006D0986 /* NewsDetailedViewModels */,
+				6F7A1AC92C4124EF006D0986 /* Authentification */,
+				6F7A1ACB2C41257B006D0986 /* NewsDetails */,
 				6F7A1ACA2C412539006D0986 /* CategoriesViewModels */,
-				6F7A1AC92C4124EF006D0986 /* AuthentificationViewModels */,
 				6F7A1AA32C3E99DE006D0986 /* NewsViewModel.swift */,
 				6F7A1AA52C3E9A2E006D0986 /* MenuViewModel.swift */,
 				6F7A1AE02C4264FA006D0986 /* ProfileViewModel.swift */,
@@ -410,8 +420,6 @@
 				6FBA08692C2EB9A700A148F7 /* AuthHeaderView.swift */,
 				6F7542962C31B1B60085839C /* CustomTextField.swift */,
 				6F7542982C32E9B80085839C /* CustomButton.swift */,
-				6F7542AC2C33EE230085839C /* WebViewer.swift */,
-				6F590AD52C3AB7EC00F0B761 /* AlertManager.swift */,
 				6F4C1FD92C3BE8600000D10F /* CustomLoaderView.swift */,
 				6F7A1AE62C42C8E7006D0986 /* GradientLayer.swift */,
 				6F5D0E6F2C4D144600B31370 /* CenterScaleFlowLayout.swift */,

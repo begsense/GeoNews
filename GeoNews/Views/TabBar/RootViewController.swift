@@ -9,7 +9,6 @@ import UIKit
 import SwiftUI
 
 class RootViewController: UIViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTabBar()
@@ -18,8 +17,8 @@ class RootViewController: UIViewController {
     
     func setupTabBar() {
         let tabBarController = UITabBarController()
-        let newsView =  NewsView()  //GeneralNewsView(viewModel: generalNewsViewModel)
-        let searchView = SearchView(viewModel: SearchViewModel(), profileViewModel: ProfileViewModel())
+        let newsView =  NewsView()
+        let searchView = SearchView(viewModel: SearchViewModel())
         let quizView = UIHostingController(rootView: QuizView())
         let exchangeView = UIHostingController(rootView: ExchangeView(viewModel: ExchangeViewModel()))
         let profileView = ProfileView(viewModel: ProfileViewModel())

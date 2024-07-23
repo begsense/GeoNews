@@ -9,7 +9,6 @@ import Foundation
 import FirebaseFirestore
 
 class NetworkService {
-    
     func fetchData(filterBy field: String? = nil, equalTo value: Any? = nil, completion: @escaping ([News]) -> Void) {
         let db = Firestore.firestore()
         var query: Query = db.collection("news")
