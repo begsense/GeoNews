@@ -10,6 +10,7 @@ import WebKit
 
 class WebViewer: UIViewController {
     private var webView = WKWebView()
+    
     private var urlString: String
     
     init(with urlString: String) {
@@ -44,7 +45,7 @@ class WebViewer: UIViewController {
             webView.topAnchor.constraint(equalTo: view.topAnchor),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            webView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     

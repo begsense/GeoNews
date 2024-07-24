@@ -6,13 +6,9 @@
 //
 
 import Foundation
-import FirebaseFirestoreSwift
 
-struct Quiz: Identifiable, Decodable {
-    @DocumentID var id: String?
+struct Quiz: Decodable {
     let answer: String
     let options: [String]
     let question: String
-    
-    var tappedAnswer: String? = nil
 }

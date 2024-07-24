@@ -8,10 +8,13 @@
 import Foundation
 
 class UserDefaultsManager {
-    static let shared = UserDefaultsManager()
-    private let likedNewsKey = "likedNews"
-    private let readLaterKey = "readLaterNews"
-    private let favoriteKey = "favoriteNews"
+    static var shared = UserDefaultsManager()
+    
+    private var likedNewsKey = "likedNews"
+    
+    private var readLaterKey = "readLaterNews"
+    
+    private var favoriteKey = "favoriteNews"
     
     private init() {}
     

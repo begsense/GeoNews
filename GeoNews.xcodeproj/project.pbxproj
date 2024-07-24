@@ -23,6 +23,8 @@
 		6F6D445E2C4A661A00BCA265 /* UserDefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6D445D2C4A661A00BCA265 /* UserDefaultManager.swift */; };
 		6F6D44602C4A84CE00BCA265 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6D445F2C4A84CE00BCA265 /* FileManagerHelper.swift */; };
 		6F6D44622C4B8D2100BCA265 /* CellStyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6D44612C4B8D2100BCA265 /* CellStyleManager.swift */; };
+		6F70747E2C51069B0048A1BA /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F70747D2C51069B0048A1BA /* ViewExtension.swift */; };
+		6F7074822C5110180048A1BA /* CustomButtonSUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7074812C5110180048A1BA /* CustomButtonSUI.swift */; };
 		6F7542972C31B1B60085839C /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542962C31B1B60085839C /* CustomTextField.swift */; };
 		6F7542992C32E9B80085839C /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F7542982C32E9B80085839C /* CustomButton.swift */; };
 		6F75429B2C33DB3A0085839C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F75429A2C33DB390085839C /* AuthService.swift */; };
@@ -98,6 +100,8 @@
 		6F6D445D2C4A661A00BCA265 /* UserDefaultManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultManager.swift; sourceTree = "<group>"; };
 		6F6D445F2C4A84CE00BCA265 /* FileManagerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
 		6F6D44612C4B8D2100BCA265 /* CellStyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStyleManager.swift; sourceTree = "<group>"; };
+		6F70747D2C51069B0048A1BA /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		6F7074812C5110180048A1BA /* CustomButtonSUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonSUI.swift; sourceTree = "<group>"; };
 		6F7542962C31B1B60085839C /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		6F7542982C32E9B80085839C /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		6F75429A2C33DB390085839C /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -188,19 +192,65 @@
 				6F590AD52C3AB7EC00F0B761 /* AlertManager.swift */,
 				6F590AD72C3B141800F0B761 /* AuthValidator.swift */,
 				6F7542AC2C33EE230085839C /* WebViewer.swift */,
+				6F6D445D2C4A661A00BCA265 /* UserDefaultManager.swift */,
+				6F6D445F2C4A84CE00BCA265 /* FileManagerHelper.swift */,
+				6F6D44612C4B8D2100BCA265 /* CellStyleManager.swift */,
 			);
 			path = "Helper Managers";
+			sourceTree = "<group>";
+		};
+		6F70747F2C510EFE0048A1BA /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				6F7542A32C33E8080085839C /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		6F7074802C510F090048A1BA /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				6FDAEC352C458CA6003AEFC7 /* SearchView.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		6F7074832C5115500048A1BA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				6FBA08692C2EB9A700A148F7 /* AuthHeaderView.swift */,
+				6F7542962C31B1B60085839C /* CustomTextField.swift */,
+				6F7542982C32E9B80085839C /* CustomButton.swift */,
+				6F4C1FD92C3BE8600000D10F /* CustomLoaderView.swift */,
+				6F7A1AE62C42C8E7006D0986 /* GradientLayer.swift */,
+				6F5D0E6F2C4D144600B31370 /* CenterScaleFlowLayout.swift */,
+				6F7074812C5110180048A1BA /* CustomButtonSUI.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		6F7074842C5115A40048A1BA /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				6F7A1AA32C3E99DE006D0986 /* NewsViewModel.swift */,
+				6F7A1AE02C4264FA006D0986 /* ProfileViewModel.swift */,
+				6FDAEC332C4525BB003AEFC7 /* LeaderboardsViewModel.swift */,
+				6F77547F2C43B80300590192 /* QuizQuestionsViewModel.swift */,
+				6FDAEC372C458D15003AEFC7 /* SearchViewModel.swift */,
+				6FB060342C47C70100EFEDE5 /* ExchangeViewModel.swift */,
+			);
+			path = TabBar;
 			sourceTree = "<group>";
 		};
 		6F75429C2C33E7A70085839C /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				6F7074802C510F090048A1BA /* Search */,
+				6F70747F2C510EFE0048A1BA /* Profile */,
 				6FB0603A2C493E9300EFEDE5 /* Exchange */,
 				6FDAEC322C442F2F003AEFC7 /* News */,
 				6FDAEC312C442F0F003AEFC7 /* Quiz */,
 				6FBA08662C2EB8E800A148F7 /* RootViewController.swift */,
-				6F7542A32C33E8080085839C /* ProfileView.swift */,
-				6FDAEC352C458CA6003AEFC7 /* SearchView.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -240,9 +290,6 @@
 			children = (
 				6F75429A2C33DB390085839C /* AuthService.swift */,
 				6F7A1AAF2C3EB5AE006D0986 /* NetworkService.swift */,
-				6F6D445D2C4A661A00BCA265 /* UserDefaultManager.swift */,
-				6F6D445F2C4A84CE00BCA265 /* FileManagerHelper.swift */,
-				6F6D44612C4B8D2100BCA265 /* CellStyleManager.swift */,
 			);
 			path = "Networking Services";
 			sourceTree = "<group>";
@@ -251,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				6F7A1AAD2C3EAB72006D0986 /* UIImageViewExtension.swift */,
+				6F70747D2C51069B0048A1BA /* ViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -273,16 +321,17 @@
 			path = Authentification;
 			sourceTree = "<group>";
 		};
-		6F7A1ACA2C412539006D0986 /* CategoriesViewModels */ = {
+		6F7A1ACA2C412539006D0986 /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
+				6F7A1AA52C3E9A2E006D0986 /* MenuViewModel.swift */,
 				6F7A1AC02C402156006D0986 /* TechNewsViewModel.swift */,
 				6F7A1ABE2C402135006D0986 /* HealthNewsViewModel.swift */,
 				6F7A1ABC2C401F94006D0986 /* SportNewsViewModel.swift */,
 				6F7A1AB82C3FCC54006D0986 /* PoliticsNewsViewModel.swift */,
 				6F7A1AA82C3EA26F006D0986 /* GeneralNewsViewModel.swift */,
 			);
-			path = CategoriesViewModels;
+			path = SideMenu;
 			sourceTree = "<group>";
 		};
 		6F7A1ACB2C41257B006D0986 /* NewsDetails */ = {
@@ -399,16 +448,10 @@
 		6FBA08612C2EAAD200A148F7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				6F7074842C5115A40048A1BA /* TabBar */,
 				6F7A1AC92C4124EF006D0986 /* Authentification */,
 				6F7A1ACB2C41257B006D0986 /* NewsDetails */,
-				6F7A1ACA2C412539006D0986 /* CategoriesViewModels */,
-				6F7A1AA32C3E99DE006D0986 /* NewsViewModel.swift */,
-				6F7A1AA52C3E9A2E006D0986 /* MenuViewModel.swift */,
-				6F7A1AE02C4264FA006D0986 /* ProfileViewModel.swift */,
-				6FDAEC332C4525BB003AEFC7 /* LeaderboardsViewModel.swift */,
-				6F77547F2C43B80300590192 /* QuizQuestionsViewModel.swift */,
-				6FDAEC372C458D15003AEFC7 /* SearchViewModel.swift */,
-				6FB060342C47C70100EFEDE5 /* ExchangeViewModel.swift */,
+				6F7A1ACA2C412539006D0986 /* SideMenu */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -416,13 +459,8 @@
 		6FBA08682C2EB98000A148F7 /* ReusableComponents */ = {
 			isa = PBXGroup;
 			children = (
+				6F7074832C5115500048A1BA /* Components */,
 				6F5D0E6E2C4D097400B31370 /* CustomCells */,
-				6FBA08692C2EB9A700A148F7 /* AuthHeaderView.swift */,
-				6F7542962C31B1B60085839C /* CustomTextField.swift */,
-				6F7542982C32E9B80085839C /* CustomButton.swift */,
-				6F4C1FD92C3BE8600000D10F /* CustomLoaderView.swift */,
-				6F7A1AE62C42C8E7006D0986 /* GradientLayer.swift */,
-				6F5D0E6F2C4D144600B31370 /* CenterScaleFlowLayout.swift */,
 			);
 			path = ReusableComponents;
 			sourceTree = "<group>";
@@ -532,6 +570,7 @@
 				6F7542AB2C33EC250085839C /* RegisterUserRequest.swift in Sources */,
 				6FBA08432C2D7E3E00A148F7 /* SignInView.swift in Sources */,
 				6F5D0E702C4D144600B31370 /* CenterScaleFlowLayout.swift in Sources */,
+				6F70747E2C51069B0048A1BA /* ViewExtension.swift in Sources */,
 				6F7A1AB42C3FB538006D0986 /* NewsTableViewCellAppleType.swift in Sources */,
 				6F75429E2C33E7BE0085839C /* NewsView.swift in Sources */,
 				6F7A1AA02C3E9728006D0986 /* HealthNewsView.swift in Sources */,
@@ -555,6 +594,7 @@
 				6F7A1AA62C3E9A2E006D0986 /* MenuViewModel.swift in Sources */,
 				6F6D44602C4A84CE00BCA265 /* FileManagerHelper.swift in Sources */,
 				6FDAEC382C458D15003AEFC7 /* SearchViewModel.swift in Sources */,
+				6F7074822C5110180048A1BA /* CustomButtonSUI.swift in Sources */,
 				6F7542992C32E9B80085839C /* CustomButton.swift in Sources */,
 				6F7542AD2C33EE230085839C /* WebViewer.swift in Sources */,
 				6F75429B2C33DB3A0085839C /* AuthService.swift in Sources */,

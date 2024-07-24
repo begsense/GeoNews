@@ -10,7 +10,7 @@ import SwiftUI
 
 class ForgotPasswordView: UIViewController {
     //MARK: - Properties
-    private var header = AuthHeaderView(title: "Forgot Password", subTitle: "Reset your password")
+    private var header = AuthHeaderView(titleText: "Forgot Password", subTitleText: "Reset your password")
     
     private var emailField = CustomTextField(fieldType: .email)
     

@@ -38,7 +38,7 @@ class ExchangeViewModel: ObservableObject {
     }
     @Published var result: Double = 0.0
     
-    private var characterLimit: Int = 7
+    private var characterLimit: Int = 9
     
     var availableCurrencies = ["GEL", "USD", "EUR", "GBP", "CAD", "AUD", "JPY", "INR", "NZD", "AED",
                                "AFN", "ALL", "AMD", "ANG", "AOA", "ARS", "AWG", "AZN", "BAM", "BBD",

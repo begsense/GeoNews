@@ -9,10 +9,11 @@ import Foundation
 import UIKit
 
 class FileManagerHelper {
-    static let shared = FileManagerHelper()
+    static var shared = FileManagerHelper()
     
-    private let fileManager = FileManager.default
-    private let profileImageKey = "profileImage"
+    private var fileManager = FileManager.default
+    
+    private var profileImageKey = "profileImage"
     
     private var documentsDirectory: URL? {
         return fileManager.urls(for: .documentDirectory, in: .userDomainMask).first

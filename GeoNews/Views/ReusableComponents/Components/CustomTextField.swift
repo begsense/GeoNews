@@ -8,7 +8,6 @@
 import UIKit
 
 class CustomTextField: UITextField {
-    
     enum CustomTextFieldType {
         case username
         case email

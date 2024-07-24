@@ -8,11 +8,12 @@
 import Foundation
 
 class CellStyleManager {
-    static let shared = CellStyleManager()
+    static var shared = CellStyleManager()
     
     private init() {}
     
     var cellStyles = ["GeoNews", "AppleNews", "BBCNews", "FastNews", "CNNNews"]
+    
     private var currentCellIdentifier: String = NewsTableViewCell.identifier {
         didSet {
             NotificationCenter.default.post(name: .cellStyleChanged, object: currentCellIdentifier)
@@ -38,5 +39,5 @@ class CellStyleManager {
 }
 
 extension Notification.Name {
-    static let cellStyleChanged = Notification.Name("cellStyleChanged")
+    static var cellStyleChanged = Notification.Name("cellStyleChanged")
 }

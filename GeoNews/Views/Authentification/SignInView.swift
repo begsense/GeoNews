@@ -10,7 +10,7 @@ import SwiftUI
 
 class SignInView: UIViewController {
     //MARK: - Properties
-    private var header = AuthHeaderView(title: "Sign In", subTitle: "Sign in to your account")
+    private var header = AuthHeaderView(titleText: "Sign In", subTitleText: "Sign in to your account")
     
     private var emailField = CustomTextField(fieldType: .email)
     
