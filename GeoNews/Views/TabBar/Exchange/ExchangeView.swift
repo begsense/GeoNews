@@ -78,11 +78,12 @@ struct ExchangeView: View {
             
             HStack {
                 Text(viewModel.formattedResult)
+                    .lineLimit(1)
                 
                 CurrencyImageResize(name: viewModel.targetCurrency)
             }
         }
-        .font(.custom("FiraGO-Regular", size: 40))
+        .font(.custom("FiraGO-Regular", size: 35))
         .foregroundColor(.white)
         .background(RoundedRectangle(cornerRadius: 20, style: .continuous)
             .fill(Color(red: 8/255, green: 40/255, blue: 67/255).opacity(0.85))
@@ -149,8 +150,9 @@ struct ExchangeView: View {
             
             HStack {
                 Text(viewModel.formattedResult)
+                    .lineLimit(1)
                 
-                CurrencyImageResize(name: viewModel.targetCrypto)
+                CurrencyImageResize(name: viewModel.targetCurrency)
             }
         }
         .font(.custom("FiraGO-Regular", size: 40))
