@@ -8,17 +8,16 @@
 import UIKit
 
 class PoliticNewsView: UIViewController {
-    
-    private let viewModel: PoliticsNewsViewModel
-    
-    let tableView: UITableView = {
+    //MARK: - Properties
+    private var politicNewsTableView: UITableView = {
         let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .none
         tableView.separatorStyle = .none
         return tableView
     }()
     
-    private let titleLabel: UILabel = {
+    private var politicNewsTitle: UILabel = {
         let label = UILabel()
         label.text = "Politics"
         label.textColor = .white
@@ -26,15 +25,11 @@ class PoliticNewsView: UIViewController {
         return label
     }()
     
-    private let loaderView = CustomLoaderView()
+    private var loaderView = CustomLoaderView()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.titleView = titleLabel
-        setupUI()
-        fetchData()
-    }
+    private var viewModel: PoliticsNewsViewModel
     
+    //MARK: - LifeCycle
     init(viewModel: PoliticsNewsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -44,6 +39,14 @@ class PoliticNewsView: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.titleView = politicNewsTitle
+        setupUI()
+        bindViewModel()
+    }
+    
+    //MARK: - UI Setup
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
@@ -52,23 +55,22 @@ class PoliticNewsView: UIViewController {
     }
     
     func setupTableView() {
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(politicNewsTableView)
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            politicNewsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            politicNewsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            politicNewsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            politicNewsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
-        tableView.register(NewsTableViewCellAppleType.self, forCellReuseIdentifier: NewsTableViewCellAppleType.identifier)
-        tableView.register(NewsTableViewCellBBCType.self, forCellReuseIdentifier: NewsTableViewCellBBCType.identifier)
-        tableView.register(NewsTableViewCellFastType.self, forCellReuseIdentifier: NewsTableViewCellFastType.identifier)
-        tableView.register(NewsTableViewCellCNNType.self, forCellReuseIdentifier: NewsTableViewCellCNNType.identifier)
+        politicNewsTableView.dataSource = self
+        politicNewsTableView.delegate = self
+        politicNewsTableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
+        politicNewsTableView.register(NewsTableViewCellAppleType.self, forCellReuseIdentifier: NewsTableViewCellAppleType.identifier)
+        politicNewsTableView.register(NewsTableViewCellBBCType.self, forCellReuseIdentifier: NewsTableViewCellBBCType.identifier)
+        politicNewsTableView.register(NewsTableViewCellFastType.self, forCellReuseIdentifier: NewsTableViewCellFastType.identifier)
+        politicNewsTableView.register(NewsTableViewCellCNNType.self, forCellReuseIdentifier: NewsTableViewCellCNNType.identifier)
     }
     
     private func setupLoader() {
@@ -82,19 +84,28 @@ class PoliticNewsView: UIViewController {
         ])
     }
     
-    private func fetchData() {
+    private func bindViewModel() {
         startLoading()
-        viewModel.fetchData()
+        
+        viewModel.fetchDataHandler()
         
         viewModel.onDataUpdate = { [weak self] in
             DispatchQueue.main.async {
                 self?.stopLoading()
-                self?.tableView.reloadData()
+                self?.politicNewsTableView.reloadData()
+            }
+        }
+        
+        viewModel.hasError = { [weak self] error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.stopLoading()
+                AlertManager.fetchingUserError(on: self)
             }
         }
     }
     
-    // MARK: - Loader
+    //MARK: - Loader
     private func startLoading() {
         loaderView.startAnimating()
     }
@@ -104,9 +115,10 @@ class PoliticNewsView: UIViewController {
     }
 }
 
+//MARK: - Extensions
 extension PoliticNewsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
+        return viewModel.numberOfItems
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -145,11 +157,16 @@ extension PoliticNewsView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let selectedNews = viewModel.news(at: indexPath.row)
-        let newsDetailedViewModel = NewsDetailedViewModel()
-        newsDetailedViewModel.selectedNews = selectedNews
-        let detailView = NewsDetailedView(viewModel: newsDetailedViewModel)
         
-        navigationController?.pushViewController(detailView, animated: true)
+        viewModel.onNewsSelected = { [weak self] news in
+            guard let self = self else { return }
+            let newsDetailedViewModel = NewsDetailedViewModel()
+            newsDetailedViewModel.selectedNews = news
+            let detailView = NewsDetailedView(viewModel: newsDetailedViewModel)
+            
+            self.navigationController?.pushViewController(detailView, animated: true)
+        }
+        
+        viewModel.navigateToNewsDetails(index: indexPath.row)
     }
 }

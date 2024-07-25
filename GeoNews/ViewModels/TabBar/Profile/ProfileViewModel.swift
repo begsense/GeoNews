@@ -10,6 +10,7 @@ import UIKit
 
 class ProfileViewModel {
     var readLaterNews: [News] = []
+    
     var favoriteNews: [News] = []
     
     var onProfileImageUpdated: (() -> Void)?
@@ -19,6 +20,8 @@ class ProfileViewModel {
     var onFavoritesUpdated: (() -> Void)?
     
     var onReadLaterUpdated: (() -> Void)?
+    
+    var hasError: ((Bool) -> Void)?
     
     init() {
         fetchReadLaterNews()
@@ -41,26 +44,31 @@ class ProfileViewModel {
     }
 
     func loadProfileImage() -> UIImage? {
-        return FileManagerHelper.shared.loadProfileImage()
+        FileManagerHelper.shared.loadProfileImage()
     }
     
-    func fetchUserData() {
+    func favoriteNews(at index: Int) -> News {
+        favoriteNews[index]
+    }
+    
+    func readLaterNews(at index: Int) -> News {
+        readLaterNews[index]
+    }
+    
+    func fetchUserHandler() {
+        fetchUserData()
+    }
+    
+    private func fetchUserData() {
         AuthService.shared.fetchUser { [weak self] user, error in
             guard let self = self else { return }
             if error != nil {
+                self.hasError?(true)
                   return
             }
             if let user = user {
                 self.updateUserLabel?("Hello, \(user.username)\n Your Score Is: \(user.score)")
             }
         }
-    }
-    
-    func favoriteNews(at index: Int) -> News {
-        return favoriteNews[index]
-    }
-    
-    func readLaterNews(at index: Int) -> News {
-        return readLaterNews[index]
     }
 }

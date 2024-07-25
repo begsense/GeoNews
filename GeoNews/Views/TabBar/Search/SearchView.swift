@@ -181,7 +181,7 @@ class SearchView: UIViewController {
             }
         }
         
-        viewModel.isError = { [weak self] error in
+        viewModel.hasError = { [weak self] error in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 self.stopLoading()

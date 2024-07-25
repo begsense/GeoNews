@@ -8,9 +8,7 @@
 import UIKit
 
 class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-
-    var viewModel: ProfileViewModel
-    
+    //MARK: - Properties
     private var scrollView = UIScrollView()
     
     private var contentView = UIView()
@@ -123,6 +121,9 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
          return bottomView
      }()
     
+    private var viewModel: ProfileViewModel
+    
+    //MARK: - LifeCycle
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -141,12 +142,12 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: true)
+
         viewModel.fetchFavoriteNews()
         viewModel.fetchReadLaterNews()
-        setupReadLaterCollectionView()
-        setupEmptyReadLaterImageView()
     }
     
+    //MARK: - UI Setup
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
@@ -318,6 +319,7 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         ])
     }
     
+    //MARK: - ViewModel Binding
     private func bindViewModel() {
         viewModel.onProfileImageUpdated = { [weak self] in
             DispatchQueue.main.async {
@@ -334,21 +336,29 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
         viewModel.onFavoritesUpdated = { [weak self] in
             DispatchQueue.main.async {
                 self?.favoritesCollectionView.reloadData()
+                self?.emptyFavoritesImageView.isHidden = !self!.viewModel.favoriteNews.isEmpty
             }
         }
         
         viewModel.onReadLaterUpdated = { [weak self] in
             self?.readLaterCollectionView.reloadData()
+            self?.emptyReadLaterImageView.isHidden = !self!.viewModel.readLaterNews.isEmpty
         }
         
         viewModel.fetchFavoriteNews()
         
-        viewModel.fetchUserData()
+        viewModel.fetchUserHandler()
         
         viewModel.updateUserLabel = { [weak self] text in
             self?.userLabel.text = text
         }
         
+        viewModel.hasError = { [weak self] error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                AlertManager.fetchingUserError(on: self)
+            }
+        }
     }
     
     @objc private func profileImageTapped() {
@@ -370,6 +380,7 @@ class ProfileView: UIViewController, UIImagePickerControllerDelegate & UINavigat
     }
 }
 
+//MARK: - Extensions
 extension ProfileView: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1

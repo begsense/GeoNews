@@ -12,18 +12,16 @@ protocol GeneralNewsViewDelegate: AnyObject {
 }
 
 class GeneralNewsView: UIViewController {
-    
-    // MARK: - UI Components
-    private var viewModel: GeneralNewsViewModel
-    
-    let tableView: UITableView = {
+    //MARK: - Properties
+    private var newsTableView: UITableView = {
         let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .none
         tableView.separatorStyle = .none
         return tableView
     }()
     
-    private let titleLabel: UILabel = {
+    private var newsTitle: UILabel = {
         let label = UILabel()
         label.text = "All News"
         label.textColor = .white
@@ -31,8 +29,8 @@ class GeneralNewsView: UIViewController {
         return label
     }()
     
-    let bottomView: UIView = {
-       let bottomView = UIView()
+    private var bottomView: UIView = {
+        let bottomView = UIView()
         bottomView.translatesAutoresizingMaskIntoConstraints = false
         bottomView.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
         return bottomView
@@ -42,7 +40,9 @@ class GeneralNewsView: UIViewController {
     
     weak var delegate: GeneralNewsViewDelegate?
     
-    // MARK: - Initializer
+    private var viewModel: GeneralNewsViewModel
+    
+    //MARK: - LifeCycle
     init(viewModel: GeneralNewsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -52,10 +52,9 @@ class GeneralNewsView: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleView = titleLabel
+        navigationItem.titleView = newsTitle
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "list.dash"),
                                                            style: .done,
                                                            target: self,
@@ -64,36 +63,36 @@ class GeneralNewsView: UIViewController {
         navigationItem.rightBarButtonItem = logoBarButtonItem()
         
         setupUI()
-        fetchData()
+        bindViewModel()
     }
     
-    // MARK: - UI Setup
+    //MARK: - UI Setup
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
+        
         setupBottomSafeArea()
         setupTableView()
         setupLoader()
     }
     
     func setupTableView() {
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(newsTableView)
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor)
+            newsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            newsTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            newsTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            newsTableView.bottomAnchor.constraint(equalTo: bottomView.topAnchor)
         ])
         
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
-        tableView.register(NewsTableViewCellAppleType.self, forCellReuseIdentifier: NewsTableViewCellAppleType.identifier)
-        tableView.register(NewsTableViewCellBBCType.self, forCellReuseIdentifier: NewsTableViewCellBBCType.identifier)
-        tableView.register(NewsTableViewCellFastType.self, forCellReuseIdentifier: NewsTableViewCellFastType.identifier)
-        tableView.register(NewsTableViewCellCNNType.self, forCellReuseIdentifier: NewsTableViewCellCNNType.identifier)
+        newsTableView.dataSource = self
+        newsTableView.delegate = self
+        newsTableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
+        newsTableView.register(NewsTableViewCellAppleType.self, forCellReuseIdentifier: NewsTableViewCellAppleType.identifier)
+        newsTableView.register(NewsTableViewCellBBCType.self, forCellReuseIdentifier: NewsTableViewCellBBCType.identifier)
+        newsTableView.register(NewsTableViewCellFastType.self, forCellReuseIdentifier: NewsTableViewCellFastType.identifier)
+        newsTableView.register(NewsTableViewCellCNNType.self, forCellReuseIdentifier: NewsTableViewCellCNNType.identifier)
     }
     
     private func setupLoader() {
@@ -118,40 +117,52 @@ class GeneralNewsView: UIViewController {
         ])
     }
     
-    // MARK: - Selectors
-    
-    @objc private func didTapMenuButton() {
-        delegate?.didTapMenuButton()
-    }
-    
-    private func logoBarButtonItem() -> UIBarButtonItem {
-            let logoImage = UIImage(named: "logo")
-            let logoImageView = UIImageView(image: logoImage)
-            logoImageView.contentMode = .scaleAspectFit
-            
-            let logoSize: CGFloat = 34
-            logoImageView.translatesAutoresizingMaskIntoConstraints = false
-            logoImageView.heightAnchor.constraint(equalToConstant: logoSize).isActive = true
-            logoImageView.widthAnchor.constraint(equalToConstant: logoSize).isActive = true
-            
-            let logoBarButtonItem = UIBarButtonItem(customView: logoImageView)
-            logoBarButtonItem.customView?.translatesAutoresizingMaskIntoConstraints = false
-            logoBarButtonItem.customView?.heightAnchor.constraint(equalToConstant: logoSize).isActive = true
-            logoBarButtonItem.customView?.widthAnchor.constraint(equalToConstant: logoSize).isActive = true
-            
-            return logoBarButtonItem
-        }
-    
-    private func fetchData() {
+    //MARK: - ViewModel Binding
+    private func bindViewModel() {
         startLoading()
-        viewModel.fetchData()
+        
+        viewModel.fetchDataHandler()
         
         viewModel.onDataUpdate = { [weak self] in
             DispatchQueue.main.async {
                 self?.stopLoading()
-                self?.tableView.reloadData()
+                self?.newsTableView.reloadData()
             }
         }
+        
+        viewModel.hasError = { [weak self] error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.stopLoading()
+                AlertManager.fetchingUserError(on: self)
+            }
+        }
+        
+        viewModel.onMenuButtonTapped = { [weak self] in
+            self?.delegate?.didTapMenuButton()
+        }
+    }
+    
+    @objc private func didTapMenuButton() {
+        viewModel.handleMenuButtonTap()
+    }
+    
+    private func logoBarButtonItem() -> UIBarButtonItem {
+        let logoImage = UIImage(named: "logo")
+        let logoImageView = UIImageView(image: logoImage)
+        logoImageView.contentMode = .scaleAspectFit
+        
+        let logoSize: CGFloat = 34
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        logoImageView.heightAnchor.constraint(equalToConstant: logoSize).isActive = true
+        logoImageView.widthAnchor.constraint(equalToConstant: logoSize).isActive = true
+        
+        let logoBarButtonItem = UIBarButtonItem(customView: logoImageView)
+        logoBarButtonItem.customView?.translatesAutoresizingMaskIntoConstraints = false
+        logoBarButtonItem.customView?.heightAnchor.constraint(equalToConstant: logoSize).isActive = true
+        logoBarButtonItem.customView?.widthAnchor.constraint(equalToConstant: logoSize).isActive = true
+        
+        return logoBarButtonItem
     }
     
     //MARK: - Loader
@@ -164,9 +175,10 @@ class GeneralNewsView: UIViewController {
     }
 }
 
+//MARK: - Extensions
 extension GeneralNewsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
+        return viewModel.numberOfItems
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -177,7 +189,7 @@ extension GeneralNewsView: UITableViewDataSource {
         if let configurableCell = cell as? ConfigurableNewsCell {
             configurableCell.configure(with: newsItem)
         }
-    
+        
         cell.contentView.backgroundColor = UIColor(red: 0/255, green: 42/255, blue: 69/255, alpha: 1)
         return cell
     }
@@ -199,16 +211,20 @@ extension GeneralNewsView: UITableViewDelegate {
         default:
             return 275
         }
-        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let selectedNews = viewModel.news(at: indexPath.row)
-        let newsDetailedViewModel = NewsDetailedViewModel()
-        newsDetailedViewModel.selectedNews = selectedNews
-        let detailView = NewsDetailedView(viewModel: newsDetailedViewModel)
         
-        navigationController?.pushViewController(detailView, animated: true)
+        viewModel.onNewsSelected = { [weak self] news in
+            guard let self = self else { return }
+            let newsDetailedViewModel = NewsDetailedViewModel()
+            newsDetailedViewModel.selectedNews = news
+            let detailView = NewsDetailedView(viewModel: newsDetailedViewModel)
+            
+            self.navigationController?.pushViewController(detailView, animated: true)
+        }
+        
+        viewModel.navigateToNewsDetails(index: indexPath.row)
     }
 }

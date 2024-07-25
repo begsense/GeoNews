@@ -13,6 +13,7 @@ struct QuizQuestionsView: View {
     @State private var progress: CGFloat = 0
     @State private var selectedAnswer: String = ""
     @State private var showResults: Bool = false
+    @State private var showErrorAlert: Bool = false
     
     var body: some View {
         VStack(spacing: 15) {
@@ -77,6 +78,18 @@ struct QuizQuestionsView: View {
                 dismiss()
             }
         })
+        .onAppear {
+            if viewModel.hasError {
+                showErrorAlert = true
+            }
+        }
+        .alert(isPresented: $showErrorAlert) {
+            Alert(
+                title: Text("ვერ მოიქაჩა ინფორმაცია"),
+                message: Text("გთხოვთ მოგვიანებით სცადეთ"),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
     
     @ViewBuilder

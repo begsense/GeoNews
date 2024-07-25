@@ -11,8 +11,11 @@ import FirebaseAuth
 
 class QuizQuestionsViewModel: ObservableObject {
     @Published var questions: [Quiz] = []
+    
     @Published var currentIndex: Int = 0
+    
     @Published var score: Int = 0
+    
     @Published var hasError: Bool = false
     
     private var db = Firestore.firestore()
@@ -26,7 +29,6 @@ class QuizQuestionsViewModel: ObservableObject {
             }
         } catch {
             self.hasError = true
-            //Error handling გასაკეთებელი მაქ
         }
     }
     

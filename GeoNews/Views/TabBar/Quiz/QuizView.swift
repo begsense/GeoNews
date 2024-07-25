@@ -29,20 +29,24 @@ struct QuizView: View {
                 
                 Image("logo")
                     .resizable()
-                    .frame(width: 100, height: 125)
+                    .frame(width: 150, height: 180)
                     .scaledToFit()
                 
-                Text("Quiz შედგება 10 კითხვისგან")
-                    .hAlign()
-                
-                Text("სავარაუდო 4 პასუხიდან სწორია 1")
-                    .hAlign()
-                
-                Text("სწორი პასუხი ფასდება 10 ქულით")
-                    .hAlign()
-                
-                Text("მაქსიმალური შეფასება 100 ქულა")
-                    .hAlign()
+                VStack {
+                    Text("Quiz შედგება 10 კითხვისგან")
+                        .hAlign()
+                    
+                    Text("სავარაუდო 4 პასუხიდან სწორია 1")
+                        .hAlign()
+                    
+                    Text("სწორი პასუხი ფასდება 10 ქულით")
+                        .hAlign()
+                    
+                    Text("მაქსიმალური შეფასება 100 ქულა")
+                        .hAlign()
+                }
+                .padding(20)
+                .background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color(red: 8/255, green: 40/255, blue: 67/255)))
                 
                 Spacer()
                     .frame(height: 100)

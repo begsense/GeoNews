@@ -19,7 +19,7 @@ class SearchViewModel {
     
     var onDataUpdate: (() -> Void)?
     
-    var isError: ((Bool) -> Void)?
+    var hasError: ((Bool) -> Void)?
     
     var names = ["TV", "Imedi", "Rustavi2", "On.ge", "Formula", "1TV"]
     
@@ -47,6 +47,7 @@ class SearchViewModel {
         filteredNewsItems.count
     }
     
+    //MARK: - LifeCycle
     init() {
         NotificationCenter.default.addObserver(self, selector: #selector(cellStyleChanged(_:)), name: .cellStyleChanged, object: nil)
     }
@@ -55,7 +56,7 @@ class SearchViewModel {
         NotificationCenter.default.removeObserver(self, name: .cellStyleChanged, object: nil)
     }
     
-    // MARK: - Public Methods
+    //MARK: - Handlers
     func searchNews(byTitle title: String) {
         applyFilters(searchTitle: title)
     }
@@ -77,7 +78,7 @@ class SearchViewModel {
         NetworkService().fetchData { [weak self] newsItems in
             guard let self = self else { return }
             if newsItems.isEmpty {
-                self.isError?(true)
+                self.hasError?(true)
             } else {
                 self.allNewsItems = newsItems
                 self.applyFilters()

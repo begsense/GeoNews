@@ -1,5 +1,5 @@
 //
-//  TechNewsView.swift
+//  HealthNewsView.swift
 //  GeoNews
 //
 //  Created by M1 on 10.07.2024.
@@ -7,35 +7,30 @@
 
 import UIKit
 
-class TechNewsView: UIViewController {
-    
-    private let viewModel: TechNewsViewModel
-    
-    let tableView: UITableView = {
+class HealthNewsView: UIViewController {
+    //MARK: - Properties
+    private var healthNewsTableView: UITableView = {
         let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .none
         tableView.separatorStyle = .none
         return tableView
     }()
     
-    private let titleLabel: UILabel = {
+    private var healthNewsTitle: UILabel = {
         let label = UILabel()
-        label.text = "Tech"
+        label.text = "Health"
         label.textColor = .white
         label.font = UIFont(name: "FiraGO-Regular", size: 16)
         return label
     }()
     
-    private let loaderView = CustomLoaderView()
+    private var loaderView = CustomLoaderView()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.titleView = titleLabel
-        setupUI()
-        fetchData()
-    }
+    private var viewModel: HealthNewsViewModel
     
-    init(viewModel: TechNewsViewModel) {
+    //MARK: - LifeCycle
+    init(viewModel: HealthNewsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -44,31 +39,40 @@ class TechNewsView: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationItem.titleView = healthNewsTitle
+        
+        setupUI()
+        bindViewModel()
+    }
+    
+    //MARK: - UI Setup
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
+        
         setupTableView()
         setupLoader()
     }
     
     func setupTableView() {
-        view.addSubview(tableView)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(healthNewsTableView)
         
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            healthNewsTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            healthNewsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            healthNewsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            healthNewsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
         
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
-        tableView.register(NewsTableViewCellAppleType.self, forCellReuseIdentifier: NewsTableViewCellAppleType.identifier)
-        tableView.register(NewsTableViewCellBBCType.self, forCellReuseIdentifier: NewsTableViewCellBBCType.identifier)
-        tableView.register(NewsTableViewCellFastType.self, forCellReuseIdentifier: NewsTableViewCellFastType.identifier)
-        tableView.register(NewsTableViewCellCNNType.self, forCellReuseIdentifier: NewsTableViewCellCNNType.identifier)
+        healthNewsTableView.dataSource = self
+        healthNewsTableView.delegate = self
+        healthNewsTableView.register(NewsTableViewCell.self, forCellReuseIdentifier: NewsTableViewCell.identifier)
+        healthNewsTableView.register(NewsTableViewCellAppleType.self, forCellReuseIdentifier: NewsTableViewCellAppleType.identifier)
+        healthNewsTableView.register(NewsTableViewCellBBCType.self, forCellReuseIdentifier: NewsTableViewCellBBCType.identifier)
+        healthNewsTableView.register(NewsTableViewCellFastType.self, forCellReuseIdentifier: NewsTableViewCellFastType.identifier)
+        healthNewsTableView.register(NewsTableViewCellCNNType.self, forCellReuseIdentifier: NewsTableViewCellCNNType.identifier)
     }
     
     private func setupLoader() {
@@ -82,18 +86,29 @@ class TechNewsView: UIViewController {
         ])
     }
     
-    private func fetchData() {
+    //MARK: - ViewModel Binding
+    private func bindViewModel() {
         startLoading()
-        viewModel.fetchData()
+        
+        viewModel.fetchDataHandler()
         
         viewModel.onDataUpdate = { [weak self] in
             DispatchQueue.main.async {
                 self?.stopLoading()
-                self?.tableView.reloadData()
+                self?.healthNewsTableView.reloadData()
+            }
+        }
+        
+        viewModel.hasError = { [weak self] error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.stopLoading()
+                AlertManager.fetchingUserError(on: self)
             }
         }
     }
     
+    //MARK: - Loader
     private func startLoading() {
         loaderView.startAnimating()
     }
@@ -103,9 +118,10 @@ class TechNewsView: UIViewController {
     }
 }
 
-extension TechNewsView: UITableViewDataSource {
+//MARK: - Extensions
+extension HealthNewsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfItems()
+        return viewModel.numberOfItems
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -124,7 +140,7 @@ extension TechNewsView: UITableViewDataSource {
     }
 }
 
-extension TechNewsView: UITableViewDelegate {
+extension HealthNewsView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch viewModel.cellIdentifier  {
         case NewsTableViewCell.identifier:
@@ -144,11 +160,16 @@ extension TechNewsView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let selectedNews = viewModel.news(at: indexPath.row)
-        let newsDetailedViewModel = NewsDetailedViewModel()
-        newsDetailedViewModel.selectedNews = selectedNews
-        let detailView = NewsDetailedView(viewModel: newsDetailedViewModel)
         
-        navigationController?.pushViewController(detailView, animated: true)
+        viewModel.onNewsSelected = { [weak self] news in
+            guard let self = self else { return }
+            let newsDetailedViewModel = NewsDetailedViewModel()
+            newsDetailedViewModel.selectedNews = news
+            let detailView = NewsDetailedView(viewModel: newsDetailedViewModel)
+            
+            self.navigationController?.pushViewController(detailView, animated: true)
+        }
+        
+        viewModel.navigateToNewsDetails(index: indexPath.row)
     }
 }
