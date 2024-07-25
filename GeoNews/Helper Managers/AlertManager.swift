@@ -17,8 +17,8 @@ class AlertManager {
     }
 }
 
+// Validations
 extension AlertManager {
-    // Validations
     public static func showInvalidEmailAlert(on vc: UIViewController) {
         self.showBasicAlert(on: vc, title: "არასწორი ელ-ფოსტა", message: "ელფოსტის ფორმატი არასწორია")
     }
@@ -30,23 +30,31 @@ extension AlertManager {
     public static func showInvalidUsernameAlert(on vc: UIViewController) {
         self.showBasicAlert(on: vc, title: "არასწორი Username", message: "Username ფორმატი არასწორია. გთხოვთ შეიყვანეთ Min 4, Max 12 სიმბოლო")
     }
-    
-    // Register
+}
+
+// Register
+extension AlertManager {
     public static func showRegistrationErrorAlert(on vc: UIViewController) {
         self.showBasicAlert(on: vc, title: "ვერ მოხდა რეგისტრაცია", message: "დაფიქსირდა შეცდომა, გთხოვთ სცადოთ ხელახლა")
     }
-    
-    // Authorization
+}
+
+// Authorization
+extension AlertManager {
     public static func showSignInErrorAlert(on vc: UIViewController) {
         self.showBasicAlert(on: vc, title: "ვერ მოხდა ავტორიზაცია", message: "პაროლი არასწორია ან ხარვეზია ბაზაში. გთხოვთ სცადოთ ხელახლა")
     }
-    
-    // Logout
+}
+
+// Logout
+extension AlertManager {
     public static func showLogoutError(on vc: UIViewController) {
         self.showBasicAlert(on: vc, title: "სისტემიდან გასვლა ვერ მოხდა", message: "დაფიქსირდა შეცდომა, გთხოვთ სცადოთ ხელახლა")
     }
-    
-    // Forgot Password
+}
+
+// Forgot Password
+extension AlertManager {
     public static func showPasswordResetSent(on vc: UIViewController) {
         self.showBasicAlert(on: vc, title: "პაროლი გამოიგზავნა", message: "პაროლი ელ-ფოსტაზე განსაახლებლად გამოგზავნილია")
     }
@@ -54,8 +62,10 @@ extension AlertManager {
     public static func showErrorSendingPasswordReset(on vc: UIViewController) {
         self.showBasicAlert(on: vc, title: "ახალი პაროლი ვერ გამოიგზავნა", message: "დაფიქსირდა შეცდომა, გთხოვთ სცადოთ ხელახლა")
     }
-    
-    // Fetching Erros
+}
+
+// Fetching Erros
+extension AlertManager {
     public static func fetchingUserError(on vc: UIViewController) {
         self.showBasicAlert(on: vc, title: "მონაცემები ვერ მოიქაჩა", message: "ბაზიდან მონაცემების წამოღებისას დაფიქსირდა შეცდომა, გთხოვთ მოგვიანებით სცადოთ")
     }

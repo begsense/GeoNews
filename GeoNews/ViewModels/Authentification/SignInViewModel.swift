@@ -10,14 +10,20 @@ import Foundation
 class SignInViewModel {
     //MARK: - Properties
     var email: String = ""
+    
     var password: String = ""
+    
     var errorMessage: String?
+    
     var isValid: Bool = false
     
     //MARK: - Callbacks
     var didSignIn: (() -> Void)?
+    
     var didFailSignIn: ((String?) -> Void)?
+    
     var didTapNewUser: (() -> Void)?
+    
     var didTapForgotPassword: (() -> Void)?
     
     //MARK: - Handling

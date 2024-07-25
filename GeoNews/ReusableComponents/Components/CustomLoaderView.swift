@@ -8,8 +8,7 @@
 import UIKit
 
 class CustomLoaderView: UIView {
-    
-    private let shapeLayer = CAShapeLayer()
+    private var shapeLayer = CAShapeLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

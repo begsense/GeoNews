@@ -10,7 +10,9 @@ import FirebaseFirestore
 
 class LeaderboardsViewModel: ObservableObject {
     @Published var users: [User] = []
+    
     @Published var isLoading: Bool = false
+    
     @Published var hasError: Bool = false
     
     init () {

@@ -313,7 +313,7 @@ class NewsDetailedView: UIViewController {
         newsDetails.text = viewModel.selectedNews?.details
     }
     
-    //MARK: - Actions / ViewModelBinding
+    //MARK: - ViewModelBinding
     private func setupActions() {
         likesButton.addAction(UIAction { [weak self] _ in
             self?.viewModel.toggleLikes { [weak self] success in

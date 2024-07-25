@@ -8,12 +8,13 @@
 import UIKit
 
 class NewsView: UIViewController {
+    //MARK: - Properties
     enum MenuState {
         case opened
         case closed
     }
     
-    private let titleLabel: UILabel = {
+    private var newsTitle: UILabel = {
         let label = UILabel()
         label.text = "All News"
         label.textColor = .white
@@ -24,10 +25,15 @@ class NewsView: UIViewController {
     private var menuState: MenuState = .closed
     
     private var menuView = MenuView(viewModel: MenuViewModel())
+    
     private var generalNews = GeneralNewsView(viewModel: GeneralNewsViewModel())
+    
     private var politicNews = PoliticNewsView(viewModel: PoliticsNewsViewModel())
+    
     private var sportNews = SportNewsView(viewModel: SportNewsViewModel())
+    
     private var healthNews = HealthNewsView(viewModel: HealthNewsViewModel())
+    
     private var techNews = TechNewsView(viewModel: TechNewsViewModel())
     
     private var navView: UINavigationController?
@@ -43,7 +49,7 @@ class NewsView: UIViewController {
         addChild(menuView)
         view.addSubview(menuView.view)
         menuView.didMove(toParent: self)
-
+        
         generalNews.delegate = self
         let navView = UINavigationController(rootViewController: generalNews)
         addChild(navView)
@@ -53,8 +59,8 @@ class NewsView: UIViewController {
     }
 }
 
+//MARK: - Extensions
 extension NewsView: GeneralNewsViewDelegate {
-    
     func didTapMenuButton() {
         toggleMenu(completion: nil)
     }
@@ -69,7 +75,7 @@ extension NewsView: GeneralNewsViewDelegate {
                     self?.menuState = .opened
                 }
             }
-
+            
         case . opened:
             UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut) {
                 self.navView?.view.frame.origin.x = 0
@@ -86,7 +92,6 @@ extension NewsView: GeneralNewsViewDelegate {
 }
 
 extension NewsView: MenuViewControllerDelegate {
-    
     func didSelect(menuItem: MenuView.menuOptions) {
         toggleMenu(completion: nil)
         switch menuItem {
@@ -141,7 +146,7 @@ extension NewsView: MenuViewControllerDelegate {
     
     private func resetGeneralNewsView() {
         removeAllChildViews()
-        generalNews.navigationItem.titleView = titleLabel
+        generalNews.navigationItem.titleView = newsTitle
     }
     
     private func removeAllChildViews() {
@@ -150,5 +155,4 @@ extension NewsView: MenuViewControllerDelegate {
             $0.removeFromParent()
         }
     }
-    
 }

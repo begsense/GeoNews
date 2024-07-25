@@ -280,8 +280,8 @@
 		6F7074872C5229D30048A1BA /* Quiz */ = {
 			isa = PBXGroup;
 			children = (
-				6FDAEC332C4525BB003AEFC7 /* LeaderboardsViewModel.swift */,
 				6F77547F2C43B80300590192 /* QuizQuestionsViewModel.swift */,
+				6FDAEC332C4525BB003AEFC7 /* LeaderboardsViewModel.swift */,
 			);
 			path = Quiz;
 			sourceTree = "<group>";
@@ -392,11 +392,11 @@
 		6F7A1ACA2C412539006D0986 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				6F7A1AA82C3EA26F006D0986 /* GeneralNewsViewModel.swift */,
+				6F7A1AB82C3FCC54006D0986 /* PoliticsNewsViewModel.swift */,
+				6F7A1ABC2C401F94006D0986 /* SportNewsViewModel.swift */,
 				6F7A1ABE2C402135006D0986 /* HealthNewsViewModel.swift */,
 				6F7A1AC02C402156006D0986 /* TechNewsViewModel.swift */,
-				6F7A1ABC2C401F94006D0986 /* SportNewsViewModel.swift */,
-				6F7A1AB82C3FCC54006D0986 /* PoliticsNewsViewModel.swift */,
-				6F7A1AA82C3EA26F006D0986 /* GeneralNewsViewModel.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -931,8 +931,8 @@
 				INFOPLIST_FILE = GeoNews/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -958,8 +958,8 @@
 				INFOPLIST_FILE = GeoNews/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

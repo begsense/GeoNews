@@ -10,13 +10,14 @@ import Foundation
 class NewsDetailedViewModel {
     var selectedNews: News?
     
-    //MARK: - Callbacks
     var didShare: (() -> Void)?
-    var didUpdateLikes: (() -> Void)?
-    var didUpdateReadLater: ((Bool) -> Void)?
-    var didUpdateFavorite: ((Bool) -> Void)?
     
-    //MARK: - Handlers
+    var didUpdateLikes: (() -> Void)?
+    
+    var didUpdateReadLater: ((Bool) -> Void)?
+    
+    var didUpdateFavorite: ((Bool) -> Void)?
+
     func shareNews() {
         didShare?()
     }

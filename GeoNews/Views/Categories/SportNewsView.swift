@@ -17,7 +17,7 @@ class SportNewsView: UIViewController {
         return tableView
     }()
     
-    private let sportNewsTitle: UILabel = {
+    private var sportNewsTitle: UILabel = {
         let label = UILabel()
         label.text = "Sport"
         label.textColor = .white
@@ -118,6 +118,7 @@ class SportNewsView: UIViewController {
     }
 }
 
+//MARK: - Extensions
 extension SportNewsView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfItems

@@ -27,22 +27,22 @@ class ProfileViewModel {
         fetchReadLaterNews()
         fetchFavoriteNews()
     }
-
+    
     func fetchReadLaterNews() {
         readLaterNews = UserDefaultsManager.shared.getReadLaterNews()
         onReadLaterUpdated?()
     }
-
+    
     func fetchFavoriteNews() {
         favoriteNews = UserDefaultsManager.shared.getFavoriteNews()
         onFavoritesUpdated?()
     }
-
+    
     func saveProfileImage(_ image: UIImage) {
         FileManagerHelper.shared.saveProfileImage(image)
         onProfileImageUpdated?()
     }
-
+    
     func loadProfileImage() -> UIImage? {
         FileManagerHelper.shared.loadProfileImage()
     }
@@ -64,7 +64,7 @@ class ProfileViewModel {
             guard let self = self else { return }
             if error != nil {
                 self.hasError?(true)
-                  return
+                return
             }
             if let user = user {
                 self.updateUserLabel?("Hello, \(user.username)\n Your Score Is: \(user.score)")

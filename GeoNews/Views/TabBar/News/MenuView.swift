@@ -12,11 +12,7 @@ protocol MenuViewControllerDelegate: AnyObject {
 }
 
 class MenuView: UIViewController {
-    
-    weak var delegate: MenuViewControllerDelegate?
-    
-    var viewModel: MenuViewModel
-    
+    //MARK: - Properties
     private var hello: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +76,10 @@ class MenuView: UIViewController {
         case tech = "Tech"
     }
     
+    weak var delegate: MenuViewControllerDelegate?
+    
+    var viewModel: MenuViewModel
+    
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,6 +101,7 @@ class MenuView: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - UI Setup
     private func setupUI() {
         view.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 1)
         setupHelloMessage()
@@ -126,9 +127,9 @@ class MenuView: UIViewController {
         userInfoStackView.axis = .horizontal
         userInfoStackView.spacing = 10
         userInfoStackView.alignment = .center
-
+        
         view.addSubview(userInfoStackView)
-
+        
         NSLayoutConstraint.activate([
             userInfoStackView.topAnchor.constraint(equalTo: hello.bottomAnchor, constant: 5),
             userInfoStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -160,7 +161,7 @@ class MenuView: UIViewController {
             logoutButton.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
-
+    
     private func setupUserEmail() {
         view.addSubview(userEmail)
         userEmail.translatesAutoresizingMaskIntoConstraints = false
@@ -172,6 +173,7 @@ class MenuView: UIViewController {
         ])
     }
     
+    //MARK: - ViewModel Binding
     private func logoutAction() {
         logoutButton.addAction(UIAction { [weak self] _ in
             self?.didTapLogout()
@@ -213,6 +215,7 @@ class MenuView: UIViewController {
     }
 }
 
+//MARK: - Extensions
 extension MenuView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuOptions.allCases.count

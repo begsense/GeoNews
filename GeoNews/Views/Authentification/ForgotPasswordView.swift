@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class ForgotPasswordView: UIViewController {
     //MARK: - Properties

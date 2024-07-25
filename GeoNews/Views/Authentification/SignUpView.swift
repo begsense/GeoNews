@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftUI
 
 class SignUpView: UIViewController {
     //MARK: - Properties
@@ -69,6 +68,7 @@ class SignUpView: UIViewController {
     private func setupUI() {
         let gradientLayer = GradientLayer(bounds: view.bounds)
         view.layer.insertSublayer(gradientLayer, at: 0)
+        
         setupHeader()
         setupUsernameField()
         setupEmailField()
@@ -169,7 +169,7 @@ class SignUpView: UIViewController {
         
         NSLayoutConstraint.activate([
             loaderView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            loaderView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
@@ -243,6 +243,7 @@ class SignUpView: UIViewController {
     }
 }
 
+//MARK: - Extensions
 extension SignUpView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         handleURLInteraction(URL)

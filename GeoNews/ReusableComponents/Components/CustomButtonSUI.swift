@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CustomButtonSUI: View {
     var title: String
+    
     var onClick: () -> Void
     
     var body: some View {

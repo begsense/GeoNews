@@ -8,7 +8,6 @@
 import Foundation
 
 class MenuViewModel {
-    
     var updateUserName: ((String) -> Void)?
     
     var updateUserEmail: ((String) -> Void)?

@@ -10,14 +10,20 @@ import Foundation
 class SignUpViewModel {
     //MARK: - Properties
     var username: String = ""
+    
     var email: String = ""
+    
     var password: String = ""
+    
     var errorMessage: String?
+    
     var isValid: Bool = false
     
     //MARK: - Callbacks
     var didSignUp: (() -> Void)?
+    
     var didFailSignUp: ((String?) -> Void)?
+    
     var didTapSignIn: (() -> Void)?
     
     //MARK: - Handling
