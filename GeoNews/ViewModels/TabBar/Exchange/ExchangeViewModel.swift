@@ -8,27 +8,33 @@
 import Foundation
 
 class ExchangeViewModel: ObservableObject {
+    //MARK: - Properties
     @Published var conversionRates: [String: Double] = [:]
+    
     @Published var baseCurrency: String = "GEL" {
         didSet {
             fetchExchangeRates()
         }
     }
+    
     @Published var targetCurrency: String = "USD" {
         didSet {
             fetchExchangeRates()
         }
     }
+    
     @Published var selectedExchangeType: ExchangeType = .currency {
         didSet {
             fetchExchangeRates()
         }
     }
+    
     @Published var targetCrypto: String = "BTC" {
         didSet {
             fetchExchangeRates()
         }
     }
+    
     @Published var moneyInput: String = "1" {
         didSet {
             if moneyInput.count > characterLimit && oldValue.count <= characterLimit {
@@ -36,6 +42,7 @@ class ExchangeViewModel: ObservableObject {
             }
         }
     }
+    
     @Published var result: Double = 0.0
     
     private var characterLimit: Int = 9
@@ -98,6 +105,7 @@ class ExchangeViewModel: ObservableObject {
         fetchExchangeRates()
     }
     
+    //MARK: - Functions
     func fetchExchangeRates() {
         var urlString = ""
         switch selectedExchangeType {
@@ -140,7 +148,7 @@ class ExchangeViewModel: ObservableObject {
         }.resume()
     }
     
-    private func calculateResult() {
+    func calculateResult() {
         guard let inputValue = Double(moneyInput) else {
             result = 0.0
             return

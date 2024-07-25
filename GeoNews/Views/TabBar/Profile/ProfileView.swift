@@ -402,7 +402,7 @@ extension ProfileView: UIPickerViewDataSource, UIPickerViewDelegate {
         let label = UILabel()
         label.textColor = .white
         label.textAlignment = .center
-        label.font = UIFont(name: "FiraGO-Regular", size: 20)
+        label.font = UIFont(name: "FiraGO-Regular", size: 25)
         
         label.backgroundColor = UIColor(red: 0/255, green: 64/255, blue: 99/255, alpha: 0.6)
         label.layer.cornerRadius = 15

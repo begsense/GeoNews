@@ -66,30 +66,6 @@ struct ExchangeView: View {
         .font(.custom("FiraGO-Regular", size: 18))
     }
     
-    private var currencyExchangeResult: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Text(viewModel.moneyInput)
-                
-                CurrencyImageResize(name: viewModel.baseCurrency)
-            }
-            
-            CurrencyImageResize(name: "equals")
-            
-            HStack {
-                Text(viewModel.formattedResult)
-                    .lineLimit(1)
-                
-                CurrencyImageResize(name: viewModel.targetCurrency)
-            }
-        }
-        .font(.custom("FiraGO-Regular", size: 30))
-        .foregroundColor(.white)
-        .background(RoundedRectangle(cornerRadius: 20, style: .continuous)
-            .fill(Color(red: 8/255, green: 40/255, blue: 67/255).opacity(0.85))
-            .frame(maxWidth: .infinity))
-    }
-    
     private var currencyExchangeInputs: some View {
         VStack {
             GeometryReader { geometry in
@@ -137,8 +113,8 @@ struct ExchangeView: View {
         .padding()
     }
     
-    private var cryptoExchangeResult: some View {
-        VStack {
+    private var currencyExchangeResult: some View {
+        VStack(spacing: 0) {
             HStack {
                 Text(viewModel.moneyInput)
                 
@@ -146,7 +122,6 @@ struct ExchangeView: View {
             }
             
             CurrencyImageResize(name: "equals")
-                .foregroundStyle(Color.white)
             
             HStack {
                 Text(viewModel.formattedResult)
@@ -207,5 +182,30 @@ struct ExchangeView: View {
             .frame(height: 100)
         }
         .padding()
+    }
+    
+    private var cryptoExchangeResult: some View {
+        VStack {
+            HStack {
+                Text(viewModel.moneyInput)
+                
+                CurrencyImageResize(name: viewModel.baseCurrency)
+            }
+            
+            CurrencyImageResize(name: "equals")
+                .foregroundStyle(Color.white)
+            
+            HStack {
+                Text(viewModel.formattedResult)
+                    .lineLimit(1)
+                
+                CurrencyImageResize(name: viewModel.targetCrypto)
+            }
+        }
+        .font(.custom("FiraGO-Regular", size: 30))
+        .foregroundColor(.white)
+        .background(RoundedRectangle(cornerRadius: 20, style: .continuous)
+            .fill(Color(red: 8/255, green: 40/255, blue: 67/255).opacity(0.85))
+            .frame(maxWidth: .infinity))
     }
 }

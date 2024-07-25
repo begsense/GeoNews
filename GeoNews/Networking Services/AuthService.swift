@@ -10,7 +10,6 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class AuthService {
-    
     public static var shared = AuthService()
     private init() {}
     
