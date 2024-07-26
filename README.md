@@ -19,7 +19,7 @@ Here you can find out all Georgian broadcaster tv's published news.
 ## News Tab
 On click left side of navigationBar open side menu
 
-[![dzlbdYP.md.png](https://iili.io/dzlbdYP.md.png)](https://freeimage.host/i/dzlbdYP) [![dzlbO6Q.md.png](https://iili.io/dzlbO6Q.md.png)](https://freeimage.host/i/dzlbO6Q)
+<img src="https://iili.io/dzlbdYP.md.png" alt="News Tab" width="300"/> <img src="https://iili.io/dzlbO6Q.md.png" alt="News Tab" width="300"/>
 
 ## News Details
 User can like, share, also mark as favorite and read later news
