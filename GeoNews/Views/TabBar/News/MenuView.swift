@@ -23,6 +23,15 @@ class MenuView: UIViewController {
         return label
     }()
     
+    private var userInfoStackView: UIStackView = {
+        let userInfoStackView = UIStackView()
+        userInfoStackView.translatesAutoresizingMaskIntoConstraints = false
+        userInfoStackView.axis = .horizontal
+        userInfoStackView.spacing = 10
+        userInfoStackView.alignment = .center
+        return userInfoStackView
+    }()
+    
     private var profileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -81,6 +90,16 @@ class MenuView: UIViewController {
     var viewModel: MenuViewModel
     
     // MARK: - LifeCycle
+    
+    init(viewModel: MenuViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -90,15 +109,6 @@ class MenuView: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         loadProfileImage()
-    }
-    
-    init(viewModel: MenuViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - UI Setup
@@ -122,13 +132,9 @@ class MenuView: UIViewController {
     }
     
     private func setupUserName() {
-        let userInfoStackView = UIStackView(arrangedSubviews: [profileImage, userName])
-        userInfoStackView.translatesAutoresizingMaskIntoConstraints = false
-        userInfoStackView.axis = .horizontal
-        userInfoStackView.spacing = 10
-        userInfoStackView.alignment = .center
-        
         view.addSubview(userInfoStackView)
+        userInfoStackView.addArrangedSubview(profileImage)
+        userInfoStackView.addArrangedSubview(userName)
         
         NSLayoutConstraint.activate([
             userInfoStackView.topAnchor.constraint(equalTo: hello.bottomAnchor, constant: 5),
@@ -164,7 +170,6 @@ class MenuView: UIViewController {
     
     private func setupUserEmail() {
         view.addSubview(userEmail)
-        userEmail.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             userEmail.bottomAnchor.constraint(equalTo: logoutButton.topAnchor, constant: -15),
@@ -174,12 +179,6 @@ class MenuView: UIViewController {
     }
     
     //MARK: - ViewModel Binding
-    private func logoutAction() {
-        logoutButton.addAction(UIAction { [weak self] _ in
-            self?.didTapLogout()
-        }, for: .touchUpInside)
-    }
-    
     private func bindViewModel() {
         viewModel.fetchUserData()
         
@@ -202,6 +201,12 @@ class MenuView: UIViewController {
             guard let self = self else { return }
             AlertManager.showLogoutError(on: self)
         }
+    }
+    
+    private func logoutAction() {
+        logoutButton.addAction(UIAction { [weak self] _ in
+            self?.didTapLogout()
+        }, for: .touchUpInside)
     }
     
     private func didTapLogout() {
