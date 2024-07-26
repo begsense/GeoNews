@@ -1,4 +1,4 @@
-![Build Status](https://i.postimg.cc/1z1wh00Q/logo-1024.png) 
+[![dzlZ7Zx.md.png](https://iili.io/dzlZ7Zx.md.png)](https://freeimage.host/i/dzlZ7Zx)
 # _Georgian News App_
 
 Here you can find out all Georgian broadcaster tv's published news.
