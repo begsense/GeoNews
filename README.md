@@ -49,10 +49,11 @@ Upload profile photo, update favorite/readLater, change design of news ui
 <img src="https://iili.io/dzlyRu1.md.png" alt="Profile" width="600"/>
 
 
-> Project is beta version
-> thanks to TBC x USAID team
-> they gave me knowledge to make
-> iOS Applications.
-> this app is final project
-> for TBC IT Academy
+
+> Project is beta version  
+> thanks to TBC x USAID team  
+> they gave me knowledge to make  
+> iOS Applications.  
+> this app is final project  
+> for TBC IT Academy  
 > iOS Development Course.
