@@ -1,4 +1,4 @@
-![Build Status](https://postimg.cc/mPVt7H6X) 
+![Build Status](https://i.postimg.cc/1z1wh00Q/logo-1024.png) 
 # _Georgian News App_
 
 Here you can find out all Georgian broadcaster tv's published news.
