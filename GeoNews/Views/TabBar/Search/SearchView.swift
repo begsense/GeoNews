@@ -73,7 +73,6 @@ class SearchView: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        bindViewModel()
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
