@@ -24,31 +24,28 @@ On click left side of navigationBar open side menu
 ## News Details
 User can like, share, also mark as favorite and read later news
 
-[![dzlmIix.md.png](https://iili.io/dzlmIix.md.png)](https://freeimage.host/i/dzlmIix)
+<img src="https://iili.io/dzlmIix.md.png" alt="News Details" width="300"/>
 
 ## Search
 by category, TV and title
 
-[![dzlmVlp.md.png](https://iili.io/dzlmVlp.md.png)](https://freeimage.host/i/dzlmVlp)
+<img src="https://iili.io/dzlmVlp.md.png" alt="Search" width="300"/>
 
 ## Quiz
 With leaderboard
 
-[![dzlmydB.md.png](https://iili.io/dzlmydB.md.png)](https://freeimage.host/i/dzlmydB)
+<img src="https://iili.io/dzlmydB.md.png" alt="Quiz" width="300"/>
 
 ## Exchanges
 Every Currency and Crypto exchanges
 
-[![dzlpGIe.md.png](https://iili.io/dzlpGIe.md.png)](https://freeimage.host/i/dzlpGIe)
+<img src="https://iili.io/dzlpGIe.md.png" alt="Exchanges" width="300"/>
 
 ## Profile
 Upload profile photo, update favorite/readLater, change design of news ui
 
-[![dzlpyGf.md.png](https://iili.io/dzlpyGf.md.png)](https://freeimage.host/i/dzlpyGf)
-
-[![dzlyRu1.md.png](https://iili.io/dzlyRu1.md.png)](https://freeimage.host/i/dzlyRu1)
-
-[![dzlyU9S.md.png](https://iili.io/dzlyU9S.md.png)](https://freeimage.host/i/dzlyU9S)
+<img src="https://iili.io/dzlpyGf.md.png" alt="Profile" width="300"/>  <img src="https://iili.io/dzlyU9S.md.png" alt="Profile" width="300"/>
+<img src="https://iili.io/dzlyRu1.md.png" alt="Profile" width="300"/>
 
 
 > Project is beta version
