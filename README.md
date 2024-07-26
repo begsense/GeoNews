@@ -46,7 +46,7 @@ Upload profile photo, update favorite/readLater, change design of news ui
 
 <img src="https://iili.io/dzlpyGf.md.png" alt="Profile" width="300"/>  <img src="https://iili.io/dzlyU9S.md.png" alt="Profile" width="300"/>
 
----
+
 <img src="https://iili.io/dzlyRu1.md.png" alt="Profile" width="300"/>
 
 
