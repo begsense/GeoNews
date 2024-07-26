@@ -19,34 +19,37 @@ Here you can find out all Georgian broadcaster tv's published news.
 ## News Tab
 On click left side of navigationBar open side menu
 
-![Build Status](https://i.postimg.cc/mD20jH5Y/Screenshot-2024-07-26-at-8-08-35-PM.png) ![Build Status](https://i.postimg.cc/VLb2K1DV/Screenshot-2024-07-26-at-8-10-43-PM.png) 
+[![dzlbdYP.md.png](https://iili.io/dzlbdYP.md.png)](https://freeimage.host/i/dzlbdYP) [![dzlbO6Q.md.png](https://iili.io/dzlbO6Q.md.png)](https://freeimage.host/i/dzlbO6Q)
 
 ## News Details
 User can like, share, also mark as favorite and read later news
 
-![Build Status](https://i.postimg.cc/P5MHMTqk/Screenshot-2024-07-26-at-8-15-32-PM.png)
+[![dzlmIix.md.png](https://iili.io/dzlmIix.md.png)](https://freeimage.host/i/dzlmIix)
 
 ## Search
 by category, TV and title
 
-![Build Status](https://i.postimg.cc/LsscBP7z/Screenshot-2024-07-26-at-8-19-50-PM.png)
+[![dzlmVlp.md.png](https://iili.io/dzlmVlp.md.png)](https://freeimage.host/i/dzlmVlp)
 
 ## Quiz
 With leaderboard
 
-![Build Status](https://i.postimg.cc/fyYpTfth/Screenshot-2024-07-26-at-8-21-02-PM.png)
+[![dzlmydB.md.png](https://iili.io/dzlmydB.md.png)](https://freeimage.host/i/dzlmydB)
 
 ## Exchanges
 Every Currency and Crypto exchanges
 
-![Build Status](https://i.postimg.cc/s28NYN5r/Screenshot-2024-07-26-at-8-23-11-PM.png)
+[![dzlpGIe.md.png](https://iili.io/dzlpGIe.md.png)](https://freeimage.host/i/dzlpGIe)
 
 ## Profile
 Upload profile photo, update favorite/readLater, change design of news ui
 
-![Build Status](https://i.postimg.cc/ZKTVdSXN/Screenshot-2024-07-26-at-8-27-14-PM.png)
-![Build Status](https://i.postimg.cc/NM6kKJ4b/Screenshot-2024-07-26-at-8-27-52-PM.png)
-![Build Status](https://i.postimg.cc/7hX1V5j2/Screenshot-2024-07-26-at-8-28-03-PM.png)
+[![dzlpyGf.md.png](https://iili.io/dzlpyGf.md.png)](https://freeimage.host/i/dzlpyGf)
+
+[![dzlyRu1.md.png](https://iili.io/dzlyRu1.md.png)](https://freeimage.host/i/dzlyRu1)
+
+[![dzlyU9S.md.png](https://iili.io/dzlyU9S.md.png)](https://freeimage.host/i/dzlyU9S)
+
 
 > Project is beta version
 > thanks to TBC x USAID team
