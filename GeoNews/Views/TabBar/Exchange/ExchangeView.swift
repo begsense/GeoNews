@@ -10,6 +10,8 @@ import SwiftUI
 struct ExchangeView: View {
     @StateObject var viewModel: ExchangeViewModel
     
+    @State private var showErrorAlert: Bool = false
+    
     var body: some View {
         ZStack {
             LinearGradient(gradient: Gradient(colors: [
@@ -62,6 +64,18 @@ struct ExchangeView: View {
                 .frame(width: 300, height: 100, alignment: .center)
             }
             .padding()
+            .onAppear {
+                if viewModel.hasError {
+                    showErrorAlert = true
+                }
+            }
+            .alert(isPresented: $showErrorAlert) {
+                Alert(
+                    title: Text("ვერ მოიქაჩა ინფორმაცია"),
+                    message: Text("გთხოვთ მოგვიანებით სცადეთ"),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
         }
         .font(.custom("FiraGO-Regular", size: 18))
     }

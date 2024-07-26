@@ -9,10 +9,15 @@ import SwiftUI
 
 struct QuizQuestionsView: View {
     @StateObject var viewModel = QuizQuestionsViewModel()
+    
     @Environment(\.dismiss) private var dismiss
+    
     @State private var progress: CGFloat = 0
+    
     @State private var selectedAnswer: String = ""
+    
     @State private var showResults: Bool = false
+    
     @State private var showErrorAlert: Bool = false
     
     var body: some View {

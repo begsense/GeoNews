@@ -49,7 +49,7 @@ struct QuizView: View {
                 .background(RoundedRectangle(cornerRadius: 25, style: .continuous).fill(Color(red: 8/255, green: 40/255, blue: 67/255)))
                 
                 Spacer()
-                    .frame(height: 100)
+                    .frame(height: 80)
                 
                 Button {
                     showLeaderboard.toggle()
@@ -58,9 +58,6 @@ struct QuizView: View {
                         .font(.custom("FiraGO-Regular", size: 18))
                         .foregroundStyle(Color(red: 138/255, green: 255/255, blue: 99/255, opacity: 0.85))
                 }
-                
-                Spacer()
-                    .frame(height: 50)
                 
                 CustomButtonSUI(title: "Start") {
                     startQuiz.toggle()

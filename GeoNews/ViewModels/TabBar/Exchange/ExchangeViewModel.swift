@@ -45,6 +45,8 @@ class ExchangeViewModel: ObservableObject {
     
     @Published var result: Double = 0.0
     
+    @Published var hasError: Bool = false
+    
     private var characterLimit: Int = 9
     
     var availableCurrencies = ["GEL", "USD", "EUR", "GBP", "CAD", "AUD", "JPY", "INR", "NZD", "AED",
@@ -129,7 +131,7 @@ class ExchangeViewModel: ObservableObject {
                             self.calculateResult()
                         }
                     } catch {
-                        print("Error decoding currency rates")
+                        self.hasError = true
                     }
                     
                 case .crypto:
@@ -141,7 +143,7 @@ class ExchangeViewModel: ObservableObject {
                             }
                         }
                     } catch {
-                        print("Error decoding crypto rates")
+                        self.hasError = true
                     }
                 }
             }
